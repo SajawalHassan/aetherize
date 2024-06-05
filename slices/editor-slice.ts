@@ -1,14 +1,19 @@
 import { EDITOR_ELEMENT_TYPE } from "@/lib/constants";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, Slice, createSlice } from "@reduxjs/toolkit";
 import React from "react";
-import { AddElementAction } from "../lib/action-types";
+import {
+  addElementAction,
+  AddElementAction,
+  updateElementAction,
+  UpdateElementAction,
+} from "@/actions/editor-actions";
 
 export interface EditorElement {
   id: string;
   name: string;
   styles: React.CSSProperties;
   type: EDITOR_ELEMENT_TYPE;
-  content: EditorElement[] | { innerText: string };
+  content: EditorElement[] | { innerText?: string };
 }
 
 export interface Editor {
@@ -50,36 +55,6 @@ export const editorElementSlice = createSlice({
   },
 });
 
-const addElementRecursive = (action: AddElementAction) => {
-  const newEditorArray: any = action.editorArray.map((element) => {
-    if (
-      element.id === action.containerId && // Element is the element where our new element should be added
-      Array.isArray(element.content) // The element is recursive
-    ) {
-      return {
-        ...element,
-        content: [...element.content, action.newElement],
-      };
-    } else if (element.content && Array.isArray(element.content)) {
-      // If the element is not the place where the new element should be added, then
-      // recursively call the 'addElement' function with that element's content as
-      // the array to loop over and find the correct place for the element's additions
-      return {
-        ...element,
-        content: addElementRecursive({
-          editorArray: element.content,
-          containerId: action.containerId,
-          newElement: action.newElement,
-        }),
-      };
-    } else {
-      return element;
-    }
-  });
-
-  return newEditorArray;
-};
-
 export const editorSlice = createSlice({
   name: "editor",
   initialState: initialEditor,
@@ -88,8 +63,20 @@ export const editorSlice = createSlice({
       state.selectedElement = action.payload;
     },
     addElement: (state: Editor, action: PayloadAction<AddElementAction>) => {
-      // Loop through all items in array
-      const updatedEditorArray: any = addElementRecursive(action.payload);
+      const updatedEditorArray: any = addElementAction(action.payload);
+
+      return {
+        ...state,
+        elements: updatedEditorArray,
+      };
+    },
+    updateElement: (
+      state: Editor,
+      action: PayloadAction<UpdateElementAction>,
+    ) => {
+      console.log("UpdateElement");
+      const updatedEditorArray: any = updateElementAction(action.payload);
+      console.log(updatedEditorArray);
 
       return {
         ...state,
@@ -100,5 +87,5 @@ export const editorSlice = createSlice({
 });
 
 export const { changeEditorElement } = editorElementSlice.actions;
-export const { addElement, selectElement } = editorSlice.actions;
+export const { addElement, selectElement, updateElement } = editorSlice.actions;
 export default editorSlice.reducer;

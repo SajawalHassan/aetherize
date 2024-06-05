@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { addElement } from "@/slices/editor-slice";
 import { Recursive } from "./elements/recursive";
 import { EDITOR_CONTAINER_NAME } from "@/lib/constants";
+import { EditorElement } from "@/slices/editor-slice";
 import { v4 } from "uuid";
 
 type Props = {};
@@ -52,7 +53,7 @@ export const Editor = (props: Props) => {
 
   return (
     <div>
-      {elements.map((element, i) => (
+      {elements.map((element: any, i: number) => (
         <Recursive element={element} key={i} />
       ))}
       <button
