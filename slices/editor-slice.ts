@@ -50,42 +50,46 @@ export const editorElementSlice = createSlice({
   },
 });
 
+const addElementRecursive = (action: AddElementAction) => {
+  const newEditorArray: any = action.editorArray.map((element) => {
+    if (
+      element.id === action.containerId && // Element is the element where our new element should be added
+      Array.isArray(element.content) // The element is recursive
+    ) {
+      return {
+        ...element,
+        content: [...element.content, action.newElement],
+      };
+    } else if (element.content && Array.isArray(element.content)) {
+      // If the element is not the place where the new element should be added, then
+      // recursively call the 'addElement' function with that element's content as
+      // the array to loop over and find the correct place for the element's additions
+      return {
+        ...element,
+        content: addElementRecursive({
+          editorArray: element.content,
+          containerId: action.containerId,
+          newElement: action.newElement,
+        }),
+      };
+    } else {
+      return element;
+    }
+  });
+
+  return newEditorArray;
+};
+
 export const editorSlice = createSlice({
   name: "editor",
   initialState: initialEditor,
   reducers: {
+    selectElement: (state: Editor, action: PayloadAction<EditorElement>) => {
+      state.selectedElement = action.payload;
+    },
     addElement: (state: Editor, action: PayloadAction<AddElementAction>) => {
       // Loop through all items in array
-      const updatedEditorArray: any = action.payload.editorArray.map(
-        (element) => {
-          if (
-            element.id === action.payload.containerId && // Element is the element where our new element should be added
-            Array.isArray(element.content) // The element is recursive
-          ) {
-            console.log(action.payload.newElement);
-            console.log({
-              ...element,
-              content: [...element.content, action.payload.newElement],
-            });
-            return {
-              ...element,
-              content: [...element.content, action.payload.newElement],
-            };
-          } else if (element.content && Array.isArray(element.content)) {
-            // If the element is not the place where the new element should be added, then
-            // recursively call the 'addElement' function with that element's content as
-            // the array to loop over and find the correct place for the element's additions
-            return {
-              ...element,
-              content: editorSlice.actions.addElement({
-                editorArray: element.content,
-                containerId: action.payload.containerId,
-                newElement: action.payload.newElement,
-              }),
-            };
-          }
-        },
-      );
+      const updatedEditorArray: any = addElementRecursive(action.payload);
 
       return {
         ...state,
@@ -96,5 +100,5 @@ export const editorSlice = createSlice({
 });
 
 export const { changeEditorElement } = editorElementSlice.actions;
-export const { addElement } = editorSlice.actions;
+export const { addElement, selectElement } = editorSlice.actions;
 export default editorSlice.reducer;

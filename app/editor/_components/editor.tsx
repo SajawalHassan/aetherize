@@ -13,9 +13,12 @@ export const Editor = (props: Props) => {
   const dispatch = useAppDispatch();
 
   const handleAddTextElement = () => {
+    let containerId = EDITOR_CONTAINER_NAME;
+    if (selectedElement) containerId = selectedElement.id;
+
     dispatch(
       addElement({
-        containerId: EDITOR_CONTAINER_NAME,
+        containerId,
         editorArray: elements,
         newElement: {
           id: v4(),
@@ -29,24 +32,19 @@ export const Editor = (props: Props) => {
   };
 
   const handleAddContainerElement = () => {
+    let containerId = EDITOR_CONTAINER_NAME;
+    if (selectedElement) containerId = selectedElement.id;
+
     dispatch(
       addElement({
-        containerId: EDITOR_CONTAINER_NAME,
+        containerId,
         editorArray: elements,
         newElement: {
           id: v4(),
           name: "Container",
           styles: {},
           type: "container",
-          content: [
-            {
-              id: v4(),
-              name: "Text",
-              styles: {},
-              type: "text",
-              content: { innerText: "Hello World" },
-            },
-          ],
+          content: [],
         },
       }),
     );
