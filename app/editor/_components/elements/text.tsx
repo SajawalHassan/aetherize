@@ -13,6 +13,7 @@ export const Text = (props: Props) => {
 
   return (
     <p
+      className="w-max"
       contentEditable={true}
       onBlur={(e) => {
         const pTag = e.target as HTMLParagraphElement;

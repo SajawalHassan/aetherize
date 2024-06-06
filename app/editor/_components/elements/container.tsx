@@ -16,16 +16,20 @@ export const Container = (props: Props) => {
 
   const handleSelect = (e: React.MouseEvent) => {
     e.stopPropagation();
-    dispatch(selectElement(props.element));
+    if (selectedElement && selectedElement.id === props.element.id) {
+      dispatch(selectElement(null));
+    } else {
+      dispatch(selectElement(props.element));
+    }
   };
 
   return (
     <div
       onClick={handleSelect}
       className={cn(
-        "p-2",
+        "w-max border border-dashed border-gray-700 py-2",
         selectedElement?.id === props.element.id &&
-          "border border-dashed border-gray-500",
+          "border border-solid border-gray-300",
       )}
     >
       <p className="text-sm text-gray-300">{props.element.name}</p>

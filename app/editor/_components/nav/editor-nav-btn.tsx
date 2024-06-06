@@ -13,7 +13,7 @@ export const EditorNavBtn = (props: Props) => {
         size={"icon"}
         className="bg-transparent transition-all hover:bg-white hover:bg-opacity-10 active:bg-transparent"
       >
-        <props.Icon className="h-7 w-7" />
+        <props.Icon />
       </Button>
       <p className="sr-only">{props.srText}</p>
     </>

@@ -59,7 +59,10 @@ export const editorSlice = createSlice({
   name: "editor",
   initialState: initialEditor,
   reducers: {
-    selectElement: (state: Editor, action: PayloadAction<EditorElement>) => {
+    selectElement: (
+      state: Editor,
+      action: PayloadAction<EditorElement | null>,
+    ) => {
       state.selectedElement = action.payload;
     },
     addElement: (state: Editor, action: PayloadAction<AddElementAction>) => {

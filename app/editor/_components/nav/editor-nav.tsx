@@ -14,7 +14,7 @@ type Props = {};
 
 export const EditorNav = (props: Props) => {
   return (
-    <nav className="flex items-center justify-between border-b border-white p-3">
+    <nav className="flex items-center justify-between border-b border-gray-500 p-3">
       <aside className="flex items-center gap-x-2">
         <EditorNavBtn Icon={ArrowLeft} srText="Back button" />
         <p>Path: /</p>

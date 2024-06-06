@@ -12,9 +12,9 @@ export const Editor = (props: Props) => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="min-h-screen">
+    <div className="flex min-h-screen flex-col">
       <EditorNav />
-      <div className="flex h-full w-full">
+      <div className="b flex h-full w-full flex-grow">
         <div className="flex-grow">
           {elements.map((element: any, i: number) => (
             <Recursive element={element} key={i} />
