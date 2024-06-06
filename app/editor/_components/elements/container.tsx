@@ -23,11 +23,12 @@ export const Container = (props: Props) => {
     <div
       onClick={handleSelect}
       className={cn(
-        "pl-2",
-        selectedElement?.id === props.element.id && "border-2 border-gray-600",
+        "p-2",
+        selectedElement?.id === props.element.id &&
+          "border border-dashed border-gray-500",
       )}
     >
-      <p className="text-sm text-gray-600">{props.element.name}</p>
+      <p className="text-sm text-gray-300">{props.element.name}</p>
       {Array.isArray(props.element.content) &&
         props.element.content.map((childElement) => (
           <Recursive element={childElement} key={childElement.id} />
