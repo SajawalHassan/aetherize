@@ -1,13 +1,16 @@
-import { EditorElement, selectElement } from "@/slices/editor-slice";
+import {
+  EditorElement,
+  addElement,
+  selectElement,
+} from "@/slices/editor-slice";
 import React from "react";
 import { Recursive } from "./recursive";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
-import { cn } from "@/lib/utils";
 import clsx from "clsx";
 import { Badge } from "@/components/ui/badge";
 import { Trash } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { BODY_CONTAINER_ID } from "@/lib/constants";
+import { BODY_CONTAINER_ID, defaultStyles } from "@/lib/constants";
+import { v4 } from "uuid";
 
 type Props = {
   element: EditorElement;
@@ -31,10 +34,54 @@ export const Container = (props: Props) => {
     }
   };
 
+  const handleOnDrop = async (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const type = e.dataTransfer.getData("type");
+    console.log(type, type === "text", type === "container");
+
+    switch (type) {
+      case "text":
+        dispatch(
+          addElement({
+            containerId: props.element.id,
+            editorArray: editor.elements,
+            newElement: {
+              id: v4(),
+              name: "Text field",
+              styles: { ...defaultStyles },
+              type: "text",
+              content: { innerText: "text field" },
+            },
+          }),
+        );
+        break;
+      default:
+        console.log("case is container");
+        dispatch(
+          addElement({
+            containerId: props.element.id,
+            editorArray: editor.elements,
+            newElement: {
+              id: v4(),
+              name: "Container",
+              styles: { ...defaultStyles },
+              type: "container",
+              content: [],
+            },
+          }),
+        );
+        break;
+    }
+  };
+
   if (!editor) return;
 
   return (
     <div
+      onDragOver={(e) => e.preventDefault()}
+      onDragEnter={(e) => e.preventDefault()}
+      onDrop={handleOnDrop}
       style={styles}
       onClick={handleSelect}
       className={clsx(

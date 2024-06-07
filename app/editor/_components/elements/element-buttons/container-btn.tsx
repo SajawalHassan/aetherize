@@ -32,6 +32,11 @@ export const ContainerBtn = (props: Props) => {
   };
   return (
     <div
+      draggable={true}
+      onDragStart={(e) => {
+        e.dataTransfer.clearData();
+        e.dataTransfer.setData("type", "container");
+      }}
       className="w-max cursor-pointer rounded-md bg-zinc-600 p-4 hover:bg-zinc-700"
       onClick={handleAddContainer}
     >

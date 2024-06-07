@@ -34,6 +34,11 @@ export const TextBtn = (props: Props) => {
 
   return (
     <div
+      draggable={true}
+      onDragStart={(e) => {
+        e.dataTransfer.clearData();
+        e.dataTransfer.setData("type", "text");
+      }}
       className="w-max cursor-pointer rounded-md bg-zinc-600 p-4 hover:bg-zinc-700"
       onClick={handleAddText}
     >
