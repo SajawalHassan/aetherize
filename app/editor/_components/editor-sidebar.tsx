@@ -22,8 +22,11 @@ export const EditorSidebar = (props: Props) => {
   if (!isMounted) return;
 
   return (
-    <Tabs defaultValue="Components" className="flex w-[80px] flex-row-reverse">
-      <TabsList className="flex h-full w-full flex-col items-center justify-start gap-4 rounded-none bg-zinc-800 px-2 py-4">
+    <Tabs
+      defaultValue="Components"
+      className="flex max-w-[25rem] flex-grow flex-row-reverse"
+    >
+      <TabsList className="flex h-full w-[80px] flex-col items-center justify-start gap-4 rounded-none border-l border-zinc-700 bg-zinc-800 px-2 py-4">
         <SidebarTab
           Icon={PlusIcon}
           value="Components"
@@ -32,7 +35,7 @@ export const EditorSidebar = (props: Props) => {
         <SidebarTab Icon={Settings2Icon} value="Settings" />
         <SidebarTab Icon={DatabaseIcon} value="Data" />
       </TabsList>
-      <div className="min-w-[20rem] bg-zinc-800 px-2">
+      <div className="w-full bg-zinc-800 px-2">
         <ComponentsTab />
         <TabsContent value="Settings" className="py-4">
           <h3 className="text-center text-3xl font-bold">Customize</h3>

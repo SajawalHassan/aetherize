@@ -27,7 +27,7 @@ const initialEditor: Editor = {
       id: "__body",
       name: "Body",
       styles: {},
-      type: "container",
+      type: "__body",
       content: [],
     },
   ],

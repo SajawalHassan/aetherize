@@ -1,2 +1,10 @@
-export type EDITOR_ELEMENT_TYPE = "container" | "text";
+export type EDITOR_ELEMENT_TYPE = "__body" | "container" | "text";
 export const BODY_CONTAINER_ID = "__body";
+
+export const defaultStyles: React.CSSProperties = {
+  backgroundPosition: "center",
+  objectFit: "cover",
+  backgroundRepeat: "no-repeat",
+  textAlign: "left",
+  opacity: "100%",
+};
