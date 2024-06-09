@@ -77,9 +77,7 @@ export const editorSlice = createSlice({
       state: Editor,
       action: PayloadAction<UpdateElementAction>,
     ) => {
-      console.log("UpdateElement");
       const updatedEditorArray: any = updateElementAction(action.payload);
-      console.log(updatedEditorArray);
 
       return {
         ...state,

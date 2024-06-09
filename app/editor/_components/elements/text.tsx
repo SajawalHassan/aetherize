@@ -12,28 +12,39 @@ export const Text = (props: Props) => {
   const dispatch = useAppDispatch();
 
   return (
-    <p
-      className="w-max"
-      contentEditable={true}
-      onBlur={(e) => {
-        const pTag = e.target as HTMLParagraphElement;
-
-        dispatch(
-          updateElement({
-            editorArray: elements,
-            elementId: props.element.id,
-            elementData: {
-              ...props.element,
-              content: {
-                innerText: pTag.innerText,
-              },
-            },
-          }),
-        );
+    <div
+      className="w-max border border-dashed border-zinc-200 p-2"
+      draggable={true}
+      onDragStart={(e) => {
+        e.dataTransfer.clearData();
+        e.dataTransfer.setData("type", "text");
+        e.dataTransfer.setData("id", props.element.id);
       }}
-      suppressContentEditableWarning={true}
     >
-      {!Array.isArray(props.element.content) && props.element.content.innerText}
-    </p>
+      <p
+        className="w-max"
+        contentEditable={true}
+        onBlur={(e) => {
+          const pTag = e.target as HTMLParagraphElement;
+
+          dispatch(
+            updateElement({
+              editorArray: elements,
+              elementId: props.element.id,
+              elementData: {
+                ...props.element,
+                content: {
+                  innerText: pTag.innerText,
+                },
+              },
+            }),
+          );
+        }}
+        suppressContentEditableWarning={true}
+      >
+        {!Array.isArray(props.element.content) &&
+          props.element.content.innerText}
+      </p>
+    </div>
   );
 };

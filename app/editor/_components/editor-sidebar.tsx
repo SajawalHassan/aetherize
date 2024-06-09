@@ -5,6 +5,7 @@ import { SidebarTab } from "./sidebar/sidebar-tab";
 import { DatabaseIcon, PlusIcon, Settings2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ComponentsTab } from "./sidebar/tabs/components-tab";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 type Props = {};
 

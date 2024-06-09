@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
-import { BODY_CONTAINER_ID, defaultStyles } from "@/lib/constants";
+import { CONTAINER_ID, defaultStyles } from "@/lib/constants";
 import { addElement } from "@/slices/editor-slice";
 import { v4 } from "uuid";
 type Props = {};
@@ -11,7 +11,7 @@ export const TextBtn = (props: Props) => {
   const dispatch = useAppDispatch();
 
   const handleAddText = () => {
-    let containerId = BODY_CONTAINER_ID;
+    let containerId = CONTAINER_ID;
 
     if (selectedElement) containerId = selectedElement.id;
 
