@@ -1,17 +1,29 @@
+"use client";
+
 import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
+import { deviceTypes } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { TooltipTrigger } from "@radix-ui/react-tooltip";
-import clsx from "clsx";
 import { LucideIcon } from "lucide-react";
+import clsx from "clsx";
+import { useAppDispatch } from "@/hooks/store-hook";
+import { editorActions } from "@/slices/editor-slice";
 
 type Props = {
   Icon: LucideIcon;
   text?: string;
   tooltipText?: string;
   className?: string;
+  value: deviceTypes;
 };
 
 export const ScreenSizeBtn = (props: Props) => {
+  const dispatch = useAppDispatch();
+
+  const handleOnClick = () => {
+    dispatch(editorActions.changeDevice(props.value));
+  };
+
   return (
     <Tooltip>
       <TooltipTrigger
@@ -19,6 +31,7 @@ export const ScreenSizeBtn = (props: Props) => {
           "flex h-[40px] w-[40px] items-center justify-center gap-x-1 whitespace-nowrap rounded-md bg-th-btn text-sm font-medium text-th-text ring-offset-background transition-colors hover:bg-th-btn/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:bg-th-btn/60 disabled:pointer-events-none disabled:opacity-50",
           props.className,
         )}
+        onClick={handleOnClick}
       >
         <props.Icon />
         {props.text && <p className="hidden sm:block">{props.text}</p>}

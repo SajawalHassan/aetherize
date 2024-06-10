@@ -1,6 +1,5 @@
 import "./globals.css";
 import { Metadata } from "next";
-import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Aetherize",

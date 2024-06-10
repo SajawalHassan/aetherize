@@ -1,6 +1,7 @@
 import {
   EditorElementTypes,
   defaultStyles,
+  deviceTypes,
   editorContainerId,
 } from "@/lib/constants";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
@@ -23,6 +24,7 @@ interface Editor {
   selectedElements: EditorElement[];
   prevEditorState: Editor | null;
   nextEditorState: Editor | null;
+  device: deviceTypes;
 }
 
 const initialEditor: Editor = {
@@ -38,6 +40,7 @@ const initialEditor: Editor = {
   selectedElements: [],
   nextEditorState: null,
   prevEditorState: null,
+  device: "laptop",
 };
 
 interface addElementPayload {
@@ -50,6 +53,12 @@ const editorSlice = createSlice({
   name: "editor",
   initialState: initialEditor,
   reducers: {
+    changeDevice: (state: Editor, action: PayloadAction<deviceTypes>) => {
+      return {
+        ...state,
+        device: action.payload,
+      };
+    },
     undoEditorState: (state: Editor, action: PayloadAction<Editor>) => {
       return {
         ...action.payload,

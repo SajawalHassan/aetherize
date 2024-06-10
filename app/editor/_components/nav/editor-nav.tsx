@@ -93,9 +93,21 @@ export const EditorNav = (props: Props) => {
 
         <aside className="flex items-center gap-x-[6px]">
           <div className="hidden items-center gap-x-[6px] md:flex">
-            <ScreenSizeBtn Icon={SmartphoneIcon} tooltipText="Mobile view" />
-            <ScreenSizeBtn Icon={TabletIcon} tooltipText="Tablet view" />
-            <ScreenSizeBtn Icon={LaptopIcon} tooltipText="Laptop view" />
+            <ScreenSizeBtn
+              Icon={SmartphoneIcon}
+              tooltipText="Mobile view"
+              value="mobile"
+            />
+            <ScreenSizeBtn
+              Icon={TabletIcon}
+              tooltipText="Tablet view"
+              value="tablet"
+            />
+            <ScreenSizeBtn
+              Icon={LaptopIcon}
+              tooltipText="Laptop view"
+              value="laptop"
+            />
           </div>
           <MobileNavOptions />
         </aside>
@@ -118,7 +130,7 @@ export const EditorNav = (props: Props) => {
             <Redo2Icon size={24} />
           </Button>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild className="bg-th-btn">
               <Switch
                 className="h-[40px] w-[78px] data-[state=unchecked]:bg-th-btn"
                 thumbClassName="w-[40px] h-[40px] rounded-full bg-th-accent data-[state=checked]:bg-th-secondary"

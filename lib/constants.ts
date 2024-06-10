@@ -2,6 +2,8 @@
 export const editorContainerId = "__body";
 
 // types
+export type deviceTypes = "mobile" | "tablet" | "laptop";
+
 export type EditorElementTypes =
   | "container"
   | typeof editorContainerId

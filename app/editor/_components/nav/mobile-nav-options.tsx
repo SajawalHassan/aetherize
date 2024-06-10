@@ -32,18 +32,21 @@ export const MobileNavOptions = (props: Props) => {
             Icon={SmartphoneIcon}
             className="h-full flex-grow rounded-none"
             text="Smartphone"
+            value="mobile"
           />
           <Separator orientation="vertical" className="bg-white/20" />
           <ScreenSizeBtn
             Icon={TabletIcon}
             className="h-full flex-grow rounded-none"
             text="Tablet"
+            value="tablet"
           />
           <Separator orientation="vertical" className="bg-white/20" />
           <ScreenSizeBtn
             Icon={LaptopIcon}
             className="h-full flex-grow rounded-none"
             text="Laptop"
+            value="laptop"
           />
         </aside>
 
