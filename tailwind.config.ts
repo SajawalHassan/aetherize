@@ -19,6 +19,11 @@ const config = {
     },
     extend: {
       colors: {
+        "th-bg": "#171717",
+        "th-text": "#FFFFFF",
+        "th-accent": "#3ECF9C",
+        "th-secondary": "#E44FC3",
+        "th-btn": "#2C2C2C",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
