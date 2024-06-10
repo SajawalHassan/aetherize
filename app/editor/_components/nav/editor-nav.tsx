@@ -16,16 +16,50 @@ import {
   TabletIcon,
   Undo2Icon,
 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ScreenSizeBtn } from "./screen-size-btn";
 import { Switch } from "@/components/ui/switch";
 import { Loader } from "@/components/loader";
 import { MobileNavOptions } from "./mobile-nav-options";
+import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
+import { editorActions } from "@/slices/editor-slice";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
 export const EditorNav = (props: Props) => {
   const [isMounted, setIsMounted] = useState(false);
+  const [canUndo, setCanUndo] = useState(false);
+  const [canRedo, setCanRedo] = useState(false);
+
+  const editor = useAppSelector((state) => state.editor);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  useMemo(() => {
+    setCanUndo(!!editor.prevEditorState);
+    setCanRedo(!!editor.nextEditorState);
+  }, [editor.prevEditorState, editor.nextEditorState]);
+
+  const handleUndo = () => {
+    if (!editor.prevEditorState) return;
+
+    dispatch(
+      editorActions.undoEditorState({
+        ...editor.prevEditorState,
+      }),
+    );
+  };
+
+  const handleRedo = () => {
+    if (!editor.prevEditorState) return;
+
+    dispatch(
+      editorActions.undoEditorState({
+        ...editor.prevEditorState,
+      }),
+    );
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -36,10 +70,14 @@ export const EditorNav = (props: Props) => {
   if (!isMounted) return <Loader className="h-screen w-screen" />;
 
   return (
-    <TooltipProvider delayDuration={500}>
+    <TooltipProvider delayDuration={200}>
       <div className="flex h-[66px] items-center justify-between border-b border-white px-[16px]">
         <aside className="flex items-start gap-x-[6px]">
-          <Button size={"icon"} tooltipText="Go back">
+          <Button
+            size={"icon"}
+            tooltipText="Go back"
+            onClick={() => router.back()}
+          >
             <ChevronLeft size={29} />
           </Button>
           <div className="flex flex-col items-stretch">
@@ -63,10 +101,20 @@ export const EditorNav = (props: Props) => {
         </aside>
 
         <aside className="hidden items-center gap-x-[10px] md:flex">
-          <Button size={"icon"} tooltipText="Undo">
+          <Button
+            size={"icon"}
+            tooltipText="Undo"
+            onClick={handleUndo}
+            disabled={!canUndo}
+          >
             <Undo2Icon size={24} />
           </Button>
-          <Button size={"icon"} tooltipText="Redo">
+          <Button
+            size={"icon"}
+            tooltipText="Redo"
+            onClick={handleRedo}
+            disabled={!canRedo}
+          >
             <Redo2Icon size={24} />
           </Button>
           <Tooltip>

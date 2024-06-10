@@ -50,6 +50,18 @@ const editorSlice = createSlice({
   name: "editor",
   initialState: initialEditor,
   reducers: {
+    undoEditorState: (state: Editor, action: PayloadAction<Editor>) => {
+      return {
+        ...action.payload,
+        nextEditorState: state,
+      };
+    },
+    redoEditorState: (state: Editor, action: PayloadAction<Editor>) => {
+      return {
+        ...action.payload,
+        prevEditorState: state,
+      };
+    },
     addElement: (state: Editor, action: PayloadAction<addElementPayload>) => {
       const newElementsArray = addElementAction(
         action.payload.containerId,
@@ -59,6 +71,7 @@ const editorSlice = createSlice({
 
       return {
         ...state,
+        prevEditorState: state,
         elements: newElementsArray,
       };
     },
