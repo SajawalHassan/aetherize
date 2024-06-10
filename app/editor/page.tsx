@@ -1,16 +1,15 @@
-import EditorStoreProvider from "@/providers/editor-store-provider";
 import { Editor } from "./_components/editor";
 
 type Props = {};
 
 const Page = (props: Props) => {
-  // TODO: Get the current editor state from backend
-
   return (
-    <EditorStoreProvider>
+    <div>
       <Editor />
-    </EditorStoreProvider>
+    </div>
   );
 };
+
+export default Page;
 
 export default Page;

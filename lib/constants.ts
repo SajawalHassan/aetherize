@@ -1,10 +1,15 @@
-export type EDITOR_ELEMENT_TYPE = "__body" | "container" | "text";
-export const CONTAINER_ID = "__body";
+// constants
+export const editorContainerId = "__body";
 
-export const defaultStyles: React.CSSProperties = {
-  backgroundPosition: "center",
-  objectFit: "cover",
-  backgroundRepeat: "no-repeat",
-  textAlign: "left",
-  opacity: "100%",
-};
+// types
+export type EditorElementTypes =
+  | "container"
+  | typeof editorContainerId
+  | "text"
+  | "link"
+  | "video"
+  | "mCol"
+  | "contactForm"
+  | null;
+
+export const defaultStyles: React.CSSProperties = {};
