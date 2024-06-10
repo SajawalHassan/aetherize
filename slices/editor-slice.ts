@@ -3,6 +3,7 @@ import {
   defaultStyles,
   deviceTypes,
   editorContainerId,
+  viewingModes,
 } from "@/lib/constants";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { addElementAction } from "./actions/editor-actions";
@@ -25,6 +26,7 @@ interface Editor {
   prevEditorState: Editor | null;
   nextEditorState: Editor | null;
   device: deviceTypes;
+  viewingMode: viewingModes;
 }
 
 const initialEditor: Editor = {
@@ -41,6 +43,7 @@ const initialEditor: Editor = {
   nextEditorState: null,
   prevEditorState: null,
   device: "laptop",
+  viewingMode: "development",
 };
 
 interface addElementPayload {
@@ -53,6 +56,12 @@ const editorSlice = createSlice({
   name: "editor",
   initialState: initialEditor,
   reducers: {
+    changeViewingMode: (state: Editor, action: PayloadAction<viewingModes>) => {
+      return {
+        ...state,
+        viewingMode: action.payload,
+      };
+    },
     changeDevice: (state: Editor, action: PayloadAction<deviceTypes>) => {
       return {
         ...state,

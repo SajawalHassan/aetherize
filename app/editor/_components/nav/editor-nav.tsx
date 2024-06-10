@@ -24,6 +24,7 @@ import { MobileNavOptions } from "./mobile-nav-options";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { editorActions } from "@/slices/editor-slice";
 import { useRouter } from "next/navigation";
+import { viewingModes } from "@/lib/constants";
 
 type Props = {};
 
@@ -31,6 +32,7 @@ export const EditorNav = (props: Props) => {
   const [isMounted, setIsMounted] = useState(false);
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
+  const [viewingMode, setViewingMode] = useState<viewingModes>("development");
 
   const editor = useAppSelector((state) => state.editor);
   const dispatch = useAppDispatch();
@@ -134,6 +136,10 @@ export const EditorNav = (props: Props) => {
               <Switch
                 className="h-[40px] w-[78px] data-[state=unchecked]:bg-th-btn"
                 thumbClassName="w-[40px] h-[40px] rounded-full bg-th-accent data-[state=checked]:bg-th-secondary"
+                value={viewingMode}
+                onCheckedChange={(checked: boolean) =>
+                  setViewingMode(checked ? "preview" : "development")
+                }
               />
             </TooltipTrigger>
             <TooltipContent className="border-white/10 bg-th-btn text-white">
