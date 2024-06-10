@@ -7,10 +7,6 @@ export const addElementAction = (
 ) => {
   const newElementsArray: EditorElement[] = elementsArray.map((element) => {
     if (element.id === containerId && Array.isArray(element.content)) {
-      console.log({
-        ...element,
-        content: [...element.content, newElement],
-      });
       return {
         ...element,
         content: [...element.content, newElement],
@@ -26,4 +22,25 @@ export const addElementAction = (
   });
 
   return newElementsArray;
+};
+
+export const updateElementAction = (
+  elementId: string,
+  elementsArray: EditorElement[],
+  elementData: EditorElement,
+) => {
+  const newEditorArray: any = elementsArray.map((element) => {
+    if (element.id === elementId) {
+      return elementData;
+    } else if (element.content && Array.isArray(element.content)) {
+      return {
+        ...element,
+        content: updateElementAction(elementId, element.content, elementData),
+      };
+    } else {
+      return element;
+    }
+  });
+
+  return newEditorArray;
 };

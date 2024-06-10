@@ -4,6 +4,7 @@ export const editorContainerId = "__body";
 // types
 export type deviceTypes = "mobile" | "tablet" | "laptop";
 export type viewingModes = "development" | "preview" | "live";
+export type tabBtns = "Customization" | "Components" | "Media";
 
 export type EditorElementTypes =
   | "container"

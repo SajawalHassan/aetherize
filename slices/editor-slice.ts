@@ -6,7 +6,10 @@ import {
   viewingModes,
 } from "@/lib/constants";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { addElementAction } from "./actions/editor-actions";
+import {
+  addElementAction,
+  updateElementAction,
+} from "./actions/editor-actions";
 
 // Editor Element
 export interface EditorElement {
@@ -16,7 +19,7 @@ export interface EditorElement {
   name: string;
   content:
     | EditorElement[]
-    | { text?: string; link?: string; videoSrc?: string };
+    | { text?: string; href?: string; videoSrc?: string };
 }
 
 // Editor
@@ -52,6 +55,12 @@ interface addElementPayload {
   newElement: EditorElement;
 }
 
+interface updateElementPayload {
+  elementId: string;
+  elementsArray: EditorElement[];
+  elementData: EditorElement;
+}
+
 const editorSlice = createSlice({
   name: "editor",
   initialState: initialEditor,
@@ -85,6 +94,22 @@ const editorSlice = createSlice({
         action.payload.containerId,
         action.payload.elementsArray,
         action.payload.newElement,
+      );
+
+      return {
+        ...state,
+        prevEditorState: state,
+        elements: newElementsArray,
+      };
+    },
+    updateElement: (
+      state: Editor,
+      action: PayloadAction<updateElementPayload>,
+    ) => {
+      const newElementsArray = updateElementAction(
+        action.payload.elementId,
+        action.payload.elementsArray,
+        action.payload.elementData,
       );
 
       return {
