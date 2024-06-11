@@ -23,7 +23,7 @@ export interface EditorElement {
 }
 
 // Editor
-interface Editor {
+export interface Editor {
   elements: EditorElement[];
   selectedElement: EditorElement | null;
   prevEditorState: Editor | null;
@@ -127,6 +127,16 @@ const editorSlice = createSlice({
         action.payload.elementsArray,
         action.payload.elementData,
       );
+
+      if (action.payload.elementId === state.selectedElement?.id) {
+        return {
+          ...state,
+          prevEditorState: state,
+          nextEditorState: null,
+          elements: newElementsArray,
+          selectedElement: action.payload.elementData,
+        };
+      }
 
       return {
         ...state,

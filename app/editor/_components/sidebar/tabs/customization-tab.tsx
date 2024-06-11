@@ -66,7 +66,11 @@ export const CustomizationTab = (props: Props) => {
 
   return (
     <TabsContent value={"Customization" as tabBtns}>
-      <Accordion type="multiple" className="w-full space-y-[20px] pt-4">
+      <Accordion
+        type="multiple"
+        className="w-full space-y-[20px] pt-4"
+        defaultValue={["custom", "typography"]}
+      >
         <h3 className="mb-4 text-center text-3xl font-bold">
           {selectedElement ? "Customization" : "No element selected"}
         </h3>
@@ -84,6 +88,16 @@ export const CustomizationTab = (props: Props) => {
                       id="href"
                       placeholder="https://example.com"
                       value={selectedElement.content.href}
+                      onChange={handleCustomChange}
+                    />
+                  )}
+                {selectedElement &&
+                  !Array.isArray(selectedElement.content) &&
+                  selectedElement.type === "text" && (
+                    <Input
+                      id="text"
+                      placeholder="Your text..."
+                      value={selectedElement.content.text}
                       onChange={handleCustomChange}
                     />
                   )}

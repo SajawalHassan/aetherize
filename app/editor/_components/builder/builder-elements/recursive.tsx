@@ -3,6 +3,7 @@ import { ContainerElement } from "./layout/container-element";
 import { editorContainerId } from "@/lib/constants";
 import { MColElement } from "./layout/mCol-element";
 import { TextElement } from "./elements/text-element";
+import { LinkElement } from "./elements/link-element";
 
 type Props = {
   element: EditorElement;
@@ -18,5 +19,7 @@ export const Recursive = (props: Props) => {
       return <MColElement element={props.element} />;
     case "text":
       return <TextElement element={props.element} />;
+    case "link":
+      return <LinkElement element={props.element} />;
   }
 };

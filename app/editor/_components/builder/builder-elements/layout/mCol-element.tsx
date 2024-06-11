@@ -6,6 +6,7 @@ import { v4 } from "uuid";
 import { Recursive } from "../recursive";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import { dropElement } from "../helper";
 
 type Props = {
   element: EditorElement;
@@ -29,60 +30,7 @@ export const MColElement = (props: Props) => {
   };
 
   const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-
-    const componentType = e.dataTransfer.getData(
-      "componentType",
-    ) as EditorElementTypes;
-    if (!componentType) return console.error("No component type specified");
-
-    switch (componentType) {
-      case "container":
-        dispatch(
-          editorActions.addElement({
-            containerId: currentElement.id,
-            elementsArray: elements,
-            newElement: {
-              id: v4(),
-              name: "Container",
-              styles: {},
-              type: componentType,
-              content: [],
-            },
-          }),
-        );
-        break;
-      case "mCol":
-        dispatch(
-          editorActions.addElement({
-            containerId: currentElement.id,
-            elementsArray: elements,
-            newElement: {
-              id: v4(),
-              name: "Multiple columns",
-              styles: {},
-              type: componentType,
-              content: [],
-            },
-          }),
-        );
-        break;
-      case "text":
-        dispatch(
-          editorActions.addElement({
-            containerId: currentElement.id,
-            elementsArray: elements,
-            newElement: {
-              id: v4(),
-              name: "Text field",
-              styles: {},
-              type: componentType,
-              content: { text: "Text field" },
-            },
-          }),
-        );
-        break;
-    }
+    dropElement(e, currentElement, elements, dispatch);
     setDragOverClassName("");
   };
 
