@@ -1,3 +1,5 @@
+"use client";
+
 import { Tabs, TabsList } from "@/components/ui/tabs";
 import { EditorSidebarTabTrigger } from "./editor-sidebar-tab-trigger";
 import { BrushIcon, DatabaseIcon, PlusIcon } from "lucide-react";
@@ -6,13 +8,23 @@ import { Separator } from "@/components/ui/separator";
 import { CustomizationTab } from "./tabs/customization-tab";
 import { tabBtns } from "@/lib/constants";
 import { ComponentsTab } from "./tabs/components-tab";
+import clsx from "clsx";
+import { useAppSelector } from "@/hooks/store-hook";
 
 type Props = {};
 
 export const EditorSidebar = (props: Props) => {
+  const editor = useAppSelector((state) => state.editor);
+
   return (
     <Tabs
-      className="w-full max-w-[300px] rounded-md border border-th-btn bg-th-btn/15"
+      className={clsx(
+        "w-full max-w-[300px] rounded-md border border-th-btn bg-th-btn/15 transition-all duration-500",
+        {
+          "!w-0 !overflow-hidden !border-none !p-0":
+            editor.viewingMode === "preview",
+        },
+      )}
       defaultValue={"Components" as tabBtns}
     >
       <TabsList className="flex h-[68px] items-center overflow-hidden rounded-none bg-transparent p-0">

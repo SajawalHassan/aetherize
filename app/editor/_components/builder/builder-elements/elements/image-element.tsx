@@ -8,7 +8,9 @@ type Props = {
 };
 
 export const ImageElement = (props: Props) => {
-  const { selectedElement } = useAppSelector((state) => state.editor);
+  const { selectedElement, viewingMode } = useAppSelector(
+    (state) => state.editor,
+  );
   const currentElement = props.element;
 
   const dispatch = useAppDispatch();
@@ -25,18 +27,23 @@ export const ImageElement = (props: Props) => {
   return (
     <div
       onClick={handleSelectElement}
-      className={clsx(
-        "relative min-h-[20px] border-2",
-        selectedElement?.id !== currentElement.id
-          ? "border-spacing-4 border-dashed border-th-btn"
-          : "border-solid border-th-secondary",
-      )}
+      className={clsx("relative min-h-[20px]", {
+        "border-2 border-solid":
+          selectedElement?.id === currentElement.id &&
+          viewingMode !== "preview",
+        "border-th-secondary": selectedElement?.id === currentElement.id,
+        "border-spacing-4 border-2 border-dashed border-th-btn":
+          selectedElement?.id !== currentElement.id &&
+          viewingMode !== "preview",
+      })}
     >
       <Badge
         className={clsx(
           "absolute -left-[2.3px] -top-6 hidden rounded-none rounded-t-lg bg-th-secondary",
           {
-            block: selectedElement?.id === currentElement.id,
+            block:
+              selectedElement?.id === currentElement.id &&
+              viewingMode !== "preview",
           },
         )}
       >
