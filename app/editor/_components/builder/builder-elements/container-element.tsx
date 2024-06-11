@@ -88,8 +88,13 @@ export const ContainerElement = (props: Props) => {
         "relative w-full border-spacing-4 p-4 transition-all duration-100",
         {
           "h-full": currentElement.type === editorContainerId,
-          "border-2 border-solid border-th-secondary":
-            selectedElement?.id === currentElement.id,
+          "border-2 border-solid": selectedElement?.id === currentElement.id,
+          "border-th-secondary":
+            selectedElement?.id === currentElement.id &&
+            selectedElement?.type !== "__body",
+          "border-th-accent":
+            selectedElement?.id === currentElement.id &&
+            selectedElement?.type === "__body",
           "border-2 border-dashed border-th-btn":
             selectedElement?.id !== currentElement.id,
         },
@@ -98,9 +103,11 @@ export const ContainerElement = (props: Props) => {
     >
       <Badge
         className={clsx(
-          "absolute -left-[2.3px] -top-6 hidden rounded-none rounded-t-lg bg-th-secondary",
+          "absolute -left-[2.3px] -top-6 hidden rounded-none rounded-t-lg",
           {
             block: selectedElement?.id === currentElement.id,
+            "bg-th-secondary": selectedElement?.type !== "__body",
+            "bg-th-accent": selectedElement?.type === "__body",
           },
         )}
       >
