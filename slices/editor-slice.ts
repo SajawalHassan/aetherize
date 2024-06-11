@@ -75,6 +75,7 @@ const editorSlice = createSlice({
         ...state,
         viewingMode: action.payload,
         prevEditorState: state,
+        nextEditorState: null,
       };
     },
     changeDevice: (state: Editor, action: PayloadAction<deviceTypes>) => {
@@ -82,6 +83,7 @@ const editorSlice = createSlice({
         ...state,
         device: action.payload,
         prevEditorState: state,
+        nextEditorState: null,
       };
     },
     undoEditorState: (state: Editor, action: PayloadAction<Editor>) => {
@@ -104,6 +106,7 @@ const editorSlice = createSlice({
         ...state,
         selectedElement: action.payload,
         prevEditorState: state,
+        nextEditorState: null,
       };
     },
     addElement: (state: Editor, action: PayloadAction<addElementPayload>) => {
@@ -116,6 +119,7 @@ const editorSlice = createSlice({
       return {
         ...state,
         prevEditorState: state,
+        nextEditorState: null,
         elements: newElementsArray,
       };
     },
@@ -132,6 +136,7 @@ const editorSlice = createSlice({
       return {
         ...state,
         prevEditorState: state,
+        nextEditorState: null,
         elements: newElementsArray,
       };
     },
