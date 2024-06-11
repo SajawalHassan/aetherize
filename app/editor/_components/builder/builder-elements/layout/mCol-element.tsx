@@ -3,7 +3,7 @@ import { EditorElementTypes, editorContainerId } from "@/lib/constants";
 import { EditorElement, editorActions } from "@/slices/editor-slice";
 import clsx from "clsx";
 import { v4 } from "uuid";
-import { Recursive } from "./recursive";
+import { Recursive } from "../recursive";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 
@@ -63,6 +63,21 @@ export const MColElement = (props: Props) => {
               styles: {},
               type: componentType,
               content: [],
+            },
+          }),
+        );
+        break;
+      case "text":
+        dispatch(
+          editorActions.addElement({
+            containerId: currentElement.id,
+            elementsArray: elements,
+            newElement: {
+              id: v4(),
+              name: "Text field",
+              styles: {},
+              type: componentType,
+              content: { text: "Text field" },
             },
           }),
         );

@@ -61,11 +61,6 @@ interface updateElementPayload {
   elementData: EditorElement;
 }
 
-interface filterElementPayload {
-  elementId: string;
-  elementsArray: EditorElement[];
-}
-
 const editorSlice = createSlice({
   name: "editor",
   initialState: initialEditor,

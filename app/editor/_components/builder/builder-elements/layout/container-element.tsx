@@ -3,7 +3,7 @@ import { EditorElementTypes, editorContainerId } from "@/lib/constants";
 import { EditorElement, editorActions } from "@/slices/editor-slice";
 import clsx from "clsx";
 import { v4 } from "uuid";
-import { Recursive } from "./recursive";
+import { Recursive } from "../recursive";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 
@@ -66,6 +66,21 @@ export const ContainerElement = (props: Props) => {
           }),
         );
         break;
+      case "text":
+        dispatch(
+          editorActions.addElement({
+            containerId: currentElement.id,
+            elementsArray: elements,
+            newElement: {
+              id: v4(),
+              name: "Text field",
+              styles: {},
+              type: componentType,
+              content: { text: "Text field" },
+            },
+          }),
+        );
+        break;
     }
     setDragOverClassName("");
   };
@@ -91,10 +106,10 @@ export const ContainerElement = (props: Props) => {
           "border-2 border-solid": selectedElement?.id === currentElement.id,
           "border-th-secondary":
             selectedElement?.id === currentElement.id &&
-            selectedElement?.type !== "__body",
+            selectedElement?.type !== editorContainerId,
           "border-th-accent":
             selectedElement?.id === currentElement.id &&
-            selectedElement?.type === "__body",
+            selectedElement?.type === editorContainerId,
           "border-2 border-dashed border-th-btn":
             selectedElement?.id !== currentElement.id,
         },
@@ -106,8 +121,8 @@ export const ContainerElement = (props: Props) => {
           "absolute -left-[2.3px] -top-6 hidden rounded-none rounded-t-lg",
           {
             block: selectedElement?.id === currentElement.id,
-            "bg-th-secondary": selectedElement?.type !== "__body",
-            "bg-th-accent": selectedElement?.type === "__body",
+            "bg-th-secondary": selectedElement?.type !== editorContainerId,
+            "bg-th-accent": selectedElement?.type === editorContainerId,
           },
         )}
       >
