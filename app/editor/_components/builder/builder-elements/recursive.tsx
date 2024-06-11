@@ -5,6 +5,7 @@ import { MColElement } from "./layout/mCol-element";
 import { TextElement } from "./elements/text-element";
 import { LinkElement } from "./elements/link-element";
 import { ImageElement } from "./elements/image-element";
+import { VideoElement } from "./elements/video-element";
 
 type Props = {
   element: EditorElement;
@@ -24,5 +25,7 @@ export const Recursive = (props: Props) => {
       return <LinkElement element={props.element} />;
     case "image":
       return <ImageElement element={props.element} />;
+    case "video":
+      return <VideoElement element={props.element} />;
   }
 };

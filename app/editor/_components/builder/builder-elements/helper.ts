@@ -94,10 +94,25 @@ export const dropElement = (
           elementsArray: elements,
           newElement: {
             id: v4(),
-            name: "Image Field",
+            name: "Image",
             styles: {},
             type: componentType,
             content: { imageSrc: "" },
+          },
+        }),
+      );
+      break;
+    case "video":
+      dispatch(
+        editorActions.addElement({
+          containerId: currentElement.id,
+          elementsArray: elements,
+          newElement: {
+            id: v4(),
+            name: "Video",
+            styles: {},
+            type: componentType,
+            content: { videoSrc: "" },
           },
         }),
       );

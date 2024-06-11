@@ -111,6 +111,16 @@ export const CustomizationTab = (props: Props) => {
                       onChange={handleCustomChange}
                     />
                   )}
+                {selectedElement &&
+                  !Array.isArray(selectedElement.content) &&
+                  selectedElement.type === "video" && (
+                    <Input
+                      id="videoSrc"
+                      placeholder="Video url"
+                      value={selectedElement.content.videoSrc}
+                      onChange={handleCustomChange}
+                    />
+                  )}
               </AccordionContent>
             </AccordionItem>
 

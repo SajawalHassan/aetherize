@@ -54,7 +54,7 @@ export const ContainerElement = (props: Props) => {
       onClick={handleSelectElement}
       style={currentElement.styles}
       className={clsx(
-        "relative w-full border-spacing-4 overflow-y-scroll p-4 transition-all duration-100",
+        "relative w-full border-spacing-4 p-4 transition-all duration-100",
         {
           "h-full": currentElement.type === editorContainerId,
           "border-2 border-solid": selectedElement?.id === currentElement.id,
@@ -83,10 +83,12 @@ export const ContainerElement = (props: Props) => {
         {props.element.name}
       </Badge>
 
-      {Array.isArray(currentElement.content) &&
-        currentElement.content.map((childElement) => (
-          <Recursive key={childElement.id} element={childElement} />
-        ))}
+      <div className="overflow-y-scroll">
+        {Array.isArray(currentElement.content) &&
+          currentElement.content.map((childElement) => (
+            <Recursive key={childElement.id} element={childElement} />
+          ))}
+      </div>
     </div>
   );
 };

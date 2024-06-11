@@ -7,8 +7,8 @@ type Props = {
   element: EditorElement;
 };
 
-export const LinkElement = (props: Props) => {
-  const { elements, selectedElement } = useAppSelector((state) => state.editor);
+export const VideoElement = (props: Props) => {
+  const { selectedElement } = useAppSelector((state) => state.editor);
   const currentElement = props.element;
 
   const dispatch = useAppDispatch();
@@ -22,28 +22,11 @@ export const LinkElement = (props: Props) => {
     }
   };
 
-  const handleOnBlur = (e: React.FocusEvent) => {
-    const aTag = e.currentTarget as HTMLAnchorElement;
-
-    dispatch(
-      editorActions.updateElement({
-        elementId: currentElement.id,
-        elementsArray: elements,
-        elementData: {
-          ...currentElement,
-          content: {
-            href: aTag.innerText,
-          },
-        },
-      }),
-    );
-  };
-
   return (
     <div
       onClick={handleSelectElement}
       className={clsx(
-        "relative border-2 p-4",
+        "relative min-h-[20px] border-2",
         selectedElement?.id !== currentElement.id
           ? "border-spacing-4 border-dashed border-th-btn"
           : "border-solid border-th-secondary",
@@ -60,16 +43,13 @@ export const LinkElement = (props: Props) => {
         {props.element.name}
       </Badge>
       {!Array.isArray(currentElement.content) && (
-        <a
-          style={currentElement.styles}
-          href={currentElement.content.href}
-          contentEditable
-          suppressContentEditableWarning
-          onBlur={handleOnBlur}
-          className="w-full"
-        >
-          {currentElement.content.href}
-        </a>
+        <iframe
+          width={currentElement.styles.width || "560"}
+          height={currentElement.styles.height || "315"}
+          src={currentElement.content.videoSrc}
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        />
       )}
     </div>
   );

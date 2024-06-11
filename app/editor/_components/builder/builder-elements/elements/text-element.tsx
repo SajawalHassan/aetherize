@@ -62,6 +62,7 @@ export const TextElement = (props: Props) => {
       {!Array.isArray(currentElement.content) && (
         <span
           contentEditable
+          suppressContentEditableWarning
           onBlur={handleOnBlur}
           className="w-full"
           style={currentElement.styles}
