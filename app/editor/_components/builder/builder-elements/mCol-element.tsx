@@ -11,8 +11,9 @@ type Props = {
   element: EditorElement;
 };
 
-export const ContainerElement = (props: Props) => {
+export const MColElement = (props: Props) => {
   const [dragOverClassName, setDragOverClassName] = useState("");
+
   const dispatch = useAppDispatch();
 
   const { selectedElement, elements } = useAppSelector((state) => state.editor);
@@ -85,7 +86,7 @@ export const ContainerElement = (props: Props) => {
       onClick={handleSelectElement}
       style={currentElement.styles}
       className={clsx(
-        "relative w-full border-spacing-4 p-4 transition-all duration-100",
+        "relative flex w-full border-spacing-4 gap-2 p-4 transition-all duration-100",
         {
           "h-full": currentElement.type === editorContainerId,
           "border-2 border-solid border-th-secondary":

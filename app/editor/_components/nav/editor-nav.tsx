@@ -69,7 +69,8 @@ export const EditorNav = (props: Props) => {
     return () => setIsMounted(false);
   }, []);
 
-  if (!isMounted) return <Loader className="h-screen w-screen" />;
+  if (!isMounted)
+    return <Loader className="h-screen w-screen overflow-y-hidden" />;
 
   return (
     <TooltipProvider delayDuration={200}>
