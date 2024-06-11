@@ -14,6 +14,7 @@ export type EditorElementTypes =
   | "video"
   | "mCol"
   | "contactForm"
+  | "image"
   | null;
 
 export const defaultStyles: React.CSSProperties = {};

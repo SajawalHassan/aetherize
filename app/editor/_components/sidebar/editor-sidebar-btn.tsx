@@ -22,9 +22,10 @@ export const EditorSidebarBtn = (props: Props) => {
         className={clsx(
           "h-full flex-grow rounded-none bg-th-btn/50 text-white hover:bg-th-btn/80 data-[state=active]:bg-th-btn data-[state=active]:text-white",
         )}
+        asChild
       >
         <TooltipTrigger>
-          <props.Icon className="h-[32px] w-[32px]" />
+          <props.Icon size={32} />
         </TooltipTrigger>
       </TabsTrigger>
       <TooltipContent className={clsx("border-white/10 bg-th-btn text-white")}>
