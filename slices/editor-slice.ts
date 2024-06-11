@@ -19,7 +19,7 @@ export interface EditorElement {
   name: string;
   content:
     | EditorElement[]
-    | { text?: string; href?: string; videoSrc?: string };
+    | { text?: string; href?: string; videoSrc?: string; imageSrc?: string };
 }
 
 // Editor

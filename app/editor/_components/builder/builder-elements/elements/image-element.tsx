@@ -7,8 +7,8 @@ type Props = {
   element: EditorElement;
 };
 
-export const TextElement = (props: Props) => {
-  const { elements, selectedElement } = useAppSelector((state) => state.editor);
+export const ImageElement = (props: Props) => {
+  const { selectedElement } = useAppSelector((state) => state.editor);
   const currentElement = props.element;
 
   const dispatch = useAppDispatch();
@@ -20,23 +20,6 @@ export const TextElement = (props: Props) => {
     } else {
       dispatch(editorActions.selectElement(currentElement));
     }
-  };
-
-  const handleOnBlur = (e: React.FocusEvent) => {
-    const spanTag = e.currentTarget as HTMLSpanElement;
-
-    dispatch(
-      editorActions.updateElement({
-        elementId: currentElement.id,
-        elementsArray: elements,
-        elementData: {
-          ...currentElement,
-          content: {
-            text: spanTag.innerText,
-          },
-        },
-      }),
-    );
   };
 
   return (
@@ -60,14 +43,12 @@ export const TextElement = (props: Props) => {
         {props.element.name}
       </Badge>
       {!Array.isArray(currentElement.content) && (
-        <span
-          contentEditable
-          onBlur={handleOnBlur}
-          className="w-full"
+        <img
           style={currentElement.styles}
-        >
-          {currentElement.content.text}
-        </span>
+          className="h-full w-full"
+          src={currentElement.content.imageSrc}
+          alt={currentElement.name}
+        />
       )}
     </div>
   );

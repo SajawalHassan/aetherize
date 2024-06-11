@@ -101,6 +101,16 @@ export const CustomizationTab = (props: Props) => {
                       onChange={handleCustomChange}
                     />
                   )}
+                {selectedElement &&
+                  !Array.isArray(selectedElement.content) &&
+                  selectedElement.type === "image" && (
+                    <Input
+                      id="imageSrc"
+                      placeholder="Image url"
+                      value={selectedElement.content.imageSrc}
+                      onChange={handleCustomChange}
+                    />
+                  )}
               </AccordionContent>
             </AccordionItem>
 

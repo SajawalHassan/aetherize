@@ -87,5 +87,20 @@ export const dropElement = (
         }),
       );
       break;
+    case "image":
+      dispatch(
+        editorActions.addElement({
+          containerId: currentElement.id,
+          elementsArray: elements,
+          newElement: {
+            id: v4(),
+            name: "Image Field",
+            styles: {},
+            type: componentType,
+            content: { imageSrc: "" },
+          },
+        }),
+      );
+      break;
   }
 };

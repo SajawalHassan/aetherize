@@ -36,12 +36,18 @@ export const MColElement = (props: Props) => {
 
   return (
     <div
-      onDragOver={(e) => e.preventDefault()}
+      onDragOver={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setDragOverClassName("bg-th-btn/20");
+      }}
       onDragEnter={(e) => {
+        e.stopPropagation();
         e.preventDefault();
         setDragOverClassName("bg-th-btn/20");
       }}
       onDragLeave={(e) => {
+        e.stopPropagation();
         e.preventDefault();
         setDragOverClassName("");
       }}
