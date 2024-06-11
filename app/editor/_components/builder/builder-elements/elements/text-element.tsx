@@ -43,7 +43,7 @@ export const TextElement = (props: Props) => {
     <div
       onClick={handleSelectElement}
       className={clsx(
-        "relative border-2 p-4",
+        "relative border-2",
         selectedElement?.id !== currentElement.id
           ? "border-spacing-4 border-dashed border-th-btn"
           : "border-solid border-th-secondary",

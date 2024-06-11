@@ -83,12 +83,10 @@ export const ContainerElement = (props: Props) => {
         {props.element.name}
       </Badge>
 
-      <div className="overflow-y-scroll">
-        {Array.isArray(currentElement.content) &&
-          currentElement.content.map((childElement) => (
-            <Recursive key={childElement.id} element={childElement} />
-          ))}
-      </div>
+      {Array.isArray(currentElement.content) &&
+        currentElement.content.map((childElement) => (
+          <Recursive key={childElement.id} element={childElement} />
+        ))}
     </div>
   );
 };
