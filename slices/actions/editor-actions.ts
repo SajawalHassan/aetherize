@@ -44,3 +44,52 @@ export const updateElementAction = (
 
   return newEditorArray;
 };
+
+export const findElementAction: any = (
+  elementsArray: EditorElement[],
+  elementId: string,
+) => {
+  let foundElement: EditorElement | null = null;
+
+  for (const element of elementsArray) {
+    if (element.id === elementId) {
+      foundElement = element;
+      break; // Stop iterating if found
+    } else if (element.content && Array.isArray(element.content)) {
+      foundElement = findElementAction({
+        editorArray: element.content,
+        elementId: elementId,
+      });
+      if (foundElement) {
+        // Check if found in nested element
+        break;
+      }
+    }
+  }
+
+  return foundElement;
+};
+
+export const filterElementAction: any = (
+  elementId: string,
+  elementsArray: EditorElement[],
+) => {
+  const updatedElementsArray: EditorElement[] = [];
+
+  elementsArray.map((element) => {
+    if (element.id === elementId) {
+      return element;
+    } else if (element.content && Array.isArray(element.content)) {
+      return {
+        ...element,
+        content: filterElementAction(elementId, element.content),
+      };
+    } else {
+      return updatedElementsArray.push(element);
+    }
+  });
+
+  console.log("updatedElementsArray", updatedElementsArray);
+
+  return updatedElementsArray;
+};

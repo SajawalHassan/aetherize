@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { TabsTrigger } from "@/components/ui/tabs";
 import {
   Tooltip,
@@ -6,15 +5,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { tabBtns } from "@/lib/constants";
-import clsx from "clsx";
 import { LucideIcon } from "lucide-react";
+import clsx from "clsx";
 
 type Props = {
   Icon: LucideIcon;
   value: tabBtns;
 };
 
-export const EditorSidebarBtn = (props: Props) => {
+export const EditorSidebarTabTrigger = (props: Props) => {
   return (
     <Tooltip>
       <TabsTrigger

@@ -1,5 +1,5 @@
 import { Tabs, TabsList } from "@/components/ui/tabs";
-import { EditorSidebarBtn } from "./editor-sidebar-btn";
+import { EditorSidebarTabTrigger } from "./editor-sidebar-tab-trigger";
 import { BrushIcon, DatabaseIcon, PlusIcon } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
@@ -17,11 +17,11 @@ export const EditorSidebar = (props: Props) => {
     >
       <TabsList className="flex h-[68px] items-center overflow-hidden rounded-none bg-transparent p-0">
         <TooltipProvider delayDuration={0}>
-          <EditorSidebarBtn Icon={PlusIcon} value="Components" />
+          <EditorSidebarTabTrigger Icon={PlusIcon} value="Components" />
           <Separator orientation="vertical" className="bg-white/20" />
-          <EditorSidebarBtn Icon={BrushIcon} value="Customization" />
+          <EditorSidebarTabTrigger Icon={BrushIcon} value="Customization" />
           <Separator orientation="vertical" className="bg-white/20" />
-          <EditorSidebarBtn Icon={DatabaseIcon} value="Media" />
+          <EditorSidebarTabTrigger Icon={DatabaseIcon} value="Media" />
         </TooltipProvider>
       </TabsList>
       <div className="px-[15px]">

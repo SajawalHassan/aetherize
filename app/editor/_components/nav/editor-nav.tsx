@@ -54,11 +54,11 @@ export const EditorNav = (props: Props) => {
   };
 
   const handleRedo = () => {
-    if (!editor.prevEditorState) return;
+    if (!editor.nextEditorState) return;
 
     dispatch(
-      editorActions.undoEditorState({
-        ...editor.prevEditorState,
+      editorActions.redoEditorState({
+        ...editor.nextEditorState,
       }),
     );
   };
@@ -137,9 +137,14 @@ export const EditorNav = (props: Props) => {
                 className="h-[40px] w-[78px] data-[state=unchecked]:bg-th-btn"
                 thumbClassName="w-[40px] h-[40px] rounded-full bg-th-accent data-[state=checked]:bg-th-secondary"
                 value={viewingMode}
-                onCheckedChange={(checked: boolean) =>
-                  setViewingMode(checked ? "preview" : "development")
-                }
+                onCheckedChange={(checked: boolean) => {
+                  setViewingMode(checked ? "preview" : "development");
+                  dispatch(
+                    editorActions.changeViewingMode(
+                      checked ? "preview" : "development",
+                    ),
+                  );
+                }}
               />
             </TooltipTrigger>
             <TooltipContent className="border-white/10 bg-th-btn text-white">

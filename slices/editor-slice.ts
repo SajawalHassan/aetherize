@@ -25,7 +25,7 @@ export interface EditorElement {
 // Editor
 interface Editor {
   elements: EditorElement[];
-  selectedElements: EditorElement[];
+  selectedElement: EditorElement | null;
   prevEditorState: Editor | null;
   nextEditorState: Editor | null;
   device: deviceTypes;
@@ -42,7 +42,7 @@ const initialEditor: Editor = {
       content: [],
     },
   ],
-  selectedElements: [],
+  selectedElement: null,
   nextEditorState: null,
   prevEditorState: null,
   device: "laptop",
@@ -61,6 +61,11 @@ interface updateElementPayload {
   elementData: EditorElement;
 }
 
+interface filterElementPayload {
+  elementId: string;
+  elementsArray: EditorElement[];
+}
+
 const editorSlice = createSlice({
   name: "editor",
   initialState: initialEditor,
@@ -69,12 +74,14 @@ const editorSlice = createSlice({
       return {
         ...state,
         viewingMode: action.payload,
+        prevEditorState: state,
       };
     },
     changeDevice: (state: Editor, action: PayloadAction<deviceTypes>) => {
       return {
         ...state,
         device: action.payload,
+        prevEditorState: state,
       };
     },
     undoEditorState: (state: Editor, action: PayloadAction<Editor>) => {
@@ -86,6 +93,16 @@ const editorSlice = createSlice({
     redoEditorState: (state: Editor, action: PayloadAction<Editor>) => {
       return {
         ...action.payload,
+        prevEditorState: state,
+      };
+    },
+    selectElement: (
+      state: Editor,
+      action: PayloadAction<EditorElement | null>,
+    ) => {
+      return {
+        ...state,
+        selectedElement: action.payload,
         prevEditorState: state,
       };
     },

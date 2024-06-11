@@ -15,16 +15,9 @@ import { useDispatch } from "react-redux";
 type Props = {};
 
 export const CustomizationTab = (props: Props) => {
-  const [selectedElement, setSelectedElement] = useState<EditorElement | null>(
-    null,
-  );
   const dispatch = useDispatch();
 
-  const { selectedElements, elements } = useAppSelector(
-    (state) => state.editor,
-  );
-
-  useMemo(() => setSelectedElement(selectedElements[0]), [selectedElements]);
+  const { selectedElement, elements } = useAppSelector((state) => state.editor);
 
   const handleCustomChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!selectedElement) return;
