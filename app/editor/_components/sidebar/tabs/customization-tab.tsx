@@ -177,6 +177,7 @@ export const CustomizationTab = (props: Props) => {
                       <SelectContent className="max-h-[20rem] w-full overflow-y-auto border-none bg-th-btn text-white">
                         {fonts.map((font) => (
                           <SelectItem
+                            key={font}
                             value={font}
                             className="focus:bg-white/10 focus:text-white"
                           >
@@ -258,6 +259,7 @@ export const CustomizationTab = (props: Props) => {
                       <SelectContent className="max-h-[20rem] w-full overflow-y-auto border-none bg-th-btn text-white">
                         {fontWeights.map((fontWeight) => (
                           <SelectItem
+                            key={fontWeight}
                             value={fontWeight}
                             className="focus:bg-white/10 focus:text-white"
                           >
