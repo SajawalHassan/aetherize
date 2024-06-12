@@ -13,7 +13,7 @@ type Props = {
   value: string;
   id: string;
   placeholder: string;
-  onChange: (e: { target: { id: string; value: string } }) => void;
+  onChange: (e: string) => void;
   dropdownList: string[];
   defaultValue: string;
   className?: string;
@@ -42,9 +42,7 @@ export const InputDropdown = (props: Props) => {
           id={props.id}
           placeholder={props.placeholder}
           onChange={(e) => {
-            props.onChange({
-              target: { id: props.id, value: e.target.value + selectedItem },
-            });
+            props.onChange(e.target.value + selectedItem);
             setInputValue(e.target.value);
           }}
           value={inputValue}
@@ -54,13 +52,9 @@ export const InputDropdown = (props: Props) => {
           onValueChange={(e) => {
             setSelectedItem(e);
             if (["max-content", "min-content", "fit-content"].includes(e)) {
-              props.onChange({
-                target: { id: props.id, value: e },
-              });
+              props.onChange(e);
             } else {
-              props.onChange({
-                target: { id: props.id, value: inputValue + e },
-              });
+              props.onChange(inputValue + e);
             }
           }}
         >
