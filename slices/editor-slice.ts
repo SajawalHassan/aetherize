@@ -1,5 +1,6 @@
 import {
   EditorElementTypes,
+  defaultBodyStyles,
   deviceTypes,
   editorContainerId,
   viewingModes,
@@ -39,7 +40,7 @@ const initialEditor: Editor = {
     {
       id: editorContainerId,
       name: "body",
-      containerStyles: {},
+      containerStyles: defaultBodyStyles,
       elementStyles: {},
       type: editorContainerId,
       content: [],

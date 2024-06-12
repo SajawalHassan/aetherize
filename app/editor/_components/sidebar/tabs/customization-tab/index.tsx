@@ -2,10 +2,8 @@ import { Accordion, AccordionTrigger } from "@/components/ui/accordion";
 import { TabsContent } from "@/components/ui/tabs";
 import { useAppSelector } from "@/hooks/store-hook";
 import { tabBtns } from "@/lib/constants";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { CustomPropsAccordion } from "./custom-props-accordion";
-import { LayoutAccordion } from "./layout-accordion";
+import { TypographyAccordion } from "./typography-accordion";
 import { DimensionsAccordion } from "./dimensions-accordion";
 import { DecorationsAccordion } from "./decorations-accordion";
 
@@ -31,7 +29,7 @@ export const CustomizationTab = (props: Props) => {
             <CustomPropsAccordion />
 
             {/* Typography */}
-            <LayoutAccordion />
+            <TypographyAccordion />
 
             {/* Dimensions */}
             <DimensionsAccordion />

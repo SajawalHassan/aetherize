@@ -26,8 +26,6 @@ export const InputDropdown = (props: Props) => {
   );
 
   useEffect(() => {
-    console.log("first");
-
     if (props.value.split(selectedItem)[0] !== inputValue)
       setInputValue(props.value.split(selectedItem)[0]);
   }, [props.value]);

@@ -1,6 +1,5 @@
 import { AccordionItem, AccordionContent } from "@/components/ui/accordion";
 import { AccordionCustomTrigger } from ".";
-import { Input } from "@/components/ui/input";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -27,12 +26,12 @@ import {
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { useState } from "react";
 import { handleStyleChange } from "@/lib/helper";
-import { HexColorPicker } from "react-colorful";
 import { InputDropdown } from "@/components/ui/input-dropdown";
+import { ColorPicker } from "@/components/ui/color-picker";
 
 type Props = {};
 
-export const LayoutAccordion = (props: Props) => {
+export const TypographyAccordion = (props: Props) => {
   const [showColorPicker, setShowColorPicker] = useState(false);
 
   const { selectedElement, elements } = useAppSelector((state) => state.editor);
@@ -129,66 +128,12 @@ export const LayoutAccordion = (props: Props) => {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex flex-col">
-            <Label className="pl-2">Text Color</Label>
-            <div className="flex items-center justify-between border-b border-transparent border-b-white/10 bg-transparent pl-[10px] hover:border-b-white/20">
-              <Input
-                className="border-none bg-transparent p-0 text-[16px] font-medium text-white focus:border-transparent focus-visible:ring-0"
-                value={selectedElement?.containerStyles.color || "#fff"}
-                onChange={(e) => {
-                  handleStyleChange(
-                    {
-                      target: {
-                        id: "color",
-                        value: e.target.value.includes("#")
-                          ? e.target.value
-                          : `#${e.target.value}`,
-                      },
-                    },
-                    selectedElement!,
-                    elements,
-                    dispatch,
-                  );
-                }}
-              />
-              <div
-                className="h-[40px] w-[50px] cursor-pointer"
-                style={{
-                  backgroundColor:
-                    selectedElement?.containerStyles.color || "white",
-                }}
-                onClick={() => setShowColorPicker(true)}
-              />
-            </div>
-
-            {showColorPicker && (
-              <>
-                <div
-                  className="fixed inset-0 z-0"
-                  onClick={() => setShowColorPicker(false)}
-                />
-                <div className="absolute -bottom-[8rem] right-0 bg-th-btn p-2">
-                  <HexColorPicker
-                    color={selectedElement?.containerStyles.color}
-                    onChange={(e) => {
-                      handleStyleChange(
-                        {
-                          target: {
-                            id: "color",
-                            value: e,
-                          },
-                        },
-                        selectedElement!,
-                        elements,
-                        dispatch,
-                      );
-                    }}
-                    className="z-20"
-                  />
-                </div>
-              </>
-            )}
-          </div>
+          <ColorPicker
+            showColorPicker={showColorPicker}
+            setShowColorPicker={setShowColorPicker}
+            id="color"
+            label="Text color"
+          />
           <div className="flex flex-col">
             <Label className="pl-2">Font weight</Label>
             <Select

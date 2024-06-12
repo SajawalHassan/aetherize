@@ -16,17 +16,16 @@ type Props = {
 export const EditorSidebarTabTrigger = (props: Props) => {
   return (
     <Tooltip>
-      <TabsTrigger
-        value={props.value}
-        className={clsx(
-          "h-full flex-grow rounded-none bg-th-btn/50 text-white hover:bg-th-btn/80 data-[state=active]:bg-th-btn data-[state=active]:text-white",
-        )}
-        asChild
-      >
-        <TooltipTrigger>
+      <TooltipTrigger asChild>
+        <TabsTrigger
+          value={props.value}
+          className={clsx(
+            "h-full flex-grow rounded-none bg-th-btn/50 text-white hover:bg-th-btn/80",
+          )}
+        >
           <props.Icon size={32} />
-        </TooltipTrigger>
-      </TabsTrigger>
+        </TabsTrigger>
+      </TooltipTrigger>
       <TooltipContent className={clsx("border-white/10 bg-th-btn text-white")}>
         <p>{props.value}</p>
       </TooltipContent>

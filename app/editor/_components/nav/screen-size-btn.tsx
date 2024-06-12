@@ -3,7 +3,7 @@
 import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
 import { deviceTypes } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { TooltipTrigger } from "@radix-ui/react-tooltip";
+import { TooltipTrigger } from "@/components/ui/tooltip";
 import { LucideIcon } from "lucide-react";
 import clsx from "clsx";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
