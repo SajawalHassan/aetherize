@@ -2,31 +2,28 @@ import { Badge } from "@/components/ui/badge";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { EditorElement, editorActions } from "@/slices/editor-slice";
 import clsx from "clsx";
+import { handleDeleteElement, handleSelectElement } from "../helper";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+import { TrashIcon } from "lucide-react";
 
 type Props = {
   element: EditorElement;
 };
 
 export const VideoElement = (props: Props) => {
-  const { selectedElement, viewingMode } = useAppSelector(
+  const { selectedElement, viewingMode, elements } = useAppSelector(
     (state) => state.editor,
   );
   const currentElement = props.element;
 
   const dispatch = useAppDispatch();
 
-  const handleSelectElement = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    if (selectedElement?.id === currentElement.id) {
-      dispatch(editorActions.selectElement(null));
-    } else {
-      dispatch(editorActions.selectElement(currentElement));
-    }
-  };
-
   return (
     <div
-      onClick={handleSelectElement}
+      onClick={(e) =>
+        handleSelectElement(e, selectedElement, currentElement, dispatch)
+      }
       className={clsx("relative min-h-[20px]", {
         "border-2 border-solid":
           selectedElement?.id === currentElement.id &&
@@ -51,13 +48,31 @@ export const VideoElement = (props: Props) => {
       </Badge>
       {!Array.isArray(currentElement.content) && (
         <iframe
-          width={currentElement.styles.width || "560"}
-          height={currentElement.styles.height || "315"}
+          width={currentElement.containerStyles.width || "560"}
+          height={currentElement.containerStyles.height || "315"}
           src={currentElement.content.videoSrc}
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         />
       )}
+
+      <TooltipProvider>
+        <Button
+          className={clsx(
+            "absolute -bottom-10 -right-0 hidden items-center justify-center rounded-[5px] bg-th-secondary p-[6px] hover:bg-th-secondary/80 active:bg-th-secondary/60",
+            {
+              flex:
+                selectedElement?.id === currentElement.id &&
+                viewingMode !== "preview",
+            },
+          )}
+          onClick={(e) =>
+            handleDeleteElement(e, currentElement.id, elements, dispatch)
+          }
+        >
+          <TrashIcon color="white" className="h-[24px] w-[24px]" />
+        </Button>
+      </TooltipProvider>
     </div>
   );
 };

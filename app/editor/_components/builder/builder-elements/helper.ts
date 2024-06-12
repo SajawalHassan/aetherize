@@ -1,20 +1,23 @@
-import { EditorElementTypes } from "@/lib/constants";
+import { EditorElementTypes, defaultStyles } from "@/lib/constants";
 import { Editor, EditorElement, editorActions } from "@/slices/editor-slice";
 import { Dispatch, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
 import { v4 } from "uuid";
+import React from "react";
+
+type DispatchType = ThunkDispatch<
+  {
+    editor: Editor;
+  },
+  undefined,
+  UnknownAction
+> &
+  Dispatch<UnknownAction>;
 
 export const dropElement = (
   e: React.DragEvent<HTMLDivElement>,
   currentElement: EditorElement,
   elements: EditorElement[],
-  dispatch: ThunkDispatch<
-    {
-      editor: Editor;
-    },
-    undefined,
-    UnknownAction
-  > &
-    Dispatch<UnknownAction>,
+  dispatch: DispatchType,
 ) => {
   e.stopPropagation();
 
@@ -32,7 +35,8 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Container",
-            styles: {},
+            containerStyles: defaultStyles,
+            elementStyles: {},
             type: componentType,
             content: [],
           },
@@ -47,7 +51,8 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Multiple columns",
-            styles: {},
+            containerStyles: defaultStyles,
+            elementStyles: {},
             type: componentType,
             content: [],
           },
@@ -62,7 +67,8 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Text field",
-            styles: {},
+            containerStyles: defaultStyles,
+            elementStyles: {},
             type: componentType,
             content: { text: "Text field" },
           },
@@ -77,7 +83,9 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Link Field",
-            styles: {
+            elementStyles: {},
+            containerStyles: {
+              ...defaultStyles,
               color: "lightblue",
               textDecorationLine: "underline",
             },
@@ -95,7 +103,8 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Image",
-            styles: {},
+            containerStyles: defaultStyles,
+            elementStyles: {},
             type: componentType,
             content: { imageSrc: "" },
           },
@@ -110,12 +119,42 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Video",
-            styles: {},
+            containerStyles: defaultStyles,
+            elementStyles: {},
             type: componentType,
             content: { videoSrc: "" },
           },
         }),
       );
       break;
+  }
+};
+
+export const handleDeleteElement = (
+  e: React.MouseEvent<HTMLButtonElement>,
+  elementId: string,
+  elementsArray: EditorElement[],
+  dispatch: DispatchType,
+) => {
+  e.stopPropagation();
+  dispatch(
+    editorActions.deleteElement({
+      elementId,
+      elementsArray,
+    }),
+  );
+};
+
+export const handleSelectElement = (
+  e: React.MouseEvent<HTMLDivElement>,
+  selectedElement: EditorElement | null,
+  currentElement: EditorElement,
+  dispatch: DispatchType,
+) => {
+  e.stopPropagation();
+  if (selectedElement?.id === currentElement.id) {
+    dispatch(editorActions.selectElement(null));
+  } else {
+    dispatch(editorActions.selectElement(currentElement));
   }
 };

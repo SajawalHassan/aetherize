@@ -19,7 +19,7 @@ export const EditorSidebar = (props: Props) => {
   return (
     <Tabs
       className={clsx(
-        "w-full max-w-[300px] rounded-md border border-th-btn bg-th-btn/15 transition-all duration-500",
+        "w-full max-w-[300px] overflow-y-auto rounded-md border border-th-btn bg-th-btn/15 transition-all duration-500",
         {
           "!w-0 !overflow-hidden !border-none !p-0":
             editor.viewingMode === "preview",

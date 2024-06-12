@@ -6,7 +6,14 @@ import { v4 } from "uuid";
 import { Recursive } from "../recursive";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
-import { dropElement } from "../helper";
+import {
+  dropElement,
+  handleDeleteElement,
+  handleSelectElement,
+} from "../helper";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+import { TrashIcon } from "lucide-react";
 
 type Props = {
   element: EditorElement;
@@ -20,15 +27,6 @@ export const ContainerElement = (props: Props) => {
     (state) => state.editor,
   );
   const currentElement = props.element;
-
-  const handleSelectElement = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    if (selectedElement?.id === currentElement.id) {
-      dispatch(editorActions.selectElement(null));
-    } else {
-      dispatch(editorActions.selectElement(currentElement));
-    }
-  };
 
   const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
     dropElement(e, currentElement, elements, dispatch);
@@ -53,12 +51,14 @@ export const ContainerElement = (props: Props) => {
         setDragOverClassName("");
       }}
       onDrop={handleOnDrop}
-      onClick={handleSelectElement}
-      style={currentElement.styles}
+      onClick={(e) =>
+        handleSelectElement(e, selectedElement, currentElement, dispatch)
+      }
+      style={currentElement.containerStyles}
       className={clsx(
         "relative w-full p-4 transition-all duration-100",
         {
-          "h-full": currentElement.type === editorContainerId,
+          "h-full overflow-scroll": currentElement.type === editorContainerId,
           "border-2 border-solid":
             selectedElement?.id === currentElement.id &&
             viewingMode !== "preview",
@@ -94,6 +94,25 @@ export const ContainerElement = (props: Props) => {
         currentElement.content.map((childElement) => (
           <Recursive key={childElement.id} element={childElement} />
         ))}
+
+      <TooltipProvider>
+        <Button
+          className={clsx(
+            "absolute -bottom-10 -right-0 hidden items-center justify-center rounded-[5px] bg-th-secondary p-[6px] hover:bg-th-secondary/80 active:bg-th-secondary/60",
+            {
+              flex:
+                selectedElement?.id === currentElement.id &&
+                viewingMode !== "preview" &&
+                currentElement.type !== editorContainerId,
+            },
+          )}
+          onClick={(e) =>
+            handleDeleteElement(e, currentElement.id, elements, dispatch)
+          }
+        >
+          <TrashIcon color="white" className="h-[24px] w-[24px]" />
+        </Button>
+      </TooltipProvider>
     </div>
   );
 };

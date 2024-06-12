@@ -6,7 +6,14 @@ import { v4 } from "uuid";
 import { Recursive } from "../recursive";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
-import { dropElement } from "../helper";
+import {
+  dropElement,
+  handleDeleteElement,
+  handleSelectElement,
+} from "../helper";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+import { TrashIcon } from "lucide-react";
 
 type Props = {
   element: EditorElement;
@@ -21,15 +28,6 @@ export const MColElement = (props: Props) => {
     (state) => state.editor,
   );
   const currentElement = props.element;
-
-  const handleSelectElement = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    if (selectedElement?.id === currentElement.id) {
-      dispatch(editorActions.selectElement(null));
-    } else {
-      dispatch(editorActions.selectElement(currentElement));
-    }
-  };
 
   const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
     dropElement(e, currentElement, elements, dispatch);
@@ -54,8 +52,10 @@ export const MColElement = (props: Props) => {
         setDragOverClassName("");
       }}
       onDrop={handleOnDrop}
-      onClick={handleSelectElement}
-      style={currentElement.styles}
+      onClick={(e) =>
+        handleSelectElement(e, selectedElement, currentElement, dispatch)
+      }
+      style={currentElement.containerStyles}
       className={clsx(
         "relative flex w-full border-spacing-4 gap-2 p-4 transition-all duration-100",
         {
@@ -90,6 +90,24 @@ export const MColElement = (props: Props) => {
         currentElement.content.map((childElement) => (
           <Recursive key={childElement.id} element={childElement} />
         ))}
+
+      <TooltipProvider>
+        <Button
+          className={clsx(
+            "absolute -bottom-10 -right-0 hidden items-center justify-center rounded-[5px] bg-th-secondary p-[6px] hover:bg-th-secondary/80 active:bg-th-secondary/60",
+            {
+              flex:
+                selectedElement?.id === currentElement.id &&
+                viewingMode !== "preview",
+            },
+          )}
+          onClick={(e) =>
+            handleDeleteElement(e, currentElement.id, elements, dispatch)
+          }
+        >
+          <TrashIcon color="white" className="h-[24px] w-[24px]" />
+        </Button>
+      </TooltipProvider>
     </div>
   );
 };

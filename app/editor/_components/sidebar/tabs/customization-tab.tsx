@@ -13,6 +13,7 @@ import {
   fontWeights,
   fontWeightTypes,
   tabBtns,
+  textUnits,
 } from "@/lib/constants";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import { editorActions } from "@/slices/editor-slice";
@@ -34,11 +35,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { InputDropdown } from "@/components/ui/input-dropdown";
 
 type Props = {};
 
 export const CustomizationTab = (props: Props) => {
   const [showColorPicker, setShowColorPicker] = useState(false);
+  const [showBackgroundColorPicker, setShowBackgroundColorPicker] =
+    useState(false);
   const dispatch = useDispatch();
 
   const { selectedElement, elements } = useAppSelector((state) => state.editor);
@@ -81,7 +85,10 @@ export const CustomizationTab = (props: Props) => {
         elementsArray: elements,
         elementData: {
           ...selectedElement,
-          styles: { ...selectedElement.styles, ...propertyObject },
+          containerStyles: {
+            ...selectedElement.containerStyles,
+            ...propertyObject,
+          },
         },
       }),
     );
@@ -152,9 +159,53 @@ export const CustomizationTab = (props: Props) => {
               value="typography"
               className="relative border-white/10"
             >
-              <TooltipProvider>
+              <TooltipProvider delayDuration={150}>
                 <AccordionCustomTrigger text="Typography" />
                 <AccordionContent className="mt-4 space-y-[18px]">
+                  <div className="space-y-2">
+                    <p className="text-muted-foreground">Text alignment</p>
+                    <Tabs
+                      onValueChange={(e) =>
+                        handleStyleChange({
+                          target: {
+                            id: "textAlign",
+                            value: e,
+                          },
+                        })
+                      }
+                    >
+                      <TabsList className="flex h-fit flex-row items-center justify-between rounded-md border-[1px] border-white/20 bg-transparent">
+                        <TabsTrigger
+                          value="left"
+                          className="h-10 w-10 flex-grow p-0 hover:bg-th-btn"
+                          tooltipText="Align left"
+                        >
+                          <AlignLeftIcon size={18} />
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="right"
+                          className="h-10 w-10 flex-grow p-0 hover:bg-th-btn"
+                          tooltipText="Align right"
+                        >
+                          <AlignRightIcon size={18} />
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="center"
+                          className="h-10 w-10 flex-grow p-0 hover:bg-th-btn"
+                          tooltipText="Align center"
+                        >
+                          <AlignCenterIcon size={18} />
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="justify"
+                          className="h-10 w-10 flex-grow p-0 hover:bg-th-btn"
+                          tooltipText="Align justify"
+                        >
+                          <AlignJustifyIcon size={18} />
+                        </TabsTrigger>
+                      </TabsList>
+                    </Tabs>
+                  </div>
                   <div className="flex flex-col">
                     <Label className="pl-2">Font</Label>
                     <Select
@@ -192,7 +243,7 @@ export const CustomizationTab = (props: Props) => {
                     <div className="flex items-center justify-between border-b border-transparent border-b-white/10 bg-transparent pl-[10px] hover:border-b-white/20">
                       <Input
                         className="border-none bg-transparent p-0 text-[16px] font-medium text-white focus:border-transparent focus-visible:ring-0"
-                        value={selectedElement.styles.color || "#FFF"}
+                        value={selectedElement.containerStyles.color || "#fff"}
                         onChange={(e) => {
                           handleStyleChange({
                             target: {
@@ -208,7 +259,7 @@ export const CustomizationTab = (props: Props) => {
                         className="h-[40px] w-[50px] cursor-pointer"
                         style={{
                           backgroundColor:
-                            selectedElement.styles.color || "white",
+                            selectedElement.containerStyles.color || "white",
                         }}
                         onClick={() => setShowColorPicker(true)}
                       />
@@ -220,9 +271,9 @@ export const CustomizationTab = (props: Props) => {
                           className="fixed inset-0 z-0"
                           onClick={() => setShowColorPicker(false)}
                         />
-                        <div className="absolute right-0 top-[10rem] bg-th-btn p-2">
+                        <div className="absolute -bottom-[8rem] right-0 bg-th-btn p-2">
                           <HexColorPicker
-                            color={selectedElement.styles.color}
+                            color={selectedElement.containerStyles.color}
                             onChange={(e) => {
                               handleStyleChange({
                                 target: {
@@ -240,7 +291,10 @@ export const CustomizationTab = (props: Props) => {
                   <div className="flex flex-col">
                     <Label className="pl-2">Font weight</Label>
                     <Select
-                      defaultValue={"100" as fontWeightTypes}
+                      value={
+                        (selectedElement.containerStyles.fontWeight ||
+                          "500") as fontWeightTypes
+                      }
                       onValueChange={(e) =>
                         handleStyleChange({
                           target: {
@@ -269,61 +323,250 @@ export const CustomizationTab = (props: Props) => {
                       </SelectContent>
                     </Select>
                   </div>
+                  <InputDropdown
+                    id="fontSize"
+                    placeholder="fontSize"
+                    onChange={handleStyleChange}
+                    value={
+                      (selectedElement.containerStyles.fontSize as string) || ""
+                    }
+                    defaultValue="px"
+                    dropdownList={textUnits}
+                    className="border-x-0 border-b border-t-0 border-b-white/10 bg-transparent"
+                  />
                 </AccordionContent>
               </TooltipProvider>
             </AccordionItem>
 
-            {/* Layout */}
-            <AccordionItem value="layout" className="border-white/10">
-              <AccordionCustomTrigger text="Layout" />
-              <AccordionContent className="mt-4">
-                <div className="space-y-2">
-                  <p className="text-muted-foreground">Text alignment</p>
-                  <Tabs
-                    onValueChange={(e) =>
-                      handleStyleChange({
-                        target: {
-                          id: "textAlign",
-                          value: e,
-                        },
-                      })
-                    }
-                  >
-                    <TabsList className="flex h-fit flex-row items-center justify-between rounded-md border-[1px] border-white/20 bg-transparent">
-                      <TabsTrigger
-                        value="left"
-                        className="h-10 w-10 flex-grow p-0 hover:bg-th-btn"
-                      >
-                        <AlignLeftIcon size={18} />
-                      </TabsTrigger>
-                      <TabsTrigger
-                        value="right"
-                        className="h-10 w-10 flex-grow p-0 hover:bg-th-btn"
-                      >
-                        <AlignRightIcon size={18} />
-                      </TabsTrigger>
-                      <TabsTrigger
-                        value="center"
-                        className="h-10 w-10 flex-grow p-0 hover:bg-th-btn"
-                      >
-                        <AlignCenterIcon size={18} />
-                      </TabsTrigger>
-                      <TabsTrigger
-                        value="justify"
-                        className="h-10 w-10 flex-grow p-0 hover:bg-th-btn"
-                      >
-                        <AlignJustifyIcon size={18} />
-                      </TabsTrigger>
-                    </TabsList>
-                  </Tabs>
+            {/* Dimensions */}
+            <AccordionItem value="dimensions" className="border-white/10">
+              <AccordionCustomTrigger text="Dimensions" />
+              <AccordionContent className="flex flex-col gap-y-4 pt-4">
+                <div className="flex flex-col gap-4">
+                  <div className="flex gap-4">
+                    <InputDropdown
+                      id="height"
+                      placeholder="height"
+                      onChange={handleStyleChange}
+                      value={
+                        (selectedElement.containerStyles.height as string) || ""
+                      }
+                      defaultValue="px"
+                      dropdownList={textUnits}
+                    />
+
+                    <InputDropdown
+                      id="width"
+                      placeholder="width"
+                      onChange={handleStyleChange}
+                      value={
+                        (selectedElement.containerStyles.width as string) || ""
+                      }
+                      defaultValue="px"
+                      dropdownList={textUnits}
+                    />
+                  </div>
+                  <div className="flex gap-4">
+                    <InputDropdown
+                      id="minHeight"
+                      placeholder="min height"
+                      onChange={handleStyleChange}
+                      value={
+                        (selectedElement.containerStyles.minHeight as string) ||
+                        ""
+                      }
+                      defaultValue="px"
+                      dropdownList={textUnits}
+                    />
+
+                    <InputDropdown
+                      id="minWidth"
+                      placeholder="min width"
+                      onChange={handleStyleChange}
+                      value={
+                        (selectedElement.containerStyles.minWidth as string) ||
+                        ""
+                      }
+                      defaultValue="px"
+                      dropdownList={textUnits}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <p className="mb-2 border-b border-white/10 pb-1 text-muted">
+                    Margin
+                  </p>
+                  <div className="-mt-2 flex gap-x-4">
+                    <InputDropdown
+                      id="marginTop"
+                      placeholder="Top"
+                      onChange={handleStyleChange}
+                      value={
+                        (selectedElement.containerStyles.marginTop as string) ||
+                        ""
+                      }
+                      defaultValue="px"
+                      dropdownList={textUnits}
+                    />
+
+                    <InputDropdown
+                      id="marginBottom"
+                      placeholder="Bottom"
+                      onChange={handleStyleChange}
+                      value={
+                        (selectedElement.containerStyles
+                          .marginBottom as string) || ""
+                      }
+                      defaultValue="px"
+                      dropdownList={textUnits}
+                    />
+                  </div>
+                  <div className="flex gap-x-4">
+                    <InputDropdown
+                      id="marginLeft"
+                      placeholder="Left"
+                      onChange={handleStyleChange}
+                      value={
+                        (selectedElement.containerStyles
+                          .marginLeft as string) || ""
+                      }
+                      defaultValue="px"
+                      dropdownList={textUnits}
+                    />
+
+                    <InputDropdown
+                      id="marginRight"
+                      placeholder="Right"
+                      onChange={handleStyleChange}
+                      value={
+                        (selectedElement.containerStyles
+                          .marginRight as string) || ""
+                      }
+                      defaultValue="px"
+                      dropdownList={textUnits}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <p className="mb-2 border-b border-white/10 pb-1 text-muted">
+                    Padding
+                  </p>
+                  <div className="flex flex-col gap-4">
+                    <div className="flex gap-4">
+                      <InputDropdown
+                        id="paddingTop"
+                        placeholder="Top"
+                        onChange={handleStyleChange}
+                        value={
+                          (selectedElement.containerStyles
+                            .paddingTop as string) || ""
+                        }
+                        defaultValue="px"
+                        dropdownList={textUnits}
+                      />
+
+                      <InputDropdown
+                        id="paddingBottom"
+                        placeholder="Bottom"
+                        onChange={handleStyleChange}
+                        value={
+                          (selectedElement.containerStyles
+                            .paddingBottom as string) || ""
+                        }
+                        defaultValue="px"
+                        dropdownList={textUnits}
+                      />
+                    </div>
+                    <div className="flex gap-4">
+                      <InputDropdown
+                        id="paddingLeft"
+                        placeholder="Left"
+                        onChange={handleStyleChange}
+                        value={
+                          (selectedElement.containerStyles
+                            .paddingLeft as string) || ""
+                        }
+                        defaultValue="px"
+                        dropdownList={textUnits}
+                      />
+
+                      <InputDropdown
+                        id="paddingRight"
+                        placeholder="Right"
+                        onChange={handleStyleChange}
+                        value={
+                          (selectedElement.containerStyles
+                            .paddingRight as string) || ""
+                        }
+                        defaultValue="px"
+                        dropdownList={textUnits}
+                      />
+                    </div>
+                  </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
 
-            {/* Decorations */}
             <AccordionItem value="decorations" className="border-white/10">
               <AccordionCustomTrigger text="Decorations" />
-              <AccordionContent className="mt-4">asdasdasf</AccordionContent>
+              <AccordionContent className="flex flex-col gap-y-4 pt-4">
+                <div className="flex flex-col">
+                  <Label className="pl-2">Background Color</Label>
+                  <div className="flex items-center justify-between border-b border-transparent border-b-white/10 bg-transparent pl-[10px] hover:border-b-white/20">
+                    <Input
+                      className="border-none bg-transparent p-0 text-[16px] font-medium text-white focus:border-transparent focus-visible:ring-0"
+                      value={
+                        selectedElement.containerStyles.backgroundColor ||
+                        "#fff"
+                      }
+                      onChange={(e) => {
+                        handleStyleChange({
+                          target: {
+                            id: "backgroundColor",
+                            value: e.target.value.includes("#")
+                              ? e.target.value
+                              : `#${e.target.value}`,
+                          },
+                        });
+                      }}
+                    />
+                    <div
+                      className="h-[40px] w-[50px] cursor-pointer"
+                      style={{
+                        backgroundColor:
+                          selectedElement.containerStyles.backgroundColor ||
+                          "white",
+                      }}
+                      onClick={() => setShowBackgroundColorPicker(true)}
+                    />
+                  </div>
+
+                  {showBackgroundColorPicker && (
+                    <>
+                      <div
+                        className="fixed inset-0 z-0"
+                        onClick={() => setShowBackgroundColorPicker(false)}
+                      />
+                      <div className="absolute bottom-[6rem] right-10 bg-th-btn p-2">
+                        <HexColorPicker
+                          color={
+                            selectedElement.containerStyles.backgroundColor
+                          }
+                          onChange={(e) => {
+                            handleStyleChange({
+                              target: {
+                                id: "backgroundColor",
+                                value: e,
+                              },
+                            });
+                          }}
+                          className="z-20"
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+              </AccordionContent>
             </AccordionItem>
           </>
         )}

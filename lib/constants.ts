@@ -1,4 +1,8 @@
+import React from "react";
+
 // constants
+export const defaultStyles: React.CSSProperties = {};
+
 export const editorContainerId = "__body";
 export const fonts = [
   "Roboto",
@@ -21,6 +25,23 @@ export const fontWeights = [
   "700",
   "800",
   "900",
+];
+
+export const textUnits = [
+  "px",
+  "rem",
+  "em",
+  "%",
+  "cm",
+  "mm",
+  "in",
+  "ex",
+  "ch",
+  "vw",
+  "vh",
+  "max-content",
+  "min-content",
+  "fit-content",
 ];
 
 // types
@@ -59,5 +80,3 @@ export type EditorElementTypes =
   | "contactForm"
   | "image"
   | null;
-
-export const defaultStyles: React.CSSProperties = {};

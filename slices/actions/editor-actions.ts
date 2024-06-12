@@ -70,26 +70,16 @@ export const findElementAction: any = (
   return foundElement;
 };
 
-export const filterElementAction: any = (
-  elementId: string,
+export const deleteElementAction = (
   elementsArray: EditorElement[],
-) => {
-  const updatedElementsArray: EditorElement[] = [];
-
-  elementsArray.map((element) => {
-    if (element.id === elementId) {
-      return element;
-    } else if (element.content && Array.isArray(element.content)) {
-      return {
-        ...element,
-        content: filterElementAction(elementId, element.content),
-      };
-    } else {
-      return updatedElementsArray.push(element);
-    }
-  });
-
-  console.log("updatedElementsArray", updatedElementsArray);
-
-  return updatedElementsArray;
+  elementId: string,
+): EditorElement[] => {
+  return elementsArray
+    .filter((item) => item.id !== elementId)
+    .map((item) => ({
+      ...item,
+      content: Array.isArray(item.content)
+        ? deleteElementAction(item.content, elementId)
+        : item.content,
+    }));
 };

@@ -2,6 +2,10 @@ import { Badge } from "@/components/ui/badge";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { EditorElement, editorActions } from "@/slices/editor-slice";
 import clsx from "clsx";
+import { handleDeleteElement, handleSelectElement } from "../helper";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+import { TrashIcon } from "lucide-react";
 
 type Props = {
   element: EditorElement;
@@ -14,15 +18,6 @@ export const LinkElement = (props: Props) => {
   const currentElement = props.element;
 
   const dispatch = useAppDispatch();
-
-  const handleSelectElement = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    if (selectedElement?.id === currentElement.id) {
-      dispatch(editorActions.selectElement(null));
-    } else {
-      dispatch(editorActions.selectElement(currentElement));
-    }
-  };
 
   const handleOnBlur = (e: React.FocusEvent) => {
     const aTag = e.currentTarget as HTMLAnchorElement;
@@ -43,7 +38,10 @@ export const LinkElement = (props: Props) => {
 
   return (
     <div
-      onClick={handleSelectElement}
+      style={currentElement.containerStyles}
+      onClick={(e) =>
+        handleSelectElement(e, selectedElement, currentElement, dispatch)
+      }
       className={clsx("relative", {
         "border-2 border-solid":
           selectedElement?.id === currentElement.id &&
@@ -68,7 +66,6 @@ export const LinkElement = (props: Props) => {
       </Badge>
       {!Array.isArray(currentElement.content) && (
         <a
-          style={currentElement.styles}
           href={currentElement.content.href}
           contentEditable={viewingMode !== "preview"}
           suppressContentEditableWarning
@@ -78,6 +75,24 @@ export const LinkElement = (props: Props) => {
           {currentElement.content.href}
         </a>
       )}
+
+      <TooltipProvider>
+        <Button
+          className={clsx(
+            "absolute -bottom-10 -right-0 hidden items-center justify-center rounded-[5px] bg-th-secondary p-[6px] hover:bg-th-secondary/80 active:bg-th-secondary/60",
+            {
+              flex:
+                selectedElement?.id === currentElement.id &&
+                viewingMode !== "preview",
+            },
+          )}
+          onClick={(e) =>
+            handleDeleteElement(e, currentElement.id, elements, dispatch)
+          }
+        >
+          <TrashIcon color="white" className="h-[24px] w-[24px]" />
+        </Button>
+      </TooltipProvider>
     </div>
   );
 };

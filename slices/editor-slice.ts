@@ -1,6 +1,5 @@
 import {
   EditorElementTypes,
-  defaultStyles,
   deviceTypes,
   editorContainerId,
   viewingModes,
@@ -8,14 +7,17 @@ import {
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
   addElementAction,
+  deleteElementAction,
   updateElementAction,
 } from "./actions/editor-actions";
+import React from "react";
 
 // Editor Element
 export interface EditorElement {
   id: string;
   type: EditorElementTypes;
-  styles: React.CSSProperties;
+  containerStyles: React.CSSProperties;
+  elementStyles: React.CSSProperties;
   name: string;
   content:
     | EditorElement[]
@@ -37,7 +39,8 @@ const initialEditor: Editor = {
     {
       id: editorContainerId,
       name: "body",
-      styles: defaultStyles,
+      containerStyles: {},
+      elementStyles: {},
       type: editorContainerId,
       content: [],
     },
@@ -59,6 +62,11 @@ interface updateElementPayload {
   elementId: string;
   elementsArray: EditorElement[];
   elementData: EditorElement;
+}
+
+interface deleteElementPayload {
+  elementId: string;
+  elementsArray: EditorElement[];
 }
 
 const editorSlice = createSlice({
@@ -143,6 +151,23 @@ const editorSlice = createSlice({
         prevEditorState: state,
         nextEditorState: null,
         elements: newElementsArray,
+      };
+    },
+    deleteElement: (
+      state: Editor,
+      action: PayloadAction<deleteElementPayload>,
+    ) => {
+      const updatedElementsArray = deleteElementAction(
+        action.payload.elementsArray,
+        action.payload.elementId,
+      );
+
+      return {
+        ...state,
+        prevEditorState: state,
+        nextEditorState: null,
+        elements: updatedElementsArray,
+        selectedElement: null,
       };
     },
   },
