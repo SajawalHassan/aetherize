@@ -10,7 +10,7 @@ import {
   dropElement,
   handleDeleteElement,
   handleSelectElement,
-} from "../helper";
+} from "@/lib/helper";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";

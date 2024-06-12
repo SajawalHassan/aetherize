@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { EditorElement, editorActions } from "@/slices/editor-slice";
 import clsx from "clsx";
-import { handleDeleteElement, handleSelectElement } from "../helper";
+import { handleDeleteElement, handleSelectElement } from "@/lib/helper";
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";

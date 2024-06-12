@@ -1,5 +1,5 @@
 import React from "react";
-import { handleDragStart } from "../helpers";
+import { handleDragStart } from "@/lib/helper";
 import { TypeIcon } from "lucide-react";
 
 type Props = {};

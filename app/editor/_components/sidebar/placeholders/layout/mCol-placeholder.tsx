@@ -1,5 +1,5 @@
 import React from "react";
-import { handleDragStart } from "../helpers";
+import { handleDragStart } from "@/lib/helper";
 
 type Props = {};
 

@@ -158,3 +158,41 @@ export const handleSelectElement = (
     dispatch(editorActions.selectElement(currentElement));
   }
 };
+
+export const handleDragStart = (
+  e: React.DragEvent,
+  type: EditorElementTypes,
+) => {
+  if (type === null) return;
+  e.dataTransfer.setData("componentType", type);
+};
+
+export const handleStyleChange = (
+  e: any,
+  selectedElement: EditorElement,
+  elements: EditorElement[],
+  dispatch: DispatchType,
+) => {
+  if (!selectedElement) return;
+
+  const property = e.target.id;
+  const propertyValue = e.target.value;
+
+  const propertyObject = {
+    [property]: propertyValue,
+  };
+
+  dispatch(
+    editorActions.updateElement({
+      elementId: selectedElement.id,
+      elementsArray: elements,
+      elementData: {
+        ...selectedElement,
+        containerStyles: {
+          ...selectedElement.containerStyles,
+          ...propertyObject,
+        },
+      },
+    }),
+  );
+};
