@@ -4,7 +4,6 @@ import React from "react";
 export const editorContainerId = "__body";
 
 export const defaultStyles: React.CSSProperties = {
-  color: "#fff",
   minHeight: "50px",
   minWidth: "50px",
   display: "block",
