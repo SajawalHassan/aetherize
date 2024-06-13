@@ -47,6 +47,7 @@ export interface ButtonProps
   asChild?: boolean;
   tooltipText?: string;
   tooltipClassName?: string;
+  tooltipContentClassName?: string;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -54,6 +55,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     {
       tooltipText,
       tooltipClassName,
+      tooltipContentClassName,
       className,
       variant,
       size,
@@ -73,9 +75,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           />
         </TooltipTrigger>
         <TooltipContent
-          className={clsx("border-white/10 bg-th-btn text-white", {
-            hidden: !tooltipText,
-          })}
+          className={clsx(
+            "border-white/10 bg-th-btn text-white",
+            {
+              hidden: !tooltipText,
+            },
+            tooltipContentClassName,
+          )}
         >
           <p>{tooltipText}</p>
         </TooltipContent>

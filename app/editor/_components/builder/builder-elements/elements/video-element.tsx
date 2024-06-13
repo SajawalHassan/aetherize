@@ -56,10 +56,10 @@ export const VideoElement = (props: Props) => {
         />
       )}
 
-      <TooltipProvider>
+      <TooltipProvider delayDuration={0}>
         <Button
           className={clsx(
-            "absolute -bottom-10 -right-0 hidden items-center justify-center rounded-[5px] bg-th-secondary p-[6px] hover:bg-th-secondary/80 active:bg-th-secondary/60",
+            "absolute -bottom-10 -right-0 z-50 hidden items-center justify-center rounded-[5px] bg-th-secondary p-[6px] hover:bg-th-secondary/80 active:bg-th-secondary/60",
             {
               flex:
                 selectedElement?.id === currentElement.id &&
@@ -69,6 +69,8 @@ export const VideoElement = (props: Props) => {
           onClick={(e) =>
             handleDeleteElement(e, currentElement.id, elements, dispatch)
           }
+          tooltipText="Delete"
+          tooltipContentClassName="bg-th-secondary"
         >
           <TrashIcon color="white" className="h-[24px] w-[24px]" />
         </Button>
