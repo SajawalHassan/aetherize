@@ -19,7 +19,7 @@ type Props = {
   element: EditorElement;
 };
 
-export const MColElement = (props: Props) => {
+export const FlexBoxElement = (props: Props) => {
   const [dragOverClassName, setDragOverClassName] = useState("");
 
   const dispatch = useAppDispatch();

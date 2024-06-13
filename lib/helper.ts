@@ -43,14 +43,14 @@ export const dropElement = (
         }),
       );
       break;
-    case "mCol":
+    case "flexBox":
       dispatch(
         editorActions.addElement({
           containerId: currentElement.id,
           elementsArray: elements,
           newElement: {
             id: v4(),
-            name: "Multiple columns",
+            name: "Flex box",
             containerStyles: defaultStyles,
             elementStyles: {},
             type: componentType,

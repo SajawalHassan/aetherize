@@ -33,8 +33,8 @@ export const ComponentsTab = (props: Props) => {
     {
       Component: <MColPlaceholder />,
       group: "layout",
-      label: "Multiple columns",
-      id: "mCol",
+      label: "Flex box",
+      id: "flexBox",
     },
     {
       Component: <TextPlaceholder />,

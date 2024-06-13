@@ -1,7 +1,7 @@
 import { EditorElement } from "@/slices/editor-slice";
 import { ContainerElement } from "./layout/container-element";
 import { editorContainerId } from "@/lib/constants";
-import { MColElement } from "./layout/mCol-element";
+import { FlexBoxElement } from "./layout/flexbox-element";
 import { TextElement } from "./elements/text-element";
 import { LinkElement } from "./elements/link-element";
 import { ImageElement } from "./elements/image-element";
@@ -17,8 +17,8 @@ export const Recursive = (props: Props) => {
       return <ContainerElement element={props.element} />;
     case "container":
       return <ContainerElement element={props.element} />;
-    case "mCol":
-      return <MColElement element={props.element} />;
+    case "flexBox":
+      return <FlexBoxElement element={props.element} />;
     case "text":
       return <TextElement element={props.element} />;
     case "link":

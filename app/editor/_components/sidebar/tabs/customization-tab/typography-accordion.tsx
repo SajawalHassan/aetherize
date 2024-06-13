@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  alignTextItems,
   fontTypes,
   fontWeightTypes,
   fontWeights,
@@ -28,6 +29,7 @@ import { useState } from "react";
 import { handleStyleChange } from "@/lib/helper";
 import { InputDropdown } from "@/components/ui/input-dropdown";
 import { ColorPicker } from "@/components/ui/color-picker";
+import { ButtonsSelect } from "../ui/buttons-select";
 
 type Props = {};
 
@@ -42,55 +44,12 @@ export const TypographyAccordion = (props: Props) => {
       <TooltipProvider delayDuration={150}>
         <AccordionCustomTrigger text="Typography" />
         <AccordionContent className="mt-4 space-y-[18px]">
-          <div className="space-y-2">
-            <p className="text-muted-foreground">Text alignment</p>
-            <Tabs
-              onValueChange={(e) =>
-                handleStyleChange(
-                  {
-                    target: {
-                      id: "textAlign",
-                      value: e,
-                    },
-                  },
-                  selectedElement!,
-                  elements,
-                  dispatch,
-                )
-              }
-            >
-              <TabsList className="flex h-fit flex-row items-center justify-between rounded-md border-[1px] border-white/20 bg-transparent">
-                <TabsTrigger
-                  value="left"
-                  className="h-10 w-10 flex-grow p-0 hover:bg-th-btn"
-                  tooltipText="Align left"
-                >
-                  <AlignLeftIcon size={18} />
-                </TabsTrigger>
-                <TabsTrigger
-                  value="right"
-                  className="h-10 w-10 flex-grow p-0 hover:bg-th-btn"
-                  tooltipText="Align right"
-                >
-                  <AlignRightIcon size={18} />
-                </TabsTrigger>
-                <TabsTrigger
-                  value="center"
-                  className="h-10 w-10 flex-grow p-0 hover:bg-th-btn"
-                  tooltipText="Align center"
-                >
-                  <AlignCenterIcon size={18} />
-                </TabsTrigger>
-                <TabsTrigger
-                  value="justify"
-                  className="h-10 w-10 flex-grow p-0 hover:bg-th-btn"
-                  tooltipText="Align justify"
-                >
-                  <AlignJustifyIcon size={18} />
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div>
+          {/* Align text */}
+          <ButtonsSelect
+            items={alignTextItems}
+            label="Text alignment"
+            property="textAlign"
+          />
           <div className="flex flex-col">
             <Label className="pl-2">Font</Label>
             <Select
