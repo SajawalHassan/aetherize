@@ -5,15 +5,17 @@ import {
 } from "@/components/ui/accordion";
 import { TabsContent } from "@/components/ui/tabs";
 import { EditorElementTypes, tabBtns } from "@/lib/constants";
-import React, { useState } from "react";
-import { ContainerPlaceholder } from "../placeholders/layout/container-placeholder";
+import { ContainerPlaceholder } from "../placeholders/container-placeholder";
 import { AccordionCustomTrigger } from "./customization-tab";
-import { MColPlaceholder } from "../placeholders/layout/mCol-placeholder";
-import { TextPlaceholder } from "../placeholders/elements/text-placeholder";
-import { LinkPlaceholder } from "../placeholders/elements/link-placeholder";
-import { VideoPlaceholder } from "../placeholders/elements/video-placeholder";
-import { ContactFormPlaceholder } from "../placeholders/elements/contactform-placeholder";
-import { ImagePlaceholder } from "../placeholders/elements/image-placeholder";
+import { MColPlaceholder } from "../placeholders/mCol-placeholder";
+import { ElementPlaceholder } from "../placeholders/element-placeholder";
+import {
+  ContactIcon,
+  ImageIcon,
+  LinkIcon,
+  TypeIcon,
+  YoutubeIcon,
+} from "lucide-react";
 
 type Props = {};
 
@@ -37,31 +39,37 @@ export const ComponentsTab = (props: Props) => {
       id: "flexBox",
     },
     {
-      Component: <TextPlaceholder />,
+      Component: <ElementPlaceholder Icon={TypeIcon} componentType={"text"} />,
       group: "element",
       label: "Text",
       id: "text",
     },
     {
-      Component: <LinkPlaceholder />,
+      Component: <ElementPlaceholder Icon={LinkIcon} componentType={"link"} />,
       group: "element",
       label: "Link",
       id: "link",
     },
     {
-      Component: <VideoPlaceholder />,
+      Component: (
+        <ElementPlaceholder Icon={YoutubeIcon} componentType={"video"} />
+      ),
       group: "element",
       label: "Video",
       id: "video",
     },
     {
-      Component: <ImagePlaceholder />,
+      Component: (
+        <ElementPlaceholder Icon={ImageIcon} componentType={"image"} />
+      ),
       group: "element",
       label: "Image",
       id: "image",
     },
     {
-      Component: <ContactFormPlaceholder />,
+      Component: (
+        <ElementPlaceholder Icon={ContactIcon} componentType={"contactForm"} />
+      ),
       group: "element",
       label: "Contact Form",
       id: "contactForm",
