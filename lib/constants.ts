@@ -6,7 +6,6 @@ export const editorContainerId = "__body";
 export const defaultStyles: React.CSSProperties = {
   minHeight: "50px",
   minWidth: "50px",
-  display: "block",
   fontSize: "16px",
   fontFamily: "Roboto",
   marginTop: "0px",

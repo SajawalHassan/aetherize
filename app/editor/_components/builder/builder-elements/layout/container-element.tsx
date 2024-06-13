@@ -59,7 +59,7 @@ export const ContainerElement = (props: Props) => {
         "relative w-full p-4 transition-all duration-100",
         {
           "h-full overflow-scroll": currentElement.type === editorContainerId,
-          "border-2 border-solid":
+          "border border-solid":
             selectedElement?.id === currentElement.id &&
             viewingMode !== "preview",
           "border-th-secondary":
@@ -68,7 +68,7 @@ export const ContainerElement = (props: Props) => {
           "border-th-accent":
             selectedElement?.id === currentElement.id &&
             selectedElement?.type === editorContainerId,
-          "border-spacing-4 border-2 border-dashed border-th-btn":
+          "border-spacing-4 border border-dashed border-th-btn":
             selectedElement?.id !== currentElement.id &&
             viewingMode !== "preview",
         },

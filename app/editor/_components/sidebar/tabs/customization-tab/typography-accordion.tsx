@@ -178,7 +178,12 @@ export const TypographyAccordion = (props: Props) => {
             id="fontSize"
             placeholder="fontSize"
             onChange={(e) =>
-              handleStyleChange(e, selectedElement!, elements, dispatch)
+              handleStyleChange(
+                { target: { id: "fontSize", value: e } },
+                selectedElement!,
+                elements,
+                dispatch,
+              )
             }
             value={(selectedElement?.containerStyles.fontSize as string) || ""}
             defaultValue="px"

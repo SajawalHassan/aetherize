@@ -43,11 +43,11 @@ export const LinkElement = (props: Props) => {
         handleSelectElement(e, selectedElement, currentElement, dispatch)
       }
       className={clsx("relative", {
-        "border-2 border-solid":
+        "border border-solid":
           selectedElement?.id === currentElement.id &&
           viewingMode !== "preview",
         "border-th-secondary": selectedElement?.id === currentElement.id,
-        "border-spacing-4 border-2 border-dashed border-th-btn":
+        "border-spacing-4 border border-dashed border-th-btn":
           selectedElement?.id !== currentElement.id &&
           viewingMode !== "preview",
       })}
