@@ -120,6 +120,25 @@ const editorSlice = createSlice({
         action.payload.newElement,
       );
 
+      if (
+        action.payload.containerId === state.selectedElement?.id &&
+        Array.isArray(state.selectedElement.content)
+      ) {
+        return {
+          ...state,
+          prevEditorState: state,
+          nextEditorState: null,
+          elements: newElementsArray,
+          selectedElement: {
+            ...state.selectedElement,
+            content: [
+              ...state.selectedElement.content,
+              action.payload.newElement,
+            ],
+          },
+        };
+      }
+
       return {
         ...state,
         prevEditorState: state,
