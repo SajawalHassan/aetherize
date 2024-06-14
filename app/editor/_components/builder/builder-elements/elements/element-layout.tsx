@@ -36,7 +36,7 @@ export const ElementLayout = (props: Props) => {
             selectedElement?.id === currentElement.id &&
             viewingMode !== "preview",
           "border-th-secondary": selectedElement?.id === currentElement.id,
-          "border-spacing-4 border border-dashed border-th-btn":
+          "border-spacing-4 border border-dashed border-th-accent/20":
             selectedElement?.id !== currentElement.id &&
             viewingMode !== "preview",
         },

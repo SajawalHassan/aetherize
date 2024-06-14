@@ -69,9 +69,10 @@ export const Layout = (props: Props) => {
           "border-th-accent":
             selectedElement?.id === currentElement.id &&
             selectedElement?.type === editorContainerId,
-          "border-spacing-4 border border-dashed border-white":
+          "border-spacing-4 border border-th-accent/20":
             selectedElement?.id !== currentElement.id &&
             viewingMode !== "preview",
+          "h-10": (currentElement.content as Array<EditorElement>).length === 0,
         },
         dragOverClassName,
         className,

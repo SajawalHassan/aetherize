@@ -142,7 +142,6 @@ export const dropElement = (
               textAlign: "center",
               backgroundColor: "gray",
               width: "max-content",
-              cursor: "pointer",
             },
             elementStyles: {},
             type: "flexBox",

@@ -22,7 +22,7 @@ export const ColorPicker = (props: Props) => {
       <div className="flex items-center justify-between border-b border-transparent border-b-white/10 bg-transparent pl-[10px] hover:border-b-white/20">
         <Input
           className="border-none bg-transparent p-0 text-[16px] font-medium text-white focus:border-transparent focus-visible:ring-0"
-          value={(selectedElement?.containerStyles as any)[props.id] || "#fff"}
+          value={(selectedElement?.containerStyles as any)[props.id] || "---"}
           onChange={(e) => {
             handleStyleChange(
               {
@@ -43,7 +43,7 @@ export const ColorPicker = (props: Props) => {
           className="h-[40px] w-[50px] cursor-pointer"
           style={{
             backgroundColor:
-              (selectedElement?.containerStyles as any)[props.id] || "white",
+              (selectedElement?.containerStyles as any)[props.id] || "black",
           }}
           onClick={() => props.setShowColorPicker(true)}
         />

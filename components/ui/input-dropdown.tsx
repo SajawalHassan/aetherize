@@ -6,78 +6,75 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./select";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { handleStyleChange } from "@/lib/helper";
+import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 
 type Props = {
   value: string;
-  id: string;
   placeholder: string;
-  onChange: (e: string) => void;
   dropdownList: string[];
-  defaultValue: string;
   className?: string;
+  id: string;
 };
 
 export const InputDropdown = (props: Props) => {
-  const [selectedItem, setSelectedItem] = useState(props.defaultValue);
-  const [inputValue, setInputValue] = useState(
-    props.value.split(selectedItem)[0],
+  const [value, setValue] = useState(props.value.split(/(\d+)/)[1] || "");
+  const [selectedItem, setSelectedItem] = useState(
+    props.value.split(/(\d+)/)[2] || "",
   );
 
+  const { selectedElement, elements } = useAppSelector((state) => state.editor);
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    if (props.value.split(selectedItem)[0] !== inputValue)
-      setInputValue(props.value.split(selectedItem)[0]);
+    handleStyleChange(
+      { target: { id: props.id, value: value + selectedItem } },
+      selectedElement!,
+      elements,
+      dispatch,
+    );
+  }, [selectedItem, value]);
+
+  useEffect(() => {
+    setValue(props.value.split(/(\d+)/)[1] || "");
+    setSelectedItem(
+      props.value.split(/(\d+)/)[2] || selectedItem ? selectedItem : "",
+    );
   }, [props.value]);
 
   return (
-    <div>
-      <div
-        className={cn(
-          "flex items-center border border-white/10 bg-background px-3",
-          props.className,
-        )}
+    <div
+      className={cn(
+        "flex items-center border border-white/10 bg-background pl-3",
+        props.className,
+      )}
+    >
+      <Input
+        value={value}
+        onChange={(e) => setValue(e.target.value.split(/(\d+)/)[1] || "")}
+        placeholder={props.placeholder}
+        className="border-none bg-transparent p-0"
+      />
+      <Select
+        onValueChange={(e) => setSelectedItem(e || "")}
+        value={selectedItem}
       >
-        <Input
-          id={props.id}
-          placeholder={props.placeholder}
-          onChange={(e) => {
-            props.onChange(e.target.value + selectedItem);
-            setInputValue(e.target.value);
-          }}
-          value={inputValue}
-          className={cn("flex-grow border-none bg-transparent p-0")}
-        />
-        <Select
-          onValueChange={(e) => {
-            setSelectedItem(e);
-            if (["max-content", "min-content", "fit-content"].includes(e)) {
-              props.onChange(e);
-            } else {
-              props.onChange(inputValue + e);
-            }
-          }}
+        <SelectTrigger
+          className="h-full w-max rounded-none border-none px-4 hover:bg-th-btn"
+          showTrigger={false}
         >
-          <SelectTrigger
-            showTrigger={false}
-            className="w-max border-none p-0 outline-none ring-0"
-            defaultValue={props.defaultValue}
-          >
-            <SelectValue placeholder={props.defaultValue} />
-          </SelectTrigger>
-          <SelectContent className="overflow-y-auto border-none bg-th-btn text-white">
-            {props.dropdownList.map((item) => (
-              <SelectItem
-                key={item}
-                value={item}
-                className="focus:bg-white/10 focus:text-white"
-              >
-                {item}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+          <SelectValue placeholder="-" />
+        </SelectTrigger>
+        <SelectContent>
+          {props.dropdownList.map((item) => (
+            <SelectItem value={item} key={item}>
+              {item}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 };

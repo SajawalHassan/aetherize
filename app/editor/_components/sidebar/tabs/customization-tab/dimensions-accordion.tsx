@@ -1,254 +1,246 @@
 import { AccordionItem, AccordionContent } from "@/components/ui/accordion";
 import { AccordionCustomTrigger } from ".";
 import { textUnits } from "@/lib/constants";
-import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
-import { handleStyleChange } from "@/lib/helper";
+import { useAppSelector } from "@/hooks/store-hook";
 import { InputDropdown } from "@/components/ui/input-dropdown";
+import { Button } from "@/components/ui/button";
+import { ExpandIcon } from "lucide-react";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 type Props = {};
 
 export const DimensionsAccordion = (props: Props) => {
-  const { selectedElement, elements } = useAppSelector((state) => state.editor);
-  const dispatch = useAppDispatch();
+  const { selectedElement } = useAppSelector((state) => state.editor);
   return (
     <AccordionItem value="dimensions" className="border-white/10">
       <AccordionCustomTrigger text="Dimensions" />
-      <AccordionContent className="flex flex-col gap-y-4 pt-4">
-        <div className="flex flex-col gap-4">
-          <div className="flex gap-4">
-            <InputDropdown
-              id="height"
-              placeholder="height"
-              onChange={(e) =>
-                handleStyleChange(
-                  { target: { id: "height", value: e } },
-                  selectedElement!,
-                  elements,
-                  dispatch,
-                )
-              }
-              value={(selectedElement!.containerStyles.height as string) || ""}
-              defaultValue="px"
-              dropdownList={textUnits}
-            />
+      <TooltipProvider>
+        <AccordionContent className="space-y-4 pt-4">
+          {/* Width and Height */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between border-b border-white/10 pb-1">
+              <p className="text-muted">Width / Height</p>
 
-            <InputDropdown
-              id="width"
-              placeholder="width"
-              onChange={(e) =>
-                handleStyleChange(
-                  { target: { id: "width", value: e } },
-                  selectedElement!,
-                  elements,
-                  dispatch,
-                )
-              }
-              value={(selectedElement!.containerStyles.width as string) || ""}
-              defaultValue="px"
-              dropdownList={textUnits}
-            />
-          </div>
-          <div className="flex gap-4">
-            <InputDropdown
-              id="minHeight"
-              placeholder="min height"
-              onChange={(e) =>
-                handleStyleChange(
-                  { target: { id: "minHeight", value: e } },
-                  selectedElement!,
-                  elements,
-                  dispatch,
-                )
-              }
-              value={
-                (selectedElement!.containerStyles.minHeight as string) || ""
-              }
-              defaultValue="px"
-              dropdownList={textUnits}
-            />
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button className="h-max bg-transparent p-1.5">
+                    <ExpandIcon size={14} />
+                  </Button>
+                </DropdownMenuTrigger>
 
-            <InputDropdown
-              id="minWidth"
-              placeholder="min width"
-              onChange={(e) =>
-                handleStyleChange(
-                  { target: { id: "minWidth", value: e } },
-                  selectedElement!,
-                  elements,
-                  dispatch,
-                )
-              }
-              value={
-                (selectedElement!.containerStyles.minWidth as string) || ""
-              }
-              defaultValue="px"
-              dropdownList={textUnits}
-            />
-          </div>
-        </div>
-        <div className="flex flex-col gap-4">
-          <p className="mb-2 border-b border-white/10 pb-1 text-muted">
-            Margin
-          </p>
-          <div className="-mt-2 flex gap-x-4">
-            <InputDropdown
-              id="marginTop"
-              placeholder="Top"
-              onChange={(e) =>
-                handleStyleChange(
-                  { target: { id: "marginTop", value: e } },
-                  selectedElement!,
-                  elements,
-                  dispatch,
-                )
-              }
-              value={
-                (selectedElement!.containerStyles.marginTop as string) || ""
-              }
-              defaultValue="px"
-              dropdownList={textUnits}
-            />
+                <DropdownMenuContent className="rounded-bg-btn flex gap-4 rounded-md border-th-btn bg-[#1A1A1A] p-4 text-white">
+                  <div>
+                    <p className="mb-2 text-muted">Min Width / Min Height</p>
+                    <div className="space-y-2">
+                      <InputDropdown
+                        id="maxWidth"
+                        placeholder="Max width"
+                        value={
+                          (selectedElement!.containerStyles.width as string) ||
+                          ""
+                        }
+                        dropdownList={textUnits}
+                      />
 
-            <InputDropdown
-              id="marginBottom"
-              placeholder="Bottom"
-              onChange={(e) =>
-                handleStyleChange(
-                  { target: { id: "marginBottom", value: e } },
-                  selectedElement!,
-                  elements,
-                  dispatch,
-                )
-              }
-              value={
-                (selectedElement!.containerStyles.marginBottom as string) || ""
-              }
-              defaultValue="px"
-              dropdownList={textUnits}
-            />
-          </div>
-          <div className="flex gap-x-4">
-            <InputDropdown
-              id="marginLeft"
-              placeholder="Left"
-              onChange={(e) =>
-                handleStyleChange(
-                  { target: { id: "marginLeft", value: e } },
-                  selectedElement!,
-                  elements,
-                  dispatch,
-                )
-              }
-              value={
-                (selectedElement!.containerStyles.marginLeft as string) || ""
-              }
-              defaultValue="px"
-              dropdownList={textUnits}
-            />
+                      <InputDropdown
+                        id="minWidth"
+                        placeholder="min width"
+                        value={
+                          (selectedElement!.containerStyles
+                            .minWidth as string) || ""
+                        }
+                        dropdownList={textUnits}
+                      />
+                    </div>
+                  </div>
 
-            <InputDropdown
-              id="marginRight"
-              placeholder="Right"
-              onChange={(e) =>
-                handleStyleChange(
-                  { target: { id: "marginRight", value: e } },
-                  selectedElement!,
-                  elements,
-                  dispatch,
-                )
-              }
-              value={
-                (selectedElement!.containerStyles.marginRight as string) || ""
-              }
-              defaultValue="px"
-              dropdownList={textUnits}
-            />
-          </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <p className="mb-2 border-b border-white/10 pb-1 text-muted">
-            Padding
-          </p>
-          <div className="flex flex-col gap-4">
-            <div className="flex gap-4">
-              <InputDropdown
-                id="paddingTop"
-                placeholder="Top"
-                onChange={(e) =>
-                  handleStyleChange(
-                    { target: { id: "paddingTop", value: e } },
-                    selectedElement!,
-                    elements,
-                    dispatch,
-                  )
-                }
-                value={
-                  (selectedElement!.containerStyles.paddingTop as string) || ""
-                }
-                defaultValue="px"
-                dropdownList={textUnits}
-              />
+                  <div>
+                    <p className="mb-2 text-muted">Max Width / Max Height</p>
+                    <div className="space-y-2">
+                      <InputDropdown
+                        id="maxHeight"
+                        placeholder="max height"
+                        value={
+                          (selectedElement!.containerStyles
+                            .maxHeight as string) || ""
+                        }
+                        dropdownList={textUnits}
+                      />
 
-              <InputDropdown
-                id="paddingBottom"
-                placeholder="Bottom"
-                onChange={(e) =>
-                  handleStyleChange(
-                    { target: { id: "paddingBottom", value: e } },
-                    selectedElement!,
-                    elements,
-                    dispatch,
-                  )
-                }
-                value={
-                  (selectedElement!.containerStyles.paddingBottom as string) ||
-                  ""
-                }
-                defaultValue="px"
-                dropdownList={textUnits}
-              />
+                      <InputDropdown
+                        id="maxWidth"
+                        placeholder="max width"
+                        value={
+                          (selectedElement!.containerStyles
+                            .maxWidth as string) || ""
+                        }
+                        dropdownList={textUnits}
+                      />
+                    </div>
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
             <div className="flex gap-4">
               <InputDropdown
-                id="paddingLeft"
-                placeholder="Left"
-                onChange={(e) =>
-                  handleStyleChange(
-                    { target: { id: "paddingLeft", value: e } },
-                    selectedElement!,
-                    elements,
-                    dispatch,
-                  )
-                }
-                value={
-                  (selectedElement!.containerStyles.paddingLeft as string) || ""
-                }
-                defaultValue="px"
+                id="width"
+                placeholder="width"
+                value={(selectedElement!.containerStyles.width as string) || ""}
                 dropdownList={textUnits}
               />
 
               <InputDropdown
-                id="paddingRight"
-                placeholder="Right"
-                onChange={(e) =>
-                  handleStyleChange(
-                    { target: { id: "paddingRight", value: e } },
-                    selectedElement!,
-                    elements,
-                    dispatch,
-                  )
-                }
+                id="height"
+                placeholder="height"
                 value={
-                  (selectedElement!.containerStyles.paddingRight as string) ||
-                  ""
+                  (selectedElement!.containerStyles.height as string) || ""
                 }
-                defaultValue="px"
                 dropdownList={textUnits}
               />
             </div>
           </div>
-        </div>
-      </AccordionContent>
+
+          {/* Padding */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between border-b border-white/10 pb-1">
+              <p className="text-muted">Padding</p>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button className="h-max bg-transparent p-1.5">
+                    <ExpandIcon size={14} />
+                  </Button>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent className="rounded-bg-btn flex gap-4 rounded-md border-th-btn bg-[#1A1A1A] p-4 text-white">
+                  <div className="space-y-2">
+                    <InputDropdown
+                      id="paddingTop"
+                      placeholder="Top"
+                      value={
+                        (selectedElement!.containerStyles
+                          .paddingTop as string) || ""
+                      }
+                      dropdownList={textUnits}
+                    />
+
+                    <InputDropdown
+                      id="paddingBottom"
+                      placeholder="Bottom"
+                      value={
+                        (selectedElement!.containerStyles
+                          .paddingBottom as string) || ""
+                      }
+                      dropdownList={textUnits}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <InputDropdown
+                      id="paddingRight"
+                      placeholder="Right"
+                      value={
+                        (selectedElement!.containerStyles
+                          .paddingRight as string) || ""
+                      }
+                      dropdownList={textUnits}
+                    />
+
+                    <InputDropdown
+                      id="paddingLeft"
+                      placeholder="Left"
+                      value={
+                        (selectedElement!.containerStyles
+                          .paddingLeft as string) || ""
+                      }
+                      dropdownList={textUnits}
+                    />
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            <InputDropdown
+              id="padding"
+              placeholder="padding"
+              value={(selectedElement!.containerStyles.padding as string) || ""}
+              dropdownList={textUnits}
+            />
+          </div>
+
+          {/* Margin */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between border-b border-white/10 pb-1">
+              <p className="text-muted">Margin</p>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button className="h-max bg-transparent p-1.5">
+                    <ExpandIcon size={14} />
+                  </Button>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent className="rounded-bg-btn flex gap-4 rounded-md border-th-btn bg-[#1A1A1A] p-4 text-white">
+                  <div className="space-y-2">
+                    <InputDropdown
+                      id="marginTop"
+                      placeholder="Top"
+                      value={
+                        (selectedElement!.containerStyles
+                          .marginTop as string) || ""
+                      }
+                      dropdownList={textUnits}
+                    />
+
+                    <InputDropdown
+                      id="marginBottom"
+                      placeholder="Bottom"
+                      value={
+                        (selectedElement!.containerStyles
+                          .marginBottom as string) || ""
+                      }
+                      dropdownList={textUnits}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <InputDropdown
+                      id="marginRight"
+                      placeholder="Right"
+                      value={
+                        (selectedElement!.containerStyles
+                          .marginRight as string) || ""
+                      }
+                      dropdownList={textUnits}
+                    />
+
+                    <InputDropdown
+                      id="marginLeft"
+                      placeholder="Left"
+                      value={
+                        (selectedElement!.containerStyles
+                          .marginLeft as string) || ""
+                      }
+                      dropdownList={textUnits}
+                    />
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            <InputDropdown
+              id="margin"
+              placeholder="margin"
+              value={(selectedElement!.containerStyles.margin as string) || ""}
+              dropdownList={textUnits}
+            />
+          </div>
+        </AccordionContent>
+      </TooltipProvider>
     </AccordionItem>
   );
 };

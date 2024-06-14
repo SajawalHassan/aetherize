@@ -53,7 +53,6 @@ export const TypographyAccordion = (props: Props) => {
           <div className="flex flex-col">
             <Label className="pl-2">Font</Label>
             <Select
-              defaultValue={"Roboto" as fontTypes}
               onValueChange={(e) =>
                 handleStyleChange(
                   {
@@ -97,8 +96,7 @@ export const TypographyAccordion = (props: Props) => {
             <Label className="pl-2">Font weight</Label>
             <Select
               value={
-                (selectedElement?.containerStyles.fontWeight ||
-                  "500") as fontWeightTypes
+                selectedElement?.containerStyles.fontWeight as fontWeightTypes
               }
               onValueChange={(e) =>
                 handleStyleChange(
