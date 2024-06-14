@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import React from "react";
 import { handleStyleChange } from "@/lib/helper";
-import { HexColorPicker } from "react-colorful";
+import { ChromePicker } from "react-color";
 
 type Props = {
   label: string;
@@ -56,14 +56,14 @@ export const ColorPicker = (props: Props) => {
             onClick={() => props.setShowColorPicker(false)}
           />
           <div className="absolute bottom-[6rem] right-10 bg-th-btn p-2">
-            <HexColorPicker
+            <ChromePicker
               color={(selectedElement?.containerStyles as any)[props.id]}
               onChange={(e) => {
                 handleStyleChange(
                   {
                     target: {
                       id: props.id,
-                      value: e,
+                      value: e.hex,
                     },
                   },
                   selectedElement!,
