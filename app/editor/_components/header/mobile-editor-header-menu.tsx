@@ -8,7 +8,7 @@ import { editorActions } from "@/slices/editor-slice";
 
 type Props = {};
 
-export const MobileNavOptions = (props: Props) => {
+export const MobileEditorHeaderMenu = (props: Props) => {
   const editor = useAppSelector((state) => state.editor);
   const dispatch = useAppDispatch();
 

@@ -127,6 +127,39 @@ export const dropElement = (
         }),
       );
       break;
+    case "button":
+      dispatch(
+        editorActions.addElement({
+          containerId: currentElement.id,
+          elementsArray: elements,
+          newElement: {
+            id: v4(),
+            name: "Button",
+            containerStyles: {
+              ...defaultStyles,
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              backgroundColor: "gray",
+              width: "max-content",
+              cursor: "pointer",
+            },
+            elementStyles: {},
+            type: "flexBox",
+            content: [
+              {
+                id: v4(),
+                name: "Text field",
+                containerStyles: defaultStyles,
+                elementStyles: {},
+                type: "text",
+                content: { text: "Text field" },
+              },
+            ],
+          },
+        }),
+      );
+      break;
   }
 };
 
@@ -162,9 +195,14 @@ export const handleSelectElement = (
 export const handleDragStart = (
   e: React.DragEvent,
   type: EditorElementTypes,
+  deleteOriginal?: boolean,
+  originalElement?: EditorElement,
 ) => {
   if (type === null) return;
+
   e.dataTransfer.setData("componentType", type);
+  e.dataTransfer.setData("deleteOriginal", deleteOriginal ? "true" : "false");
+  e.dataTransfer.setData("originalElement", JSON.stringify(originalElement));
 };
 
 export const handleStyleChange = (

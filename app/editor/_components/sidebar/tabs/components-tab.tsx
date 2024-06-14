@@ -7,12 +7,13 @@ import { TabsContent } from "@/components/ui/tabs";
 import { EditorElementTypes, tabBtns } from "@/lib/constants";
 import { ContainerPlaceholder } from "../placeholders/container-placeholder";
 import { AccordionCustomTrigger } from "./customization-tab";
-import { MColPlaceholder } from "../placeholders/mCol-placeholder";
+import { FlexBoxPlaceholder } from "../placeholders/flexbox-placeholder";
 import { ElementPlaceholder } from "../placeholders/element-placeholder";
 import {
   ContactIcon,
   ImageIcon,
   LinkIcon,
+  MousePointerClickIcon,
   TypeIcon,
   YoutubeIcon,
 } from "lucide-react";
@@ -33,7 +34,7 @@ export const ComponentsTab = (props: Props) => {
       id: "container",
     },
     {
-      Component: <MColPlaceholder />,
+      Component: <FlexBoxPlaceholder />,
       group: "layout",
       label: "Flex box",
       id: "flexBox",
@@ -65,6 +66,17 @@ export const ComponentsTab = (props: Props) => {
       group: "element",
       label: "Image",
       id: "image",
+    },
+    {
+      Component: (
+        <ElementPlaceholder
+          Icon={MousePointerClickIcon}
+          componentType={"button"}
+        />
+      ),
+      group: "element",
+      label: "Button",
+      id: "button",
     },
     {
       Component: (

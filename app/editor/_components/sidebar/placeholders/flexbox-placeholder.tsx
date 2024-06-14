@@ -3,7 +3,7 @@ import { handleDragStart } from "@/lib/helper";
 
 type Props = {};
 
-export const MColPlaceholder = (props: Props) => {
+export const FlexBoxPlaceholder = (props: Props) => {
   return (
     <div
       draggable

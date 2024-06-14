@@ -6,6 +6,7 @@ import { TextElement } from "./elements/text-element";
 import { LinkElement } from "./elements/link-element";
 import { ImageElement } from "./elements/image-element";
 import { VideoElement } from "./elements/video-element";
+import { BodyElement } from "./layout/body-element";
 
 type Props = {
   element: EditorElement;
@@ -14,7 +15,7 @@ type Props = {
 export const Recursive = (props: Props) => {
   switch (props.element.type) {
     case editorContainerId:
-      return <ContainerElement element={props.element} />;
+      return <BodyElement currentElement={props.element} />;
     case "container":
       return <ContainerElement element={props.element} />;
     case "flexBox":

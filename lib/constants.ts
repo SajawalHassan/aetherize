@@ -12,7 +12,6 @@ import {
   AlignRightIcon,
   AlignStartHorizontalIcon,
   AlignVerticalJustifyCenterIcon,
-  AlignVerticalSpaceBetweenIcon,
   Columns2Icon,
   ColumnsIcon,
   FlipHorizontal2Icon,
@@ -279,4 +278,5 @@ export type EditorElementTypes =
   | "flexBox"
   | "contactForm"
   | "image"
+  | "button"
   | null;

@@ -21,16 +21,15 @@ import React, { useEffect, useMemo, useState } from "react";
 import { ScreenSizeBtn } from "./screen-size-btn";
 import { Switch } from "@/components/ui/switch";
 import { Loader } from "@/components/loader";
-import { MobileNavOptions } from "./mobile-nav-options";
+import { MobileEditorHeaderMenu } from "./mobile-editor-header-menu";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { editorActions } from "@/slices/editor-slice";
 import { useRouter } from "next/navigation";
-import { viewingModes } from "@/lib/constants";
 import clsx from "clsx";
 
 type Props = {};
 
-export const EditorNav = (props: Props) => {
+export const EditorHeader = (props: Props) => {
   const [isMounted, setIsMounted] = useState(false);
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
@@ -93,7 +92,7 @@ export const EditorNav = (props: Props) => {
       </Button>
       <nav
         className={clsx(
-          "flex h-[66px] items-center justify-between border-b border-white px-[16px] transition-all duration-500",
+          "flex h-[66px] items-center justify-between border-b border-th-btn px-[16px] transition-all duration-500",
           {
             "!h-0 !overflow-hidden !border-none !p-0":
               editor.viewingMode === "preview",
@@ -137,7 +136,7 @@ export const EditorNav = (props: Props) => {
               value="laptop"
             />
           </div>
-          <MobileNavOptions />
+          <MobileEditorHeaderMenu />
         </aside>
 
         <aside className="hidden items-center gap-x-[10px] md:flex">

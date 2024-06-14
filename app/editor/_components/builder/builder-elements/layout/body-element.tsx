@@ -7,22 +7,22 @@ import { ReactNode, useState } from "react";
 import {
   dropElement,
   handleDeleteElement,
+  handleDragStart,
   handleSelectElement,
 } from "@/lib/helper";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
+import { Recursive } from "../recursive";
 
 type Props = {
   currentElement: EditorElement;
-  children: ReactNode;
-  className?: string;
 };
 
-export const Layout = (props: Props) => {
+export const BodyElement = (props: Props) => {
   const [dragOverClassName, setDragOverClassName] = useState("");
 
-  const { currentElement, children, className } = props;
+  const { currentElement } = props;
   const { selectedElement, elements, viewingMode } = useAppSelector(
     (state) => state.editor,
   );
@@ -57,9 +57,8 @@ export const Layout = (props: Props) => {
       }
       style={currentElement.containerStyles}
       className={clsx(
-        "relative w-full p-4 transition-all duration-100",
+        "relative h-full w-full overflow-scroll p-4 transition-all duration-100",
         {
-          "h-full overflow-scroll": currentElement.type === editorContainerId,
           "border border-solid":
             selectedElement?.id === currentElement.id &&
             viewingMode !== "preview",
@@ -69,12 +68,11 @@ export const Layout = (props: Props) => {
           "border-th-accent":
             selectedElement?.id === currentElement.id &&
             selectedElement?.type === editorContainerId,
-          "border-spacing-4 border border-dashed border-white":
+          "border-spacing-4 border border-dashed border-th-btn":
             selectedElement?.id !== currentElement.id &&
             viewingMode !== "preview",
         },
         dragOverClassName,
-        className,
       )}
     >
       <Badge
@@ -92,7 +90,10 @@ export const Layout = (props: Props) => {
         {currentElement.name}
       </Badge>
 
-      {children}
+      {Array.isArray(currentElement.content) &&
+        currentElement.content.map((childElement) => (
+          <Recursive key={childElement.id} element={childElement} />
+        ))}
 
       <TooltipProvider delayDuration={0}>
         <Button

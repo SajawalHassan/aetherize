@@ -49,12 +49,16 @@ export const deleteElementAction = (
   elementsArray: EditorElement[],
   elementId: string,
 ): EditorElement[] => {
-  return elementsArray
-    .filter((item) => item.id !== elementId)
+  const newElementsArray = elementsArray
+    .filter((item) => {
+      return item.id !== elementId;
+    })
     .map((item) => ({
       ...item,
       content: Array.isArray(item.content)
         ? deleteElementAction(item.content, elementId)
         : item.content,
     }));
+
+  return newElementsArray;
 };
