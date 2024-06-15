@@ -145,24 +145,24 @@ export const DimensionsAccordion = (props: Props) => {
                   </div>
 
                   <div className="space-y-2">
-                    <p className="mb-2 text-muted">Right / Left</p>
+                    <p className="mb-2 text-muted">Left / Right</p>
                     <div className="flex items-center gap-x-2">
-                      <InputDropdown
-                        id="paddingRight"
-                        placeholder="Right"
-                        value={
-                          (selectedElement!.containerStyles
-                            .paddingRight as string) || ""
-                        }
-                        dropdownList={textUnits}
-                      />
-
                       <InputDropdown
                         id="paddingLeft"
                         placeholder="Left"
                         value={
                           (selectedElement!.containerStyles
                             .paddingLeft as string) || ""
+                        }
+                        dropdownList={textUnits}
+                      />
+
+                      <InputDropdown
+                        id="paddingRight"
+                        placeholder="Right"
+                        value={
+                          (selectedElement!.containerStyles
+                            .paddingRight as string) || ""
                         }
                         dropdownList={textUnits}
                       />
