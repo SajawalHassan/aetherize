@@ -47,7 +47,11 @@ export const InputDropdown = (props: Props) => {
 
   useEffect(() => {
     setSelectedItem(
-      props.value.split(/(\d+)/)[2] || selectedItem ? selectedItem : "",
+      props.value.split(/(\d+)/)[2] || selectedItem
+        ? selectedItem
+        : specialTextUnits.includes(props.value)
+          ? props.value
+          : "",
     );
     setValue(props.value.split(/(\d+)/)[1] || "");
   }, [props.value]);
@@ -55,7 +59,7 @@ export const InputDropdown = (props: Props) => {
   return (
     <div
       className={cn(
-        "flex items-center border border-white/10 bg-background pl-3",
+        "flex items-center border border-white/10 bg-background pl-3 pt-0",
         props.className,
       )}
     >
@@ -70,7 +74,7 @@ export const InputDropdown = (props: Props) => {
         value={selectedItem}
       >
         <SelectTrigger
-          className="h-full w-max rounded-none border-none px-4 hover:bg-th-btn"
+          className="flex min-h-full w-[60px] items-center justify-center rounded-none border-none p-0 hover:bg-th-btn"
           showTrigger={false}
         >
           <SelectValue placeholder="-" />

@@ -68,6 +68,7 @@ export const specialTextUnits = [
   "min-content",
   "fit-content",
   "auto",
+  "-",
 ];
 
 export const textUnits = [
