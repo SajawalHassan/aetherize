@@ -71,12 +71,20 @@ export const CustomPropsAccordion = (props: Props) => {
         {selectedElement &&
           !Array.isArray(selectedElement.content) &&
           selectedElement.type === "link" && (
-            <Input
-              id="href"
-              placeholder="https://example.com"
-              value={selectedElement.content.href}
-              onChange={handleCustomChange}
-            />
+            <div className="space-y-2">
+              <Input
+                id="href"
+                placeholder="https://example.com"
+                value={selectedElement.content.href}
+                onChange={handleCustomChange}
+              />
+              <Input
+                id="text"
+                placeholder="your text"
+                value={selectedElement.content.text}
+                onChange={handleCustomChange}
+              />
+            </div>
           )}
         {selectedElement &&
           !Array.isArray(selectedElement.content) &&

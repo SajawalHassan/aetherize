@@ -78,7 +78,6 @@ const editorSlice = createSlice({
       return {
         ...state,
         viewingMode: action.payload,
-        prevEditorState: state,
         nextEditorState: null,
       };
     },
@@ -86,7 +85,6 @@ const editorSlice = createSlice({
       return {
         ...state,
         device: action.payload,
-        prevEditorState: state,
         nextEditorState: null,
       };
     },

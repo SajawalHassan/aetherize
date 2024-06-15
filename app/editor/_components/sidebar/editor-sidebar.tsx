@@ -27,7 +27,7 @@ export const EditorSidebar = (props: Props) => {
         className={clsx(
           "fixed right-[16px] z-50 h-[calc(100%-121px)] max-w-[300px] overflow-y-auto rounded-md border border-th-btn bg-th-bg transition-all duration-500",
           {
-            "-right-[2000rem]": editor.viewingMode === "preview",
+            "-right-[200rem]": editor.viewingMode === "preview",
           },
         )}
         defaultValue={"Components" as tabBtns}

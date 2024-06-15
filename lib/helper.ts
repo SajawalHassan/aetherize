@@ -90,7 +90,7 @@ export const dropElement = (
               textDecorationLine: "underline",
             },
             type: componentType,
-            content: { href: "https://aetherize.vercel.app" },
+            content: { href: "https://aetherize.vercel.app", text: "Link" },
           },
         }),
       );

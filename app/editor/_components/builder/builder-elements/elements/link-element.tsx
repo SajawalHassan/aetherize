@@ -22,7 +22,7 @@ export const LinkElement = (props: Props) => {
         elementData: {
           ...currentElement,
           content: {
-            href: aTag.innerText,
+            text: aTag.innerText,
           },
         },
       }),
@@ -39,7 +39,7 @@ export const LinkElement = (props: Props) => {
           onBlur={handleOnBlur}
           className="w-full"
         >
-          {currentElement.content.href}
+          {currentElement.content.text}
         </a>
       )}
     </ElementLayout>
