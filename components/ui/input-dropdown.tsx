@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { handleStyleChange } from "@/lib/helper";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
+import { specialTextUnits } from "@/lib/constants";
 
 type Props = {
   value: string;
@@ -30,7 +31,14 @@ export const InputDropdown = (props: Props) => {
 
   useEffect(() => {
     handleStyleChange(
-      { target: { id: props.id, value: value + selectedItem } },
+      {
+        target: {
+          id: props.id,
+          value: specialTextUnits.includes(selectedItem)
+            ? selectedItem
+            : value + selectedItem,
+        },
+      },
       selectedElement!,
       elements,
       dispatch,
@@ -38,10 +46,10 @@ export const InputDropdown = (props: Props) => {
   }, [selectedItem, value]);
 
   useEffect(() => {
-    setValue(props.value.split(/(\d+)/)[1] || "");
     setSelectedItem(
       props.value.split(/(\d+)/)[2] || selectedItem ? selectedItem : "",
     );
+    setValue(props.value.split(/(\d+)/)[1] || "");
   }, [props.value]);
 
   return (
@@ -67,7 +75,7 @@ export const InputDropdown = (props: Props) => {
         >
           <SelectValue placeholder="-" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="border-none bg-th-btn text-white">
           {props.dropdownList.map((item) => (
             <SelectItem value={item} key={item}>
               {item}

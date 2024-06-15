@@ -62,6 +62,14 @@ export const fontWeights = [
   "800",
   "900",
 ];
+
+export const specialTextUnits = [
+  "max-content",
+  "min-content",
+  "fit-content",
+  "auto",
+];
+
 export const textUnits = [
   "px",
   "rem",
@@ -74,10 +82,7 @@ export const textUnits = [
   "ch",
   "vw",
   "vh",
-  "max-content",
-  "min-content",
-  "fit-content",
-  "auto",
+  ...specialTextUnits,
 ];
 
 export const justifyContentItems: ButtonsSelectItems = [
