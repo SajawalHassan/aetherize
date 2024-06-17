@@ -17,8 +17,7 @@ import React from "react";
 export interface EditorElement {
   id: string;
   type: EditorElementTypes;
-  containerStyles: React.CSSProperties;
-  elementStyles: React.CSSProperties;
+  styles: React.CSSProperties;
   name: string;
   content:
     | EditorElement[]
@@ -33,6 +32,9 @@ export interface Editor {
   nextEditorState: Editor | null;
   device: deviceTypes;
   viewingMode: viewingModes;
+  variables: {
+    [key: string]: any;
+  };
 }
 
 const initialEditor: Editor = {
@@ -40,8 +42,7 @@ const initialEditor: Editor = {
     {
       id: editorContainerId,
       name: "body",
-      containerStyles: defaultBodyStyles,
-      elementStyles: {},
+      styles: defaultBodyStyles,
       type: editorContainerId,
       content: [],
     },
@@ -51,6 +52,9 @@ const initialEditor: Editor = {
   prevEditorState: null,
   device: "laptop",
   viewingMode: "development",
+  variables: {
+    showMenu: false,
+  },
 };
 
 interface addElementPayload {
@@ -68,6 +72,11 @@ interface updateElementPayload {
 interface deleteElementPayload {
   elementId: string;
   elementsArray: EditorElement[];
+}
+
+interface changeVariablePayload {
+  variableName: string;
+  newValue: any;
 }
 
 const editorSlice = createSlice({
@@ -107,6 +116,20 @@ const editorSlice = createSlice({
       return {
         ...state,
         selectedElement: action.payload,
+        prevEditorState: state,
+        nextEditorState: null,
+      };
+    },
+    changeVariablesList: (
+      state: Editor,
+      action: PayloadAction<changeVariablePayload>,
+    ) => {
+      return {
+        ...state,
+        variables: {
+          ...state.variables,
+          [action.payload.variableName]: action.payload.newValue,
+        },
         prevEditorState: state,
         nextEditorState: null,
       };

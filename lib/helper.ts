@@ -35,8 +35,7 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Container",
-            containerStyles: defaultStyles,
-            elementStyles: {},
+            styles: defaultStyles,
             type: componentType,
             content: [],
           },
@@ -51,8 +50,7 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Flex box",
-            containerStyles: defaultStyles,
-            elementStyles: {},
+            styles: defaultStyles,
             type: componentType,
             content: [],
           },
@@ -67,8 +65,7 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Text field",
-            containerStyles: defaultStyles,
-            elementStyles: {},
+            styles: defaultStyles,
             type: componentType,
             content: { text: "Text field" },
           },
@@ -83,8 +80,7 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Link Field",
-            elementStyles: {},
-            containerStyles: {
+            styles: {
               ...defaultStyles,
               color: "lightblue",
               textDecorationLine: "underline",
@@ -103,8 +99,7 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Image",
-            containerStyles: defaultStyles,
-            elementStyles: {},
+            styles: defaultStyles,
             type: componentType,
             content: { imageSrc: "" },
           },
@@ -119,8 +114,7 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Video",
-            containerStyles: defaultStyles,
-            elementStyles: {},
+            styles: defaultStyles,
             type: componentType,
             content: { videoSrc: "" },
           },
@@ -135,7 +129,7 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Button",
-            containerStyles: {
+            styles: {
               ...defaultStyles,
               justifyContent: "center",
               alignItems: "center",
@@ -143,14 +137,12 @@ export const dropElement = (
               backgroundColor: "gray",
               width: "max-content",
             },
-            elementStyles: {},
             type: "flexBox",
             content: [
               {
                 id: v4(),
                 name: "Text field",
-                containerStyles: defaultStyles,
-                elementStyles: {},
+                styles: defaultStyles,
                 type: "text",
                 content: { text: "Text field" },
               },
@@ -225,8 +217,8 @@ export const handleStyleChange = (
       elementsArray: elements,
       elementData: {
         ...selectedElement,
-        containerStyles: {
-          ...selectedElement.containerStyles,
+        styles: {
+          ...selectedElement.styles,
           ...propertyObject,
         },
       },

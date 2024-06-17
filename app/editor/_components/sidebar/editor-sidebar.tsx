@@ -1,8 +1,8 @@
 "use client";
 
-import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
+import { Tabs, TabsList } from "@/components/ui/tabs";
 import { EditorSidebarTabTrigger } from "./editor-sidebar-tab-trigger";
-import { BrushIcon, DatabaseIcon, PlusIcon } from "lucide-react";
+import { BrushIcon, PlusIcon } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
 import { CustomizationTab } from "./tabs/customization-tab";
@@ -27,7 +27,7 @@ export const EditorSidebar = (props: Props) => {
         className={clsx(
           "fixed right-[16px] z-50 h-[calc(100%-121px)] max-w-[300px] overflow-y-auto rounded-md border border-th-btn bg-th-bg transition-all duration-500",
           {
-            "-right-[200rem]": editor.viewingMode === "preview",
+            "!-right-[200rem]": editor.viewingMode === "preview",
           },
         )}
         defaultValue={"Components" as tabBtns}
@@ -37,16 +37,11 @@ export const EditorSidebar = (props: Props) => {
             <EditorSidebarTabTrigger Icon={PlusIcon} value="Components" />
             <Separator orientation="vertical" className="bg-white/20" />
             <EditorSidebarTabTrigger Icon={BrushIcon} value="Customization" />
-            <Separator orientation="vertical" className="bg-white/20" />
-            <EditorSidebarTabTrigger Icon={DatabaseIcon} value="Media" />
           </TooltipProvider>
         </TabsList>
         <div className="px-[15px]">
           <ComponentsTab />
           <CustomizationTab />
-          <TabsContent value="Media" className="w-full">
-            Media
-          </TabsContent>
         </div>
       </Tabs>
     </div>

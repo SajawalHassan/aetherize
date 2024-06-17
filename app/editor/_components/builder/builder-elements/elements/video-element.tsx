@@ -13,8 +13,8 @@ export const VideoElement = (props: Props) => {
       {!Array.isArray(currentElement.content) && (
         <div className="min-h-full min-w-full">
           <iframe
-            width={currentElement.containerStyles.width || "560"}
-            height={currentElement.containerStyles.height || "315"}
+            width={currentElement.styles.width || "560"}
+            height={currentElement.styles.height || "315"}
             src={currentElement.content.videoSrc}
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

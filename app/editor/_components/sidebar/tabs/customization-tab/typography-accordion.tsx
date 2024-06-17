@@ -22,6 +22,7 @@ import {
   fontWeightTypes,
   fontWeights,
   fonts,
+  specialTextUnits,
   textUnits,
 } from "@/lib/constants";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
@@ -95,9 +96,7 @@ export const TypographyAccordion = (props: Props) => {
           <div className="flex flex-col">
             <Label className="pl-2">Font weight</Label>
             <Select
-              value={
-                selectedElement?.containerStyles.fontWeight as fontWeightTypes
-              }
+              value={selectedElement?.styles.fontWeight as fontWeightTypes}
               onValueChange={(e) =>
                 handleStyleChange(
                   {
@@ -134,17 +133,9 @@ export const TypographyAccordion = (props: Props) => {
           <InputDropdown
             id="fontSize"
             placeholder="fontSize"
-            onChange={(e) =>
-              handleStyleChange(
-                { target: { id: "fontSize", value: e } },
-                selectedElement!,
-                elements,
-                dispatch,
-              )
-            }
-            value={(selectedElement?.containerStyles.fontSize as string) || ""}
-            defaultValue="px"
+            value={(selectedElement?.styles.fontSize as string) || ""}
             dropdownList={textUnits}
+            specialUnits={specialTextUnits}
             className="border-x-0 border-b border-t-0 border-b-white/10 bg-transparent"
           />
         </AccordionContent>

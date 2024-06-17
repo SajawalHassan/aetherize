@@ -116,46 +116,6 @@ export const CustomPropsAccordion = (props: Props) => {
               onChange={handleCustomChange}
             />
           )}
-        {selectedElement &&
-          Array.isArray(selectedElement.content) &&
-          selectedElement.type === "flexBox" && (
-            <div className="space-y-4">
-              {/* Justify content */}
-              <ButtonsSelect
-                items={justifyContentItems}
-                label="Justify content"
-                property="justifyContent"
-              />
-
-              {/* Align items */}
-              <ButtonsSelect
-                items={alignItems_Items}
-                label="Align items"
-                property="alignItems"
-              />
-
-              {/* Flex wrap */}
-              <ButtonsSelect
-                items={flexWrapItems}
-                label="Flex wrap"
-                property="flexWrap"
-              />
-
-              {/* Flex direction */}
-              <ButtonsSelect
-                items={flexDirectionItems}
-                label="Flex direction"
-                property="flexDirection"
-              />
-
-              {/* Align content */}
-              <ButtonsSelect
-                items={alignContentItems}
-                label="Align content"
-                property="alignContent"
-              />
-            </div>
-          )}
       </AccordionContent>
     </AccordionItem>
   );

@@ -55,7 +55,7 @@ export const Layout = (props: Props) => {
       onClick={(e) =>
         handleSelectElement(e, selectedElement, currentElement, dispatch)
       }
-      style={currentElement.containerStyles}
+      style={currentElement.styles}
       className={clsx(
         "relative w-full p-4 transition-all duration-100",
         {

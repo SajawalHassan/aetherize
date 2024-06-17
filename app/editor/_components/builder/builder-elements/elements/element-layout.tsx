@@ -25,7 +25,7 @@ export const ElementLayout = (props: Props) => {
 
   return (
     <div
-      style={currentElement.containerStyles}
+      style={currentElement.styles}
       onClick={(e) =>
         handleSelectElement(e, selectedElement, currentElement, dispatch)
       }

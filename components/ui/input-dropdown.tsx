@@ -10,13 +10,13 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { handleStyleChange } from "@/lib/helper";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
-import { specialTextUnits } from "@/lib/constants";
 
 type Props = {
   value: string;
   placeholder: string;
   dropdownList: string[];
   className?: string;
+  specialUnits: string[];
   id: string;
 };
 
@@ -34,7 +34,7 @@ export const InputDropdown = (props: Props) => {
       {
         target: {
           id: props.id,
-          value: specialTextUnits.includes(selectedItem)
+          value: props.specialUnits.includes(selectedItem)
             ? selectedItem
             : value + selectedItem,
         },
@@ -49,7 +49,7 @@ export const InputDropdown = (props: Props) => {
     setSelectedItem(
       props.value.split(/(\d+)/)[2] || selectedItem
         ? selectedItem
-        : specialTextUnits.includes(props.value)
+        : props.specialUnits.includes(props.value)
           ? props.value
           : "",
     );

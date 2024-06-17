@@ -48,7 +48,7 @@ export const ButtonsSelect = (props: Props) => {
                 value={item.value}
                 className="h-10 w-10 flex-grow p-0 hover:bg-th-btn data-[active=true]:bg-th-btn"
                 data-active={
-                  (selectedElement?.containerStyles as any)[props.property] ===
+                  (selectedElement?.styles as any)[props.property] ===
                   item.value
                 }
                 tooltipText={item.tooltipText}

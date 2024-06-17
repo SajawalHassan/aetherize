@@ -55,7 +55,7 @@ export const BodyElement = (props: Props) => {
       onClick={(e) =>
         handleSelectElement(e, selectedElement, currentElement, dispatch)
       }
-      style={currentElement.containerStyles}
+      style={currentElement.styles}
       className={clsx(
         "relative h-full w-full overflow-scroll p-4 transition-all duration-100",
         {

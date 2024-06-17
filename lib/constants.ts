@@ -64,14 +64,15 @@ export const fontWeights = [
 ];
 
 export const specialTextUnits = [
+  "-",
+  "auto",
   "max-content",
   "min-content",
   "fit-content",
-  "auto",
-  "-",
 ];
 
 export const textUnits = [
+  ...specialTextUnits,
   "px",
   "rem",
   "em",
@@ -83,8 +84,9 @@ export const textUnits = [
   "ch",
   "vw",
   "vh",
-  ...specialTextUnits,
 ];
+
+export const displayUnits = ["block", "flex", "grid", "none"];
 
 export const justifyContentItems: ButtonsSelectItems = [
   {
@@ -247,7 +249,8 @@ export const alignTextItems: ButtonsSelectItems = [
 // types
 export type deviceTypes = "mobile" | "tablet" | "laptop";
 export type viewingModes = "development" | "preview" | "live";
-export type tabBtns = "Customization" | "Components" | "Media";
+export type tabBtns = "Customization" | "Components";
+export type functionsSidebarTabBtns = "Variables";
 export type fontWeightTypes =
   | "100"
   | "200"

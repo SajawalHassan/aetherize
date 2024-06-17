@@ -6,6 +6,7 @@ import { CustomPropsAccordion } from "./custom-props-accordion";
 import { TypographyAccordion } from "./typography-accordion";
 import { DimensionsAccordion } from "./dimensions-accordion";
 import { DecorationsAccordion } from "./decorations-accordion";
+import { DisplayAccordion } from "./display-accordion";
 
 type Props = {};
 
@@ -17,7 +18,7 @@ export const CustomizationTab = (props: Props) => {
       <Accordion
         type="multiple"
         className="w-full space-y-[20px] pt-4"
-        defaultValue={["custom", "typography"]}
+        defaultValue={["custom", "display", "typography"]}
       >
         <h3 className="mb-4 text-center text-3xl font-bold">
           {selectedElement ? "Customization" : "No element selected"}
@@ -27,6 +28,20 @@ export const CustomizationTab = (props: Props) => {
           <>
             {/* Custom properties */}
             <CustomPropsAccordion />
+
+            {selectedElement.type === "container" && (
+              <>
+                {/* Display properties */}
+                <DisplayAccordion />
+              </>
+            )}
+
+            {selectedElement.type === "__body" && (
+              <>
+                {/* Display properties */}
+                <DisplayAccordion />
+              </>
+            )}
 
             {/* Typography */}
             <TypographyAccordion />
