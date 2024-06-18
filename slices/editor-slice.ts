@@ -60,16 +60,7 @@ const initialEditor: Editor = {
   prevEditorState: null,
   device: "laptop",
   viewingMode: "development",
-  variables: [
-    {
-      id: v4(),
-      cssProp: "",
-      cssPropValue: "",
-      variableName: "showMenu",
-      variableValue: true,
-      variableTrigger: true,
-    },
-  ],
+  variables: [],
 };
 
 interface addElementPayload {

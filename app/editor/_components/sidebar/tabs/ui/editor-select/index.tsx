@@ -99,22 +99,26 @@ export const EditorSelect = (props: Props) => {
       <DropdownMenu open={openChange} onOpenChange={setOpenChange}>
         <DropdownMenuTrigger asChild>
           <button className="h-[40px] cursor-pointer border-l border-white/20 px-4 hover:bg-th-btn">
-            {selectedVar ? `${selectedVar}==${selectedVarValue}` : "if"}
+            {selectedVar ? `${selectedVar}=${selectedVarValue}` : "if"}
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="border-none bg-th-btn p-0 text-white">
-          {variables.map((variableObj) => (
-            <EditorSelectDropdownItem
-              setSelectedVar={setSelectedVar}
-              setSelectedVarValue={setSelectedVarValue}
-              variableObj={variableObj}
-              key={variableObj.id}
-              id={props.id}
-              selectedValue={selectedValue}
-              selectedVar={selectedVar}
-              selectedVarValue={selectedVarValue}
-            />
-          ))}
+          {variables.length > 0 ? (
+            variables.map((variableObj) => (
+              <EditorSelectDropdownItem
+                setSelectedVar={setSelectedVar}
+                setSelectedVarValue={setSelectedVarValue}
+                variableObj={variableObj}
+                key={variableObj.id}
+                id={props.id}
+                selectedValue={selectedValue}
+                selectedVar={selectedVar}
+                selectedVarValue={selectedVarValue}
+              />
+            ))
+          ) : (
+            <p className="p-2 text-center font-bold">No variables</p>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
