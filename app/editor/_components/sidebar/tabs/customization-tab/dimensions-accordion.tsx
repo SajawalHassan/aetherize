@@ -2,7 +2,7 @@ import { AccordionItem, AccordionContent } from "@/components/ui/accordion";
 import { AccordionCustomTrigger } from ".";
 import { specialTextUnits, textUnits } from "@/lib/constants";
 import { useAppSelector } from "@/hooks/store-hook";
-import { InputDropdown } from "@/components/ui/input-dropdown";
+import { InputDropdown } from "@/app/editor/_components/sidebar/tabs/ui/input-dropdown";
 import { Button } from "@/components/ui/button";
 import { ExpandIcon } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";

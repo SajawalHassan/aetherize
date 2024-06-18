@@ -1,11 +1,11 @@
-import { Input } from "./input";
+import { Input } from "../../../../../../components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./select";
+} from "../../../../../../components/ui/select";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { handleStyleChange } from "@/lib/helper";

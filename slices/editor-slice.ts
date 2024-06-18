@@ -12,6 +12,7 @@ import {
   updateElementAction,
 } from "./actions/editor-actions";
 import React from "react";
+import { v4 } from "uuid";
 
 // Editor Element
 export interface EditorElement {
@@ -24,6 +25,15 @@ export interface EditorElement {
     | { text?: string; href?: string; videoSrc?: string; imageSrc?: string };
 }
 
+export type Variable = {
+  id: string;
+  cssProp: string;
+  cssPropValue: string;
+  variableName: string;
+  variableValue: boolean;
+  variableTrigger: boolean;
+};
+
 // Editor
 export interface Editor {
   elements: EditorElement[];
@@ -32,9 +42,7 @@ export interface Editor {
   nextEditorState: Editor | null;
   device: deviceTypes;
   viewingMode: viewingModes;
-  variables: {
-    [key: string]: any;
-  };
+  variables: Variable[];
 }
 
 const initialEditor: Editor = {
@@ -52,9 +60,16 @@ const initialEditor: Editor = {
   prevEditorState: null,
   device: "laptop",
   viewingMode: "development",
-  variables: {
-    showMenu: false,
-  },
+  variables: [
+    {
+      id: v4(),
+      cssProp: "",
+      cssPropValue: "",
+      variableName: "showMenu",
+      variableValue: true,
+      variableTrigger: true,
+    },
+  ],
 };
 
 interface addElementPayload {
@@ -72,11 +87,6 @@ interface updateElementPayload {
 interface deleteElementPayload {
   elementId: string;
   elementsArray: EditorElement[];
-}
-
-interface changeVariablePayload {
-  variableName: string;
-  newValue: any;
 }
 
 const editorSlice = createSlice({
@@ -120,16 +130,15 @@ const editorSlice = createSlice({
         nextEditorState: null,
       };
     },
-    changeVariablesList: (
-      state: Editor,
-      action: PayloadAction<changeVariablePayload>,
-    ) => {
+    changeVariablesList: (state: Editor, action: PayloadAction<Variable>) => {
+      let newVariablesList = state.variables.filter(
+        (variable) => variable.id !== action.payload.id,
+      );
+      newVariablesList = [...newVariablesList, { ...action.payload }];
+
       return {
         ...state,
-        variables: {
-          ...state.variables,
-          [action.payload.variableName]: action.payload.newValue,
-        },
+        variables: newVariablesList,
         prevEditorState: state,
         nextEditorState: null,
       };

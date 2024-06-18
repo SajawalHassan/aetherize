@@ -4,7 +4,7 @@ import { Dispatch, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
 import { v4 } from "uuid";
 import React from "react";
 
-type DispatchType = ThunkDispatch<
+export type DispatchType = ThunkDispatch<
   {
     editor: Editor;
   },
@@ -198,11 +198,11 @@ export const handleDragStart = (
 
 export const handleStyleChange = (
   e: any,
-  selectedElement: EditorElement,
+  element: EditorElement,
   elements: EditorElement[],
   dispatch: DispatchType,
 ) => {
-  if (!selectedElement) return;
+  if (!element) return;
 
   const property = e.target.id;
   const propertyValue = e.target.value;
@@ -213,12 +213,12 @@ export const handleStyleChange = (
 
   dispatch(
     editorActions.updateElement({
-      elementId: selectedElement.id,
+      elementId: element.id,
       elementsArray: elements,
       elementData: {
-        ...selectedElement,
+        ...element,
         styles: {
-          ...selectedElement.styles,
+          ...element.styles,
           ...propertyObject,
         },
       },

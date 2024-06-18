@@ -3,17 +3,19 @@ import { editorContainerId } from "@/lib/constants";
 import { EditorElement } from "@/slices/editor-slice";
 import clsx from "clsx";
 import { Badge } from "@/components/ui/badge";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   dropElement,
   handleDeleteElement,
   handleDragStart,
   handleSelectElement,
+  handleStyleChange,
 } from "@/lib/helper";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
 import { Recursive } from "../recursive";
+import { useVariableChange } from "@/hooks/use-variable-change";
 
 type Props = {
   currentElement: EditorElement;
@@ -23,11 +25,12 @@ export const BodyElement = (props: Props) => {
   const [dragOverClassName, setDragOverClassName] = useState("");
 
   const { currentElement } = props;
-  const { selectedElement, elements, viewingMode } = useAppSelector(
+  const { selectedElement, elements, viewingMode, variables } = useAppSelector(
     (state) => state.editor,
   );
 
   const dispatch = useAppDispatch();
+  useVariableChange(variables, currentElement, elements, dispatch);
 
   const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
     dropElement(e, currentElement, elements, dispatch);
