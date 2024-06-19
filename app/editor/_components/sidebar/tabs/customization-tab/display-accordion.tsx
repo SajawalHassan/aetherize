@@ -70,7 +70,7 @@ export const DisplayAccordion = (props: Props) => {
               property="alignContent"
             />
             <div className="flex items-center gap-x-2">
-              <InputDropdown
+              {/* <InputDropdown
                 dropdownList={textUnits}
                 specialUnits={specialTextUnits}
                 id="rowGap"
@@ -88,7 +88,7 @@ export const DisplayAccordion = (props: Props) => {
                 value={
                   (selectedElement!.styles.columnGap as string) || ""
                 }
-              />
+              /> */}
             </div>
           </div>
         )}

@@ -27,7 +27,10 @@ export const FunctionsTabTrigger = (props: Props) => {
           <props.Icon size={24} />
         </TabsTrigger>
       </TooltipTrigger>
-      <TooltipContent className={clsx("border-white/10 bg-th-btn text-white")}>
+      <TooltipContent
+        className={clsx("border-white/10 bg-th-btn text-white")}
+        side="right"
+      >
         <p>{props.value}</p>
       </TooltipContent>
     </Tooltip>

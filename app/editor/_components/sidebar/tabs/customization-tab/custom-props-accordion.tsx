@@ -3,38 +3,6 @@ import { AccordionCustomTrigger } from ".";
 import { editorActions } from "@/slices/editor-slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { handleStyleChange } from "@/lib/helper";
-import {
-  AlignEndHorizontalIcon,
-  AlignHorizontalJustifyCenterIcon,
-  AlignHorizontalJustifyEndIcon,
-  AlignHorizontalJustifyStartIcon,
-  AlignHorizontalSpaceAroundIcon,
-  AlignHorizontalSpaceBetweenIcon,
-  AlignStartHorizontalIcon,
-  AlignVerticalJustifyCenterIcon,
-  AlignVerticalSpaceBetweenIcon,
-  Columns2Icon,
-  ColumnsIcon,
-  FlipHorizontal2Icon,
-  FlipHorizontalIcon,
-  PanelBottomIcon,
-  Rows2Icon,
-  RowsIcon,
-  SpaceIcon,
-  WrapTextIcon,
-} from "lucide-react";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Label } from "@/components/ui/label";
-import { ButtonsSelect } from "../ui/buttons-select";
-import {
-  alignContentItems,
-  alignItems_Items,
-  flexDirectionItems,
-  flexWrapItems,
-  justifyContentItems,
-} from "@/lib/constants";
 
 type Props = {};
 

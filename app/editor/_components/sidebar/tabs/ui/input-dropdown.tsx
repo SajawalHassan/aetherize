@@ -30,6 +30,14 @@ export const InputDropdown = (props: Props) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (!props.specialUnits.includes(selectedItem)) {
+      if (
+        (props.value.split(/(\d+)/)[1] || "") === value ||
+        (props.value.split(/(\d+)/)[2] || "") === selectedItem
+      )
+        return;
+    }
+
     handleStyleChange(
       {
         target: {
@@ -46,15 +54,21 @@ export const InputDropdown = (props: Props) => {
   }, [selectedItem, value]);
 
   useEffect(() => {
+    if (!props.specialUnits.includes(props.value)) {
+      if (
+        (props.value.split(/(\d+)/)[1] || "") === value ||
+        (props.value.split(/(\d+)/)[2] || "") === selectedItem
+      )
+        return;
+    }
+
     setSelectedItem(
-      props.value.split(/(\d+)/)[2] || selectedItem
-        ? selectedItem
-        : props.specialUnits.includes(props.value)
-          ? props.value
-          : "",
+      props.specialUnits.includes(props.value)
+        ? props.value
+        : props.value.split(/(\d+)/)[2],
     );
     setValue(props.value.split(/(\d+)/)[1] || "");
-  }, [props.value]);
+  }, [selectedElement]);
 
   return (
     <div

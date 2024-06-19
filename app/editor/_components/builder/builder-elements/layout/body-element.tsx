@@ -7,9 +7,7 @@ import { ReactNode, useEffect, useState } from "react";
 import {
   dropElement,
   handleDeleteElement,
-  handleDragStart,
   handleSelectElement,
-  handleStyleChange,
 } from "@/lib/helper";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
@@ -30,7 +28,13 @@ export const BodyElement = (props: Props) => {
   );
 
   const dispatch = useAppDispatch();
-  useVariableChange(variables, currentElement, elements, dispatch);
+  useVariableChange(
+    variables,
+    currentElement,
+    elements,
+    dispatch,
+    selectedElement,
+  );
 
   const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
     dropElement(e, currentElement, elements, dispatch);

@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useAppDispatch } from "@/hooks/store-hook";
+import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { Variable, editorActions } from "@/slices/editor-slice";
 
 type Props = {
@@ -15,12 +15,14 @@ type Props = {
 export const VariableInput = (props: Props) => {
   const dispatch = useAppDispatch();
   const { variable } = props;
+  const { selectedElement } = useAppSelector((state) => state.editor);
 
   const changeVariable = (newValue: string) => {
     dispatch(
       editorActions.changeVariablesList({
         ...variable,
         variableValue: JSON.parse(newValue),
+        elementId: selectedElement!.id,
       }),
     );
   };

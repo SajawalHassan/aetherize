@@ -7,11 +7,18 @@ export const useVariableChange = (
   currentElement: EditorElement,
   elements: EditorElement[],
   dispatch: DispatchType,
+  selectedElement: EditorElement | null,
 ) => {
   let prevCssPropValue = "";
 
+  const localVariables = variables.filter(
+    (variable) => variable.elementId === selectedElement?.id,
+  );
+
   useEffect(() => {
-    variables.map((variable) => {
+    if (!selectedElement) return;
+
+    localVariables.map((variable) => {
       if (variable.variableValue === variable.variableTrigger) {
         prevCssPropValue = variable.cssPropValue;
 

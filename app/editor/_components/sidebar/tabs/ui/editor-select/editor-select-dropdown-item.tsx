@@ -1,22 +1,11 @@
 import {
-  DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuPortal,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
-import { handleStyleChange } from "@/lib/helper";
 import { Variable, editorActions } from "@/slices/editor-slice";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -42,9 +31,7 @@ export const EditorSelectDropdownItem = (props: Props) => {
     setSelectedVarValue,
     variableObj,
   } = props;
-  const { elements, selectedElement, variables } = useAppSelector(
-    (state) => state.editor,
-  );
+  const { variables } = useAppSelector((state) => state.editor);
 
   const variable = useMemo(() => {
     return variables.filter(

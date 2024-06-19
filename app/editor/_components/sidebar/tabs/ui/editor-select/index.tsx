@@ -1,11 +1,6 @@
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuPortal,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -17,8 +12,7 @@ import {
 } from "@/components/ui/select";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { handleStyleChange } from "@/lib/helper";
-import { editorActions } from "@/slices/editor-slice";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EditorSelectDropdownItem } from "./editor-select-dropdown-item";
 
 type Props = {
@@ -39,16 +33,10 @@ export const EditorSelect = (props: Props) => {
     (state) => state.editor,
   );
 
-  const variable = useMemo(() => {
-    return variables.filter(
-      (variable) => variable.variableName === selectedVar,
-    )[0];
-  }, [openChange]);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!selectedValue || !variable) {
+    if (selectedValue) {
       handleStyleChange(
         {
           target: {
@@ -64,6 +52,8 @@ export const EditorSelect = (props: Props) => {
   }, [selectedValue]);
 
   useEffect(() => {
+    if (props.value === "") return;
+
     setSelectedValue(props.value);
     const variable = variables.filter((variable) => variable.cssProp)[0];
 

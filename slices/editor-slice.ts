@@ -12,7 +12,6 @@ import {
   updateElementAction,
 } from "./actions/editor-actions";
 import React from "react";
-import { v4 } from "uuid";
 
 // Editor Element
 export interface EditorElement {
@@ -27,6 +26,7 @@ export interface EditorElement {
 
 export type Variable = {
   id: string;
+  elementId: string;
   cssProp: string;
   cssPropValue: string;
   variableName: string;
