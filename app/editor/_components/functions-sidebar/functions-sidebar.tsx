@@ -25,6 +25,12 @@ export const FunctionsSidebar = (props: Props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedElement) return;
+    if (!variableInput) return;
+    if (
+      variables.filter((variable) => variable.variableName === variableInput)
+        .length > 0
+    )
+      return;
 
     dispatch(
       editorActions.changeVariablesList({
@@ -42,13 +48,13 @@ export const FunctionsSidebar = (props: Props) => {
 
   return (
     <div
-      className={clsx("w-full max-w-[300px] transition-all duration-500", {
+      className={clsx("w-full max-w-[350px] transition-all duration-500", {
         "!w-0 !overflow-hidden !border-none !p-0": viewingMode === "preview",
       })}
     >
       <Tabs
         className={clsx(
-          "fixed left-[16px] z-50 flex h-[calc(100%-121px)] w-full max-w-[300px] overflow-y-auto rounded-md border border-th-btn p-0 transition-all duration-500",
+          "fixed left-[16px] z-50 flex h-[calc(100%-121px)] w-full max-w-[350px] overflow-y-auto rounded-md border border-th-btn p-0 transition-all duration-500",
           {
             "!-left-[200rem]": viewingMode === "preview",
           },
@@ -94,8 +100,8 @@ export const FunctionsSidebar = (props: Props) => {
                 </TabsContent>
               </>
             ) : (
-              <h3 className="mb-6 text-center text-2xl font-bold">
-                No selected element
+              <h3 className="mt-2 text-center text-3xl font-bold">
+                No element selected
               </h3>
             )}
           </div>
