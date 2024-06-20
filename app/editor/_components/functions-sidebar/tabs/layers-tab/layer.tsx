@@ -6,8 +6,10 @@ import clsx from "clsx";
 import { editorContainerId } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import {
-  ContainerIcon,
+  BoxIcon,
+  BoxSelectIcon,
   ImageIcon,
+  LinkIcon,
   TrashIcon,
   TypeIcon,
   YoutubeIcon,
@@ -99,13 +101,17 @@ export const Layer = (props: Props) => {
       >
         <div className="flex items-center gap-x-2">
           {props.element.type === "container" ? (
-            <ContainerIcon size={20} />
+            <BoxIcon size={20} />
           ) : props.element.type === "text" ? (
             <TypeIcon size={20} />
           ) : props.element.type === "image" ? (
             <ImageIcon size={20} />
+          ) : props.element.type === "video" ? (
+            <YoutubeIcon size={20} />
+          ) : props.element.type === "__body" ? (
+            <BoxSelectIcon />
           ) : (
-            props.element.type === "video" && <YoutubeIcon size={20} />
+            props.element.type === "link" && <LinkIcon />
           )}
           <p
             className="w-max font-medium"

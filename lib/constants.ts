@@ -1,3 +1,5 @@
+import { ContainerPlaceholder } from "@/app/editor/_components/placeholders/container-placeholder";
+import { FlexBoxPlaceholder } from "@/app/editor/_components/placeholders/flexbox-placeholder";
 import { ButtonsSelectItems } from "@/app/editor/_components/sidebar/tabs/ui/buttons-select";
 import {
   AlignCenterIcon,

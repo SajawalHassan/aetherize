@@ -1,12 +1,12 @@
 import React from "react";
 import { handleDragStart } from "@/lib/helper";
 
-type Props = {};
+type Props = { draggable?: boolean };
 
 export const FlexBoxPlaceholder = (props: Props) => {
   return (
     <div
-      draggable
+      draggable={props.draggable !== undefined ? props.draggable : true}
       onDragStart={(e) => handleDragStart(e, "flexBox")}
       className="flex h-full w-full cursor-pointer flex-row gap-[6px] rounded-lg bg-black/70 px-2.5 py-4 hover:bg-black/20"
     >

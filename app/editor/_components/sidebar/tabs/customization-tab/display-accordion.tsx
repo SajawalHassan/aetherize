@@ -1,5 +1,5 @@
 import { AccordionContent, AccordionItem } from "@/components/ui/accordion";
-import { AccordionCustomTrigger } from ".";
+import { AccordionCustomTrigger } from "../../../_components/accordion-custom-trigger";
 import { InputDropdown } from "@/app/editor/_components/sidebar/tabs/ui/input-dropdown";
 import {
   alignContentItems,
@@ -70,7 +70,7 @@ export const DisplayAccordion = (props: Props) => {
               property="alignContent"
             />
             <div className="flex items-center gap-x-2">
-              {/* <InputDropdown
+              <InputDropdown
                 dropdownList={textUnits}
                 specialUnits={specialTextUnits}
                 id="rowGap"
@@ -88,7 +88,7 @@ export const DisplayAccordion = (props: Props) => {
                 value={
                   (selectedElement!.styles.columnGap as string) || ""
                 }
-              /> */}
+              />
             </div>
           </div>
         )}

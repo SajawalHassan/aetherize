@@ -39,17 +39,26 @@ export const dropElement = (
     return;
   }
 
+  caseAddElement(componentType, currentElement, elements, dispatch);
+};
+
+export const caseAddElement = (
+  componentType: EditorElementTypes,
+  containerElement: EditorElement,
+  elements: EditorElement[],
+  dispatch: DispatchType,
+) => {
   switch (componentType) {
     case "container":
       dispatch(
         editorActions.addElement({
-          containerId: currentElement.id,
+          containerId: containerElement.id,
           elementsArray: elements,
           newElement: {
             id: v4(),
             name: "Container",
-            containerId: currentElement.id,
-            index: (currentElement.content as Array<EditorElement>).length,
+            containerId: containerElement.id,
+            index: (containerElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
             type: componentType,
             content: [],
@@ -60,13 +69,13 @@ export const dropElement = (
     case "flexBox":
       dispatch(
         editorActions.addElement({
-          containerId: currentElement.id,
+          containerId: containerElement.id,
           elementsArray: elements,
           newElement: {
             id: v4(),
             name: "Flex box",
-            containerId: currentElement.id,
-            index: (currentElement.content as Array<EditorElement>).length,
+            containerId: containerElement.id,
+            index: (containerElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
             type: componentType,
             content: [],
@@ -77,13 +86,13 @@ export const dropElement = (
     case "text":
       dispatch(
         editorActions.addElement({
-          containerId: currentElement.id,
+          containerId: containerElement.id,
           elementsArray: elements,
           newElement: {
             id: v4(),
             name: "Text field",
-            containerId: currentElement.id,
-            index: (currentElement.content as Array<EditorElement>).length,
+            containerId: containerElement.id,
+            index: (containerElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
             type: componentType,
             content: { text: "Text field" },
@@ -94,13 +103,13 @@ export const dropElement = (
     case "link":
       dispatch(
         editorActions.addElement({
-          containerId: currentElement.id,
+          containerId: containerElement.id,
           elementsArray: elements,
           newElement: {
             id: v4(),
             name: "Link Field",
-            containerId: currentElement.id,
-            index: (currentElement.content as Array<EditorElement>).length,
+            containerId: containerElement.id,
+            index: (containerElement.content as Array<EditorElement>).length,
             styles: {
               ...defaultStyles,
               color: "lightblue",
@@ -115,13 +124,13 @@ export const dropElement = (
     case "image":
       dispatch(
         editorActions.addElement({
-          containerId: currentElement.id,
+          containerId: containerElement.id,
           elementsArray: elements,
           newElement: {
             id: v4(),
             name: "Image",
-            containerId: currentElement.id,
-            index: (currentElement.content as Array<EditorElement>).length,
+            containerId: containerElement.id,
+            index: (containerElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
             type: componentType,
             content: { imageSrc: "" },
@@ -132,13 +141,13 @@ export const dropElement = (
     case "video":
       dispatch(
         editorActions.addElement({
-          containerId: currentElement.id,
+          containerId: containerElement.id,
           elementsArray: elements,
           newElement: {
             id: v4(),
             name: "Video",
-            containerId: currentElement.id,
-            index: (currentElement.content as Array<EditorElement>).length,
+            containerId: containerElement.id,
+            index: (containerElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
             type: componentType,
             content: { videoSrc: "" },
@@ -149,13 +158,13 @@ export const dropElement = (
     case "button":
       dispatch(
         editorActions.addElement({
-          containerId: currentElement.id,
+          containerId: containerElement.id,
           elementsArray: elements,
           newElement: {
             id: v4(),
             name: "Button",
-            containerId: currentElement.id,
-            index: (currentElement.content as Array<EditorElement>).length,
+            containerId: containerElement.id,
+            index: (containerElement.content as Array<EditorElement>).length,
             styles: {
               ...defaultStyles,
               justifyContent: "center",
@@ -169,8 +178,9 @@ export const dropElement = (
               {
                 id: v4(),
                 name: "Text field",
-                containerId: currentElement.id,
-                index: (currentElement.content as Array<EditorElement>).length,
+                containerId: containerElement.id,
+                index: (containerElement.content as Array<EditorElement>)
+                  .length,
                 styles: defaultStyles,
                 type: "text",
                 content: { text: "Text field" },
