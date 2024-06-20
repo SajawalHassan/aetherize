@@ -141,6 +141,7 @@ const editorSlice = createSlice({
       )
         return;
 
+      // Update element one's index with element two's index
       let newElementsArray = updateElementAction(
         action.payload.elementOne.id,
         state.elements,
@@ -150,6 +151,7 @@ const editorSlice = createSlice({
         },
       );
 
+      // Update element two's index with element one's index
       newElementsArray = updateElementAction(
         action.payload.elementTwo.id,
         newElementsArray,
@@ -158,6 +160,35 @@ const editorSlice = createSlice({
           index: action.payload.elementOne.index,
         },
       );
+
+      // Update selectedElement, if needed
+      if (state.selectedElement) {
+        if (action.payload.elementOne.id === state.selectedElement.id) {
+          return {
+            ...state,
+            elements: newElementsArray,
+            selectedElement: {
+              ...state.selectedElement,
+              index: action.payload.elementTwo.index,
+            },
+            prevEditorState: state,
+            nextEditorState: null,
+          };
+        }
+
+        if (action.payload.elementTwo.id === state.selectedElement.id) {
+          return {
+            ...state,
+            elements: newElementsArray,
+            selectedElement: {
+              ...state.selectedElement,
+              index: action.payload.elementOne.index,
+            },
+            prevEditorState: state,
+            nextEditorState: null,
+          };
+        }
+      }
 
       return {
         ...state,

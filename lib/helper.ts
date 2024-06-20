@@ -30,7 +30,6 @@ export const dropElement = (
     return console.error("No component type specified when adding element");
 
   if (elementString) {
-    console.log(currentElement.containerId);
     dispatch(
       editorActions.swapElementIndex({
         elementOne: currentElement,

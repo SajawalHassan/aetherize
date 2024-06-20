@@ -17,7 +17,6 @@ type Props = {
   currentElement: EditorElement;
   className?: string;
   children: ReactNode;
-  componentType?: EditorElementTypes;
 };
 
 export const ElementLayout = (props: Props) => {
@@ -39,7 +38,17 @@ export const ElementLayout = (props: Props) => {
   const handleDragHover = (e: React.DragEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    if (viewingMode !== "preview") setDragOverClassName("bg-th-btn/20");
+    const elementString: string = e.dataTransfer.getData("element");
+    const hoveredElement = elementString ? JSON.parse(elementString) : null;
+
+    if (!hoveredElement) setDragOverClassName("bg-th-btn/20");
+    else if (hoveredElement.id !== currentElement.id) {
+      if (hoveredElement.index > currentElement.index) {
+        setDragOverClassName("!border-t-th-accent");
+      } else {
+        setDragOverClassName("!border-b-th-accent");
+      }
+    }
   };
 
   const handleDragLeave = (e: React.DragEvent) => {
@@ -50,7 +59,7 @@ export const ElementLayout = (props: Props) => {
 
   return (
     <div
-      draggable
+      draggable={viewingMode !== "preview"}
       onDragStart={(e) => {
         e.stopPropagation();
         e.dataTransfer.setData("element", JSON.stringify(currentElement));
@@ -80,7 +89,7 @@ export const ElementLayout = (props: Props) => {
     >
       <Badge
         className={clsx(
-          "absolute -left-[2.3px] -top-6 hidden truncate rounded-none rounded-t-lg bg-th-secondary",
+          "absolute -left-[2.3px] -top-6 hidden truncate rounded-none rounded-t-lg bg-th-secondary hover:bg-th-secondary/80",
           {
             block:
               selectedElement?.id === currentElement.id &&

@@ -1,50 +1,17 @@
-import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
+import { Tabs, TabsList } from "@/components/ui/tabs";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { editorContainerId, functionsSidebarTabBtns } from "@/lib/constants";
-import clsx from "clsx";
-import React, { useState } from "react";
+import { functionsSidebarTabBtns } from "@/lib/constants";
 import { FunctionsTabTrigger } from "./functions-tab-trigger";
-import { DatabaseIcon } from "lucide-react";
-import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
-import { VariableInput } from "./variable-input";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { editorActions } from "@/slices/editor-slice";
-import { v4 } from "uuid";
+import { DatabaseIcon, LayersIcon } from "lucide-react";
+import { useAppSelector } from "@/hooks/store-hook";
+import { VariablesTab } from "./tabs/variables-tab";
+import { LayersTab } from "./tabs/layers-tab";
+import clsx from "clsx";
 
 type Props = {};
 
 export const FunctionsSidebar = (props: Props) => {
-  const [variableInput, setVariableInput] = useState("");
-
-  const { selectedElement, viewingMode, variables } = useAppSelector(
-    (state) => state.editor,
-  );
-  const dispatch = useAppDispatch();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedElement) return;
-    if (!variableInput) return;
-    if (
-      variables.filter((variable) => variable.variableName === variableInput)
-        .length > 0
-    )
-      return;
-
-    dispatch(
-      editorActions.changeVariablesList({
-        id: v4(),
-        elementId: selectedElement.id,
-        cssProp: "",
-        cssPropValue: "",
-        variableName: variableInput,
-        variableValue: true,
-        variableTrigger: true,
-      }),
-    );
-    setVariableInput("");
-  };
+  const { viewingMode } = useAppSelector((state) => state.editor);
 
   return (
     <div
@@ -59,51 +26,16 @@ export const FunctionsSidebar = (props: Props) => {
             "!-left-[200rem]": viewingMode === "preview",
           },
         )}
-        defaultValue={"Variables" as functionsSidebarTabBtns}
+        defaultValue={"Layers" as functionsSidebarTabBtns}
       >
         <TooltipProvider delayDuration={0}>
-          <TabsList className="flex h-full w-[80px] flex-col justify-start overflow-hidden rounded-none bg-black/30 p-2">
+          <TabsList className="flex h-full w-[80px] flex-col justify-start gap-y-2 overflow-hidden rounded-none bg-black/30 p-2">
+            <FunctionsTabTrigger value="Layers" Icon={LayersIcon} />
             <FunctionsTabTrigger value="Variables" Icon={DatabaseIcon} />
           </TabsList>
           <div className="w-full bg-black/10 px-2 py-[15px]">
-            {selectedElement ? (
-              <>
-                <h3 className="mb-6 text-center text-2xl font-bold">
-                  {selectedElement.name} variables
-                </h3>
-                <TabsContent value={"Variables" as functionsSidebarTabBtns}>
-                  <div className="space-y-2">
-                    {variables
-                      .filter(
-                        (variable) => variable.elementId === selectedElement.id,
-                      )
-                      .map((variableObj) => (
-                        <VariableInput
-                          key={variableObj.variableName}
-                          variable={variableObj}
-                        />
-                      ))}
-                  </div>
-
-                  <form
-                    className={clsx("mt-4 flex items-center")}
-                    onSubmit={handleSubmit}
-                  >
-                    <Input
-                      value={variableInput}
-                      onChange={(e) => setVariableInput(e.target.value)}
-                      placeholder="New variable"
-                      className="rounded-none bg-background p-3 focus:border-white/10"
-                    />
-                    <Button className="rounded-none">Add</Button>
-                  </form>
-                </TabsContent>
-              </>
-            ) : (
-              <h3 className="mt-2 text-center text-3xl font-bold">
-                No element selected
-              </h3>
-            )}
+            <LayersTab />
+            <VariablesTab />
           </div>
         </TooltipProvider>
       </Tabs>

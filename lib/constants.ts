@@ -250,7 +250,7 @@ export const alignTextItems: ButtonsSelectItems = [
 export type deviceTypes = "mobile" | "tablet" | "laptop";
 export type viewingModes = "development" | "preview" | "live";
 export type tabBtns = "Customization" | "Components";
-export type functionsSidebarTabBtns = "Variables";
+export type functionsSidebarTabBtns = "Variables" | "Layers";
 export type fontWeightTypes =
   | "100"
   | "200"

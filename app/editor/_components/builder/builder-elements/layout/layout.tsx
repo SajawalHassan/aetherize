@@ -12,6 +12,7 @@ import {
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
+import { useVariableChange } from "@/hooks/use-variable-change";
 
 type Props = {
   currentElement: EditorElement;
@@ -23,11 +24,18 @@ export const Layout = (props: Props) => {
   const [dragOverClassName, setDragOverClassName] = useState("");
 
   const { currentElement, children, className } = props;
-  const { selectedElement, elements, viewingMode } = useAppSelector(
+  const { selectedElement, elements, viewingMode, variables } = useAppSelector(
     (state) => state.editor,
   );
 
   const dispatch = useAppDispatch();
+  useVariableChange(
+    variables,
+    currentElement,
+    elements,
+    dispatch,
+    selectedElement,
+  );
 
   const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
     dropElement(e, currentElement, elements, dispatch);
@@ -37,7 +45,17 @@ export const Layout = (props: Props) => {
   const handleDragHover = (e: React.DragEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    if (viewingMode !== "preview") setDragOverClassName("bg-th-btn/20");
+    const elementString: string = e.dataTransfer.getData("element");
+    const hoveredElement = elementString ? JSON.parse(elementString) : null;
+
+    if (!hoveredElement) setDragOverClassName("bg-th-btn/20");
+    else if (hoveredElement.id !== currentElement.id) {
+      if (hoveredElement.index > currentElement.index) {
+        setDragOverClassName("!border-t-th-accent");
+      } else {
+        setDragOverClassName("!border-b-th-accent");
+      }
+    }
   };
 
   const handleDragLeave = (e: React.DragEvent) => {
@@ -48,7 +66,7 @@ export const Layout = (props: Props) => {
 
   return (
     <div
-      draggable
+      draggable={viewingMode !== "preview"}
       onDragStart={(e) => {
         e.stopPropagation();
         e.dataTransfer.setData("element", JSON.stringify(currentElement));
@@ -65,19 +83,20 @@ export const Layout = (props: Props) => {
         "relative w-full p-4 transition-all duration-100",
         {
           "h-full overflow-scroll": currentElement.type === editorContainerId,
-          "border border-solid":
+          "!border !border-solid":
             selectedElement?.id === currentElement.id &&
             viewingMode !== "preview",
-          "border-th-secondary":
+          "!border-th-secondary":
             selectedElement?.id === currentElement.id &&
             selectedElement?.type !== editorContainerId,
-          "border-th-accent":
+          "!border-th-accent":
             selectedElement?.id === currentElement.id &&
             selectedElement?.type === editorContainerId,
-          "border-spacing-4 border border-th-accent/20":
+          "!border-spacing-4 !border !border-th-accent/20":
             selectedElement?.id !== currentElement.id &&
             viewingMode !== "preview",
-          "h-10": (currentElement.content as Array<EditorElement>).length === 0,
+          "!h-10":
+            (currentElement.content as Array<EditorElement>).length === 0,
         },
         dragOverClassName,
         className,

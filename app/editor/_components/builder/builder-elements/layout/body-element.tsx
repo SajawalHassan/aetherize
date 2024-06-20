@@ -70,9 +70,6 @@ export const BodyElement = (props: Props) => {
           "border border-solid":
             selectedElement?.id === currentElement.id &&
             viewingMode !== "preview",
-          "border-th-secondary":
-            selectedElement?.id === currentElement.id &&
-            selectedElement?.type !== editorContainerId,
           "border-th-accent":
             selectedElement?.id === currentElement.id &&
             selectedElement?.type === editorContainerId,
