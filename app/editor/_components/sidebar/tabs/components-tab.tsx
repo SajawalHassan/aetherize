@@ -1,7 +1,6 @@
 import { TabsContent } from "@/components/ui/tabs";
 import { EditorElementTypes, tabBtns } from "@/lib/constants";
 import { ContainerPlaceholder } from "../../placeholders/container-placeholder";
-import { FlexBoxPlaceholder } from "../../placeholders/flexbox-placeholder";
 import { ElementPlaceholder } from "../../placeholders/element-placeholder";
 import {
   ContactIcon,
@@ -27,12 +26,6 @@ export const ComponentsTab = (props: Props) => {
       group: "layout",
       label: "Container",
       id: "container",
-    },
-    {
-      Component: <FlexBoxPlaceholder />,
-      group: "layout",
-      label: "Flex box",
-      id: "flexBox",
     },
     {
       Component: <ElementPlaceholder Icon={TypeIcon} componentType={"text"} />,

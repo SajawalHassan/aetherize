@@ -27,9 +27,7 @@ type Props = {
 export const Layer = (props: Props) => {
   const [dragOverClassName, setDragOverClassName] = useState("");
 
-  const { elements, selectedElement, viewingMode } = useAppSelector(
-    (state) => state.editor,
-  );
+  const { elements, selectedElement } = useAppSelector((state) => state.editor);
   const dispatch = useAppDispatch();
 
   const handleOnBlur = (e: React.FocusEvent) => {
@@ -91,7 +89,8 @@ export const Layer = (props: Props) => {
           "relative flex items-center justify-between rounded-sm border border-[#272626] pl-2",
           {
             "!rounded-none !border-th-secondary":
-              props.element.id === selectedElement?.id,
+              props.element.id === selectedElement?.id &&
+              props.element.id !== editorContainerId,
             "!rounded-none !border-th-accent":
               props.element.id === selectedElement?.id &&
               props.element.id === editorContainerId,

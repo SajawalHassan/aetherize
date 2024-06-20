@@ -66,23 +66,6 @@ export const caseAddElement = (
         }),
       );
       break;
-    case "flexBox":
-      dispatch(
-        editorActions.addElement({
-          containerId: containerElement.id,
-          elementsArray: elements,
-          newElement: {
-            id: v4(),
-            name: "Flex box",
-            containerId: containerElement.id,
-            index: (containerElement.content as Array<EditorElement>).length,
-            styles: defaultStyles,
-            type: componentType,
-            content: [],
-          },
-        }),
-      );
-      break;
     case "text":
       dispatch(
         editorActions.addElement({
@@ -173,19 +156,8 @@ export const caseAddElement = (
               backgroundColor: "gray",
               width: "max-content",
             },
-            type: "flexBox",
-            content: [
-              {
-                id: v4(),
-                name: "Text field",
-                containerId: containerElement.id,
-                index: (containerElement.content as Array<EditorElement>)
-                  .length,
-                styles: defaultStyles,
-                type: "text",
-                content: { text: "Text field" },
-              },
-            ],
+            type: "button",
+            content: [],
           },
         }),
       );

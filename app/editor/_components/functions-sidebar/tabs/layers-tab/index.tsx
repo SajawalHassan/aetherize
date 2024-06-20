@@ -12,7 +12,6 @@ import { ComponentsList } from "../../../_components/components-list";
 import { TabsContent } from "@/components/ui/tabs";
 import { EditorElementTypes } from "@/lib/constants";
 import { ContainerPlaceholder } from "../../../placeholders/container-placeholder";
-import { FlexBoxPlaceholder } from "../../../placeholders/flexbox-placeholder";
 import { ElementPlaceholder } from "../../../placeholders/element-placeholder";
 import {
   ContactIcon,
@@ -38,12 +37,6 @@ export const LayersTab = (props: Props) => {
       group: "layout",
       label: "Container",
       id: "container",
-    },
-    {
-      Component: <FlexBoxPlaceholder draggable={false} />,
-      group: "layout",
-      label: "Flex box",
-      id: "flexBox",
     },
     {
       Component: (

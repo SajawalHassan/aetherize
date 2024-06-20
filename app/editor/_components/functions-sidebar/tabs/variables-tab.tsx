@@ -44,7 +44,7 @@ export const VariablesTab = (props: Props) => {
 
   return (
     <TabsContent value={"Variables" as functionsSidebarTabBtns}>
-      <h3 className="mb-6 text-center text-2xl font-bold">Variables</h3>
+      <h3 className="mb-6 pl-2 text-3xl font-bold">Variables</h3>
       <div className="space-y-2">
         {variables.map((variableObj) => (
           <VariableInput
