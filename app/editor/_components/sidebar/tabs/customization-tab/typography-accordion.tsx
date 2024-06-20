@@ -130,14 +130,14 @@ export const TypographyAccordion = (props: Props) => {
               </SelectContent>
             </Select>
           </div>
-          {/* <InputDropdown
+          <InputDropdown
             id="fontSize"
             placeholder="fontSize"
             value={(selectedElement?.styles.fontSize as string) || ""}
             dropdownList={textUnits}
             specialUnits={specialTextUnits}
             className="border-x-0 border-b border-t-0 border-b-white/10 bg-transparent"
-          /> */}
+          />
         </AccordionContent>
       </TooltipProvider>
     </AccordionItem>

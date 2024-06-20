@@ -27,7 +27,7 @@ export const DimensionsAccordion = (props: Props) => {
             <div className="flex items-center justify-between border-b border-white/10 pb-1">
               <p className="text-muted">Width / Height</p>
 
-              {/* <DropdownMenu>
+              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button className="h-max bg-transparent p-1.5">
                     <ExpandIcon size={14} />
@@ -85,7 +85,7 @@ export const DimensionsAccordion = (props: Props) => {
                     </div>
                   </div>
                 </DropdownMenuContent>
-              </DropdownMenu> */}
+              </DropdownMenu>
             </div>
             <div className="flex gap-x-4">
               <InputDropdown
@@ -96,18 +96,18 @@ export const DimensionsAccordion = (props: Props) => {
                 dropdownList={textUnits}
               />
 
-              {/* <InputDropdown
+              <InputDropdown
                 specialUnits={specialTextUnits}
                 id="height"
                 placeholder="height"
                 value={(selectedElement!.styles.height as string) || ""}
                 dropdownList={textUnits}
-              /> */}
+              />
             </div>
           </div>
 
           {/* Padding */}
-          {/* <div className="space-y-2">
+          <div className="space-y-2">
             <div className="flex items-center justify-between border-b border-white/10 pb-1">
               <p className="text-muted">Padding</p>
 
@@ -179,10 +179,10 @@ export const DimensionsAccordion = (props: Props) => {
               value={(selectedElement!.styles.padding as string) || ""}
               dropdownList={textUnits}
             />
-          </div> */}
+          </div>
 
           {/* Margin */}
-          {/* <div className="space-y-2">
+          <div className="space-y-2">
             <div className="flex items-center justify-between border-b border-white/10 pb-1">
               <p className="text-muted">Margin</p>
 
@@ -253,7 +253,7 @@ export const DimensionsAccordion = (props: Props) => {
               value={(selectedElement!.styles.margin as string) || ""}
               dropdownList={textUnits}
             />
-          </div> */}
+          </div>
         </AccordionContent>
       </TooltipProvider>
     </AccordionItem>

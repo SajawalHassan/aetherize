@@ -3,7 +3,7 @@ import { editorContainerId } from "@/lib/constants";
 import { EditorElement } from "@/slices/editor-slice";
 import clsx from "clsx";
 import { Badge } from "@/components/ui/badge";
-import { ReactNode, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import {
   dropElement,
   handleDeleteElement,
@@ -34,23 +34,28 @@ export const Layout = (props: Props) => {
     setDragOverClassName("");
   };
 
+  const handleDragHover = (e: React.DragEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (viewingMode !== "preview") setDragOverClassName("bg-th-btn/20");
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setDragOverClassName("");
+  };
+
   return (
     <div
-      onDragOver={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        if (viewingMode !== "preview") setDragOverClassName("bg-th-btn/20");
+      draggable
+      onDragStart={(e) => {
+        e.dataTransfer.setData("componentType", "container");
+        e.dataTransfer.setData("element", JSON.stringify(currentElement));
       }}
-      onDragEnter={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        if (viewingMode !== "preview") setDragOverClassName("bg-th-btn/20");
-      }}
-      onDragLeave={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        setDragOverClassName("");
-      }}
+      onDragOver={handleDragHover}
+      onDragEnter={handleDragHover}
+      onDragLeave={handleDragLeave}
       onDrop={handleOnDrop}
       onClick={(e) =>
         handleSelectElement(e, selectedElement, currentElement, dispatch)

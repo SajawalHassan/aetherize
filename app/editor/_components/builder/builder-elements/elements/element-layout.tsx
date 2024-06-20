@@ -2,19 +2,27 @@ import { Badge } from "@/components/ui/badge";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { EditorElement, editorActions } from "@/slices/editor-slice";
 import clsx from "clsx";
-import { handleDeleteElement, handleSelectElement } from "@/lib/helper";
+import {
+  dropElement,
+  handleDeleteElement,
+  handleSelectElement,
+} from "@/lib/helper";
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import { EditorElementTypes } from "@/lib/constants";
 
 type Props = {
   currentElement: EditorElement;
   className?: string;
   children: ReactNode;
+  componentType?: EditorElementTypes;
 };
 
 export const ElementLayout = (props: Props) => {
+  const [dragOverClassName, setDragOverClassName] = useState("");
+
   const { elements, selectedElement, viewingMode } = useAppSelector(
     (state) => state.editor,
   );
@@ -23,8 +31,34 @@ export const ElementLayout = (props: Props) => {
 
   const dispatch = useAppDispatch();
 
+  const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    dropElement(e, currentElement, elements, dispatch);
+    setDragOverClassName("");
+  };
+
+  const handleDragHover = (e: React.DragEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (viewingMode !== "preview") setDragOverClassName("bg-th-btn/20");
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setDragOverClassName("");
+  };
+
   return (
     <div
+      draggable
+      onDragStart={(e) => {
+        e.dataTransfer.setData("componentType", props.componentType as string);
+        e.dataTransfer.setData("element", JSON.stringify(currentElement));
+      }}
+      onDragOver={handleDragHover}
+      onDragEnter={handleDragHover}
+      onDragLeave={handleDragLeave}
+      onDrop={handleOnDrop}
       style={currentElement.styles}
       onClick={(e) =>
         handleSelectElement(e, selectedElement, currentElement, dispatch)
@@ -36,11 +70,12 @@ export const ElementLayout = (props: Props) => {
             selectedElement?.id === currentElement.id &&
             viewingMode !== "preview",
           "border-th-secondary": selectedElement?.id === currentElement.id,
-          "border-spacing-4 border border-dashed border-th-accent/20":
+          "border-spacing-4 border border-th-accent/20":
             selectedElement?.id !== currentElement.id &&
             viewingMode !== "preview",
         },
         props.className,
+        dragOverClassName,
       )}
     >
       <Badge

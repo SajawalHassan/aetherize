@@ -26,6 +26,19 @@ export const dropElement = (
   ) as EditorElementTypes;
   if (!componentType) return console.error("No component type specified");
 
+  const elementString = e.dataTransfer.getData("element");
+
+  if (elementString) {
+    dispatch(
+      editorActions.swapElementIndex({
+        containerId: currentElement.containerId,
+        elementOne: currentElement,
+        elementTwo: JSON.parse(elementString),
+      }),
+    );
+    return;
+  }
+
   switch (componentType) {
     case "container":
       dispatch(
@@ -35,6 +48,8 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Container",
+            containerId: currentElement.id,
+            index: (currentElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
             type: componentType,
             content: [],
@@ -50,6 +65,8 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Flex box",
+            containerId: currentElement.id,
+            index: (currentElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
             type: componentType,
             content: [],
@@ -65,6 +82,8 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Text field",
+            containerId: currentElement.id,
+            index: (currentElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
             type: componentType,
             content: { text: "Text field" },
@@ -80,6 +99,8 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Link Field",
+            containerId: currentElement.id,
+            index: (currentElement.content as Array<EditorElement>).length,
             styles: {
               ...defaultStyles,
               color: "lightblue",
@@ -99,6 +120,8 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Image",
+            containerId: currentElement.id,
+            index: (currentElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
             type: componentType,
             content: { imageSrc: "" },
@@ -114,6 +137,8 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Video",
+            containerId: currentElement.id,
+            index: (currentElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
             type: componentType,
             content: { videoSrc: "" },
@@ -129,6 +154,8 @@ export const dropElement = (
           newElement: {
             id: v4(),
             name: "Button",
+            containerId: currentElement.id,
+            index: (currentElement.content as Array<EditorElement>).length,
             styles: {
               ...defaultStyles,
               justifyContent: "center",
@@ -142,6 +169,8 @@ export const dropElement = (
               {
                 id: v4(),
                 name: "Text field",
+                containerId: currentElement.id,
+                index: (currentElement.content as Array<EditorElement>).length,
                 styles: defaultStyles,
                 type: "text",
                 content: { text: "Text field" },
@@ -224,4 +253,14 @@ export const handleStyleChange = (
       },
     }),
   );
+};
+
+export let compare = (a: EditorElement, b: EditorElement) => {
+  if (a.index < b.index) {
+    return -1;
+  }
+  if (a.index > b.index) {
+    return 1;
+  }
+  return 0;
 };

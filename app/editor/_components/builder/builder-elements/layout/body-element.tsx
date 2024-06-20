@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { Badge } from "@/components/ui/badge";
 import { ReactNode, useEffect, useState } from "react";
 import {
+  compare,
   dropElement,
   handleDeleteElement,
   handleSelectElement,
@@ -98,9 +99,12 @@ export const BodyElement = (props: Props) => {
       </Badge>
 
       {Array.isArray(currentElement.content) &&
-        currentElement.content.map((childElement) => (
-          <Recursive key={childElement.id} element={childElement} />
-        ))}
+        currentElement.content
+          .slice()
+          .sort(compare)
+          .map((childElement) => (
+            <Recursive key={childElement.id} element={childElement} />
+          ))}
 
       <TooltipProvider delayDuration={0}>
         <Button

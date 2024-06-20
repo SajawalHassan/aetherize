@@ -9,6 +9,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
   addElementAction,
   deleteElementAction,
+  findElementAction,
   updateElementAction,
 } from "./actions/editor-actions";
 import React from "react";
@@ -19,6 +20,8 @@ export interface EditorElement {
   type: EditorElementTypes;
   styles: React.CSSProperties;
   name: string;
+  index: number;
+  containerId: string;
   content:
     | EditorElement[]
     | { text?: string; href?: string; videoSrc?: string; imageSrc?: string };
@@ -52,6 +55,8 @@ const initialEditor: Editor = {
       name: "body",
       styles: defaultBodyStyles,
       type: editorContainerId,
+      containerId: "",
+      index: 0,
       content: [],
     },
   ],
@@ -78,6 +83,12 @@ interface updateElementPayload {
 interface deleteElementPayload {
   elementId: string;
   elementsArray: EditorElement[];
+}
+
+interface swapElementIndexPayload {
+  elementOne: EditorElement;
+  elementTwo: EditorElement;
+  containerId: string;
 }
 
 const editorSlice = createSlice({
@@ -117,6 +128,36 @@ const editorSlice = createSlice({
       return {
         ...state,
         selectedElement: action.payload,
+        prevEditorState: state,
+        nextEditorState: null,
+      };
+    },
+    swapElementIndex: (
+      state: Editor,
+      action: PayloadAction<swapElementIndexPayload>,
+    ) => {
+      let newElementsArray = updateElementAction(
+        action.payload.elementOne.id,
+        state.elements,
+        {
+          ...action.payload.elementOne,
+          index: action.payload.elementTwo.index,
+        },
+      );
+
+      newElementsArray = updateElementAction(
+        action.payload.elementTwo.id,
+        newElementsArray,
+        {
+          ...action.payload.elementTwo,
+          index: action.payload.elementOne.index,
+        },
+      );
+
+      return {
+        ...state,
+        elements: newElementsArray,
+        selectedElement: null,
         prevEditorState: state,
         nextEditorState: null,
       };

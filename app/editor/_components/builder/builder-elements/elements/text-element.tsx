@@ -30,7 +30,7 @@ export const TextElement = (props: Props) => {
   };
 
   return (
-    <ElementLayout currentElement={currentElement}>
+    <ElementLayout currentElement={currentElement} componentType={"text"}>
       {!Array.isArray(currentElement.content) && (
         <span
           contentEditable={viewingMode !== "preview"}
