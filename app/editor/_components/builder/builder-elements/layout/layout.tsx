@@ -50,7 +50,7 @@ export const Layout = (props: Props) => {
     <div
       draggable
       onDragStart={(e) => {
-        e.dataTransfer.setData("componentType", "container");
+        e.stopPropagation();
         e.dataTransfer.setData("element", JSON.stringify(currentElement));
       }}
       onDragOver={handleDragHover}

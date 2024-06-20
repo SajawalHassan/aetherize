@@ -24,14 +24,15 @@ export const dropElement = (
   const componentType = e.dataTransfer.getData(
     "componentType",
   ) as EditorElementTypes;
-  if (!componentType) return console.error("No component type specified");
 
   const elementString = e.dataTransfer.getData("element");
+  if (!componentType && !elementString)
+    return console.error("No component type specified when adding element");
 
   if (elementString) {
+    console.log(currentElement.containerId);
     dispatch(
       editorActions.swapElementIndex({
-        containerId: currentElement.containerId,
         elementOne: currentElement,
         elementTwo: JSON.parse(elementString),
       }),

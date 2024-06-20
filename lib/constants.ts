@@ -33,7 +33,7 @@ export const defaultStyles: React.CSSProperties = {
   marginLeft: "0px",
   marginBottom: "0px",
   marginRight: "0px",
-  padding: "4px",
+  padding: "10px",
 };
 
 export const defaultBodyStyles: React.CSSProperties = {

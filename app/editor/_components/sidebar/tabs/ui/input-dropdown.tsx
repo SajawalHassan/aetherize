@@ -30,9 +30,26 @@ export const InputDropdown = (props: Props) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (!props.specialUnits.includes(props.value)) {
+      if (
+        (props.value.split(/(\d+)/)[1] || "") === value &&
+        (props.value.split(/(\d+)/)[2] || "") === selectedItem
+      )
+        return;
+    }
+
+    setSelectedItem(
+      props.specialUnits.includes(props.value)
+        ? props.value
+        : props.value.split(/(\d+)/)[2],
+    );
+    setValue(props.value.split(/(\d+)/)[1] || "");
+  }, [selectedElement]);
+
+  useEffect(() => {
     if (!props.specialUnits.includes(selectedItem)) {
       if (
-        (props.value.split(/(\d+)/)[1] || "") === value ||
+        (props.value.split(/(\d+)/)[1] || "") === value &&
         (props.value.split(/(\d+)/)[2] || "") === selectedItem
       )
         return;
@@ -52,23 +69,6 @@ export const InputDropdown = (props: Props) => {
       dispatch,
     );
   }, [selectedItem, value]);
-
-  useEffect(() => {
-    if (!props.specialUnits.includes(props.value)) {
-      if (
-        (props.value.split(/(\d+)/)[1] || "") === value ||
-        (props.value.split(/(\d+)/)[2] || "") === selectedItem
-      )
-        return;
-    }
-
-    setSelectedItem(
-      props.specialUnits.includes(props.value)
-        ? props.value
-        : props.value.split(/(\d+)/)[2],
-    );
-    setValue(props.value.split(/(\d+)/)[1] || "");
-  }, [selectedElement]);
 
   return (
     <div

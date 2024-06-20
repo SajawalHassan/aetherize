@@ -88,7 +88,6 @@ interface deleteElementPayload {
 interface swapElementIndexPayload {
   elementOne: EditorElement;
   elementTwo: EditorElement;
-  containerId: string;
 }
 
 const editorSlice = createSlice({
@@ -136,6 +135,12 @@ const editorSlice = createSlice({
       state: Editor,
       action: PayloadAction<swapElementIndexPayload>,
     ) => {
+      if (
+        action.payload.elementOne.containerId !==
+        action.payload.elementTwo.containerId
+      )
+        return;
+
       let newElementsArray = updateElementAction(
         action.payload.elementOne.id,
         state.elements,
