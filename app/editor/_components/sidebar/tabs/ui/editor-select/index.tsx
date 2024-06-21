@@ -28,6 +28,7 @@ export const EditorSelect = (props: Props) => {
   const [selectedVarValue, setSelectedVarValue] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
   const [openChange, setOpenChange] = useState(false);
+  const [valuePlaceholder, setValuePlaceholder] = useState("-");
 
   const { elements, selectedElement, variables } = useAppSelector(
     (state) => state.editor,
@@ -52,14 +53,18 @@ export const EditorSelect = (props: Props) => {
   }, [selectedValue]);
 
   useEffect(() => {
-    if (props.value === "") return;
-
-    setSelectedValue(props.value);
-    const variable = variables.filter((variable) => variable.cssProp)[0];
+    const variable = variables.filter(
+      (variable) =>
+        selectedElement!.id === variable.elementId && variable.cssProp,
+    )[0];
+    console.log(variable);
 
     if (variable) {
       setSelectedVar(variable.variableName);
-      setSelectedVarValue(variable.variableValue);
+      setSelectedVarValue(variable.variableTrigger);
+      setValuePlaceholder(variable.cssPropValue);
+    } else {
+      setSelectedValue(props.value);
     }
   }, []);
 
@@ -75,7 +80,10 @@ export const EditorSelect = (props: Props) => {
           className="rounded-none border-none bg-transparent p-0 pl-3 pr-3 hover:bg-th-btn"
         >
           <p>{props.placeholder}</p>
-          <SelectValue placeholder="-" className="font-semibold" />
+          <SelectValue
+            placeholder={valuePlaceholder}
+            className="font-semibold"
+          />
         </SelectTrigger>
         <SelectContent className="border-none bg-th-btn text-white">
           {props.dropdownList.map((item) => (
