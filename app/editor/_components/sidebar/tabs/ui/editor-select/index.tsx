@@ -12,8 +12,9 @@ import {
 } from "@/components/ui/select";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { handleStyleChange } from "@/lib/helper";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { EditorSelectDropdownItem } from "./editor-select-dropdown-item";
+import { editorActions } from "@/slices/editor-slice";
 
 type Props = {
   dropdownList: string[];
@@ -52,12 +53,29 @@ export const EditorSelect = (props: Props) => {
     }
   }, [selectedValue]);
 
+  const variable = variables.filter(
+    (variable) => variable.variableName === selectedVar,
+  )[0];
+
+  useEffect(() => {
+    if (selectedValue && variable) {
+      dispatch(
+        editorActions.changeVariablesList({
+          ...variable,
+          elementId: selectedElement!.id,
+          variableName: selectedVar,
+          variableTrigger: selectedVarValue,
+          cssPropValue: selectedValue,
+        }),
+      );
+    }
+  }, [selectedVarValue, selectedValue, openChange]);
+
   useEffect(() => {
     const variable = variables.filter(
       (variable) =>
         selectedElement!.id === variable.elementId && variable.cssProp,
     )[0];
-    console.log(variable);
 
     if (variable) {
       setSelectedVar(variable.variableName);

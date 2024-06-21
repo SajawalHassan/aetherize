@@ -37,6 +37,7 @@ export const ButtonElement = (props: Props) => {
     if (Array.isArray(currentElement.content)) return;
 
     if (currentElement.content.onClick?.methodName === "changeVar") {
+      console.log("changeVar");
       const variable = variables.filter(
         (variable) =>
           variable.id === (currentElement.content as any).onClick.methodValue,
@@ -57,15 +58,15 @@ export const ButtonElement = (props: Props) => {
       {!Array.isArray(currentElement.content) && (
         <button
           onClick={handleOnClick}
-          className={clsx("bg-blue-500 p-2", {
-            "cursor-default": viewingMode === "development",
+          className={clsx("cursor-pointer bg-blue-500 p-2", {
+            "!cursor-default": viewingMode === "development",
           })}
         >
           <p
-            contentEditable
+            contentEditable={viewingMode !== "preview"}
             suppressContentEditableWarning
             onBlur={handleOnBlur}
-            className="cursor-text"
+            className={clsx({ "cursor-text": viewingMode === "development" })}
           >
             {currentElement.content.text}
           </p>

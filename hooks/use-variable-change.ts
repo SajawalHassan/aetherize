@@ -12,8 +12,6 @@ export const useVariableChange = (
   let prevCssPropValue = "";
 
   useEffect(() => {
-    if (!selectedElement) return;
-
     variables.map((variable) => {
       if (currentElement.id !== variable.elementId) return;
       if (variable.variableValue === variable.variableTrigger) {

@@ -13,17 +13,26 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {};
 
 export const CustomPropsAccordion = (props: Props) => {
   const [selectedVar, setSelectedVar] = useState("");
 
-  const { elements, selectedElement, variables } = useAppSelector(
+  const { elements, selectedElement, variables, viewingMode } = useAppSelector(
     (state) => state.editor,
   );
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (
+      !Array.isArray(selectedElement?.content) &&
+      selectedElement?.type === "button"
+    ) {
+      setSelectedVar(selectedElement?.content.onClick?.methodValue || "");
+    }
+  }, []);
 
   const handleCustomChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!selectedElement) return;
@@ -105,7 +114,11 @@ export const CustomPropsAccordion = (props: Props) => {
             <DropdownMenu>
               <DropdownMenuTrigger className="flex h-[40px] w-full items-center justify-between bg-th-btn/30 px-3 hover:bg-th-btn/50 active:bg-th-btn/70">
                 <p className="font-bold">OnClick</p>
-                <p className="">{selectedVar ? "Change variable" : "-"}</p>
+                <p className="">
+                  {selectedVar
+                    ? `Invert "${variables.filter((variable) => variable.id === selectedVar)[0].variableName}"`
+                    : "-"}
+                </p>
               </DropdownMenuTrigger>
 
               <DropdownMenuContent className="border-none bg-th-btn p-0 text-white">

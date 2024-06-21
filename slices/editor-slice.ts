@@ -1,6 +1,7 @@
 import {
   EditorElementTypes,
   defaultBodyStyles,
+  defaultStyles,
   deviceTypes,
   editorContainerId,
   viewingModes,
@@ -12,6 +13,7 @@ import {
   updateElementAction,
 } from "./actions/editor-actions";
 import React from "react";
+import { v4 } from "uuid";
 
 // Editor Element
 export interface EditorElement {
@@ -65,7 +67,36 @@ const initialEditor: Editor = {
       type: editorContainerId,
       containerId: "",
       index: 0,
-      content: [],
+      content: [
+        {
+          id: "__container",
+          name: "Container",
+          styles: defaultStyles,
+          type: "container",
+          containerId: editorContainerId,
+          index: 0,
+          content: [
+            {
+              id: v4(),
+              name: "Text field",
+              containerId: "__container",
+              index: 0,
+              styles: defaultStyles,
+              type: "text",
+              content: { text: "Text field" },
+            },
+            {
+              id: v4(),
+              name: "Text field",
+              containerId: "__container",
+              index: 0,
+              styles: defaultStyles,
+              type: "text",
+              content: { text: "Text field" },
+            },
+          ],
+        },
+      ],
     },
   ],
   selectedElement: null,
@@ -73,7 +104,17 @@ const initialEditor: Editor = {
   prevEditorState: null,
   device: "laptop",
   viewingMode: "development",
-  variables: [],
+  variables: [
+    {
+      cssProp: "display",
+      cssPropValue: "flex",
+      elementId: "__container",
+      id: v4(),
+      variableName: "showContainer",
+      variableTrigger: true,
+      variableValue: true,
+    },
+  ],
 };
 
 interface addElementPayload {
