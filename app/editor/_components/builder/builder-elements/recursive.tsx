@@ -6,6 +6,7 @@ import { LinkElement } from "./elements/link-element";
 import { ImageElement } from "./elements/image-element";
 import { VideoElement } from "./elements/video-element";
 import { BodyElement } from "./layout/body-element";
+import { ButtonElement } from "./elements/button-element";
 
 type Props = {
   element: EditorElement;
@@ -25,5 +26,7 @@ export const Recursive = (props: Props) => {
       return <ImageElement element={props.element} />;
     case "video":
       return <VideoElement element={props.element} />;
+    case "button":
+      return <ButtonElement currentElement={props.element} />;
   }
 };

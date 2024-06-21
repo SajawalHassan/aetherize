@@ -73,7 +73,7 @@ export const ElementLayout = (props: Props) => {
         handleSelectElement(e, selectedElement, currentElement, dispatch)
       }
       className={clsx(
-        "relative",
+        "relative w-max",
         {
           "border border-solid":
             selectedElement?.id === currentElement.id &&

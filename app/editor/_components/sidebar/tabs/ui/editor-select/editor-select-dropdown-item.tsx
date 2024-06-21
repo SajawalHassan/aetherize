@@ -31,7 +31,9 @@ export const EditorSelectDropdownItem = (props: Props) => {
     setSelectedVarValue,
     variableObj,
   } = props;
-  const { variables } = useAppSelector((state) => state.editor);
+  const { variables, selectedElement } = useAppSelector(
+    (state) => state.editor,
+  );
 
   const variable = useMemo(() => {
     return variables.filter(
@@ -45,6 +47,7 @@ export const EditorSelectDropdownItem = (props: Props) => {
       dispatch(
         editorActions.changeVariablesList({
           ...variable,
+          elementId: selectedElement!.id,
           variableName: selectedVar,
           variableTrigger: selectedVarValue,
           cssProp: id,

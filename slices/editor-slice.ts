@@ -9,7 +9,6 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
   addElementAction,
   deleteElementAction,
-  findElementAction,
   updateElementAction,
 } from "./actions/editor-actions";
 import React from "react";
@@ -24,7 +23,16 @@ export interface EditorElement {
   containerId: string;
   content:
     | EditorElement[]
-    | { text?: string; href?: string; videoSrc?: string; imageSrc?: string };
+    | {
+        text?: string;
+        href?: string;
+        videoSrc?: string;
+        imageSrc?: string;
+        onClick?: {
+          methodName: "changeVar";
+          methodValue: string;
+        };
+      };
 }
 
 export type Variable = {

@@ -11,10 +11,6 @@ export const useVariableChange = (
 ) => {
   let prevCssPropValue = "";
 
-  const localVariables = variables.filter(
-    (variable) => variable.elementId === selectedElement?.id,
-  );
-
   useEffect(() => {
     if (!selectedElement) return;
 

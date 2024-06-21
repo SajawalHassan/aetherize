@@ -148,16 +148,9 @@ export const caseAddElement = (
             name: "Button",
             containerId: containerElement.id,
             index: (containerElement.content as Array<EditorElement>).length,
-            styles: {
-              ...defaultStyles,
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: "center",
-              backgroundColor: "gray",
-              width: "max-content",
-            },
+            styles: defaultStyles,
             type: "button",
-            content: [],
+            content: { text: "Button" },
           },
         }),
       );

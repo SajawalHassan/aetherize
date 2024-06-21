@@ -14,14 +14,10 @@ type Props = {};
 export const VariablesTab = (props: Props) => {
   const [variableInput, setVariableInput] = useState("");
 
-  const { selectedElement, variables } = useAppSelector(
-    (state) => state.editor,
-  );
+  const { variables } = useAppSelector((state) => state.editor);
   const dispatch = useAppDispatch();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedElement) return;
-    if (!variableInput) return;
     if (
       variables.filter((variable) => variable.variableName === variableInput)
         .length > 0
@@ -31,7 +27,7 @@ export const VariablesTab = (props: Props) => {
     dispatch(
       editorActions.changeVariablesList({
         id: v4(),
-        elementId: selectedElement.id,
+        elementId: "",
         cssProp: "",
         cssPropValue: "",
         variableName: variableInput,
