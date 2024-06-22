@@ -1,5 +1,5 @@
 import { AccordionItem, AccordionContent } from "@/components/ui/accordion";
-import { AccordionCustomTrigger } from "../../../_components/accordion-custom-trigger";
+import { AccordionCustomTrigger } from "../../../accordion-custom-trigger";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {

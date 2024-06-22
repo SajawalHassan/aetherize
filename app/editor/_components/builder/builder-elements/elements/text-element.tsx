@@ -4,6 +4,7 @@ import { ElementLayout } from "./element-layout";
 
 type Props = {
   element: EditorElement;
+  containerElement: EditorElement;
 };
 
 export const TextElement = (props: Props) => {
@@ -30,7 +31,10 @@ export const TextElement = (props: Props) => {
   };
 
   return (
-    <ElementLayout currentElement={currentElement}>
+    <ElementLayout
+      currentElement={currentElement}
+      containerElement={props.containerElement}
+    >
       {!Array.isArray(currentElement.content) && (
         <span
           contentEditable={viewingMode !== "preview"}

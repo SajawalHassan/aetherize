@@ -4,6 +4,7 @@ import { ElementLayout } from "./element-layout";
 
 type Props = {
   element: EditorElement;
+  containerElement: EditorElement;
 };
 
 export const LinkElement = (props: Props) => {
@@ -30,7 +31,10 @@ export const LinkElement = (props: Props) => {
   };
 
   return (
-    <ElementLayout currentElement={currentElement}>
+    <ElementLayout
+      currentElement={currentElement}
+      containerElement={props.containerElement}
+    >
       {!Array.isArray(currentElement.content) && (
         <a
           href={currentElement.content.href}

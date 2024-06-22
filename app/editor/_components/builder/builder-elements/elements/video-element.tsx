@@ -3,13 +3,17 @@ import { ElementLayout } from "./element-layout";
 
 type Props = {
   element: EditorElement;
+  containerElement: EditorElement;
 };
 
 export const VideoElement = (props: Props) => {
   const currentElement = props.element;
 
   return (
-    <ElementLayout currentElement={currentElement}>
+    <ElementLayout
+      currentElement={currentElement}
+      containerElement={props.containerElement}
+    >
       {!Array.isArray(currentElement.content) && (
         <div className="min-h-full min-w-full">
           <iframe

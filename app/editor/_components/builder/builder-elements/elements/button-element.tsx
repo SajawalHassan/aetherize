@@ -6,6 +6,7 @@ import React from "react";
 
 type Props = {
   currentElement: EditorElement;
+  containerElement: EditorElement;
 };
 
 export const ButtonElement = (props: Props) => {
@@ -54,7 +55,10 @@ export const ButtonElement = (props: Props) => {
   };
 
   return (
-    <ElementLayout currentElement={currentElement}>
+    <ElementLayout
+      currentElement={currentElement}
+      containerElement={props.containerElement}
+    >
       {!Array.isArray(currentElement.content) && (
         <button
           onClick={handleOnClick}

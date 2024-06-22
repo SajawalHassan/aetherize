@@ -29,19 +29,8 @@ export const CustomizationTab = (props: Props) => {
             {/* Custom properties */}
             <CustomPropsAccordion />
 
-            {selectedElement.type === "container" && (
-              <>
-                {/* Display properties */}
-                <DisplayAccordion />
-              </>
-            )}
-
-            {selectedElement.type === "__body" && (
-              <>
-                {/* Display properties */}
-                <DisplayAccordion />
-              </>
-            )}
+            {/* Display properties */}
+            <DisplayAccordion />
 
             {/* Typography */}
             <TypographyAccordion />

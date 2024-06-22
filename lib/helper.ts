@@ -190,14 +190,10 @@ export const handleSelectElement = (
 export const handleDragStart = (
   e: React.DragEvent,
   type: EditorElementTypes,
-  deleteOriginal?: boolean,
-  originalElement?: EditorElement,
 ) => {
   if (type === null) return;
 
   e.dataTransfer.setData("componentType", type);
-  e.dataTransfer.setData("deleteOriginal", deleteOriginal ? "true" : "false");
-  e.dataTransfer.setData("originalElement", JSON.stringify(originalElement));
 };
 
 export const handleStyleChange = (

@@ -14,6 +14,7 @@ import { ReactNode, useState } from "react";
 import { EditorElementTypes } from "@/lib/constants";
 
 type Props = {
+  containerElement: EditorElement;
   currentElement: EditorElement;
   className?: string;
   children: ReactNode;
@@ -44,9 +45,13 @@ export const ElementLayout = (props: Props) => {
     if (!hoveredElement) setDragOverClassName("bg-th-btn/20");
     else if (hoveredElement.id !== currentElement.id) {
       if (hoveredElement.index > currentElement.index) {
-        setDragOverClassName("!border-t-th-accent");
+        if (props.containerElement.styles.display === "flex")
+          setDragOverClassName("!border-l-th-accent");
+        else setDragOverClassName("!border-t-th-accent");
       } else {
-        setDragOverClassName("!border-b-th-accent");
+        if (props.containerElement.styles.display === "flex")
+          setDragOverClassName("!border-r-th-accent");
+        else setDragOverClassName("!border-b-th-accent");
       }
     }
   };

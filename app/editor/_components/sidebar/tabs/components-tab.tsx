@@ -10,7 +10,7 @@ import {
   TypeIcon,
   YoutubeIcon,
 } from "lucide-react";
-import { ComponentsList } from "../../_components/components-list";
+import { ComponentsList } from "../../components-list";
 
 type Props = {};
 

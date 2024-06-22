@@ -17,7 +17,11 @@ export const Builder = (props: Props) => {
         })}
       >
         {elements.map((element) => (
-          <Recursive element={element} key={element.id} />
+          <Recursive
+            element={element}
+            containerElement={elements[0]}
+            key={element.id}
+          />
         ))}
       </div>
     </div>

@@ -100,7 +100,11 @@ export const BodyElement = (props: Props) => {
           .slice()
           .sort(compare)
           .map((childElement) => (
-            <Recursive key={childElement.id} element={childElement} />
+            <Recursive
+              key={childElement.id}
+              element={childElement}
+              containerElement={currentElement}
+            />
           ))}
 
       <TooltipProvider delayDuration={0}>

@@ -5,19 +5,27 @@ import { compare } from "@/lib/helper";
 
 type Props = {
   element: EditorElement;
+  containerElement: EditorElement;
 };
 
 export const ContainerElement = (props: Props) => {
   const currentElement = props.element;
 
   return (
-    <Layout currentElement={currentElement}>
+    <Layout
+      currentElement={currentElement}
+      containerElement={props.containerElement}
+    >
       {Array.isArray(currentElement.content) &&
         currentElement.content
           .slice()
           .sort(compare)
           .map((childElement) => (
-            <Recursive key={childElement.id} element={childElement} />
+            <Recursive
+              key={childElement.id}
+              element={childElement}
+              containerElement={currentElement}
+            />
           ))}
     </Layout>
   );

@@ -1,5 +1,5 @@
 import { AccordionContent, AccordionItem } from "@/components/ui/accordion";
-import { AccordionCustomTrigger } from "../../../_components/accordion-custom-trigger";
+import { AccordionCustomTrigger } from "../../../accordion-custom-trigger";
 import { InputDropdown } from "@/app/editor/_components/sidebar/tabs/ui/input-dropdown";
 import {
   alignContentItems,
@@ -20,9 +20,11 @@ type Props = {};
 export const DisplayAccordion = (props: Props) => {
   const { selectedElement } = useAppSelector((state) => state.editor);
 
+  if (!selectedElement) return;
+
   return (
     <AccordionItem value="display" className="border-white/10">
-      <AccordionCustomTrigger text="Display" />
+      <AccordionCustomTrigger text="Display properties" />
       <AccordionContent className="mt-4">
         <EditorSelect
           dropdownList={displayUnits}

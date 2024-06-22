@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PlusIcon } from "lucide-react";
-import { ComponentsList } from "../../../_components/components-list";
+import { ComponentsList } from "../../../components-list";
 import { TabsContent } from "@/components/ui/tabs";
 import { EditorElementTypes } from "@/lib/constants";
 import { ContainerPlaceholder } from "../../../placeholders/container-placeholder";

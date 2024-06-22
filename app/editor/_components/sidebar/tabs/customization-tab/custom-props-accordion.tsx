@@ -1,5 +1,5 @@
 import { AccordionItem, AccordionContent } from "@/components/ui/accordion";
-import { AccordionCustomTrigger } from "../../../_components/accordion-custom-trigger";
+import { AccordionCustomTrigger } from "../../../accordion-custom-trigger";
 import { editorActions } from "@/slices/editor-slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { Input } from "@/components/ui/input";

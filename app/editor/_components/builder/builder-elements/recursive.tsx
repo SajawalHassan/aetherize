@@ -10,6 +10,7 @@ import { ButtonElement } from "./elements/button-element";
 
 type Props = {
   element: EditorElement;
+  containerElement: EditorElement;
 };
 
 export const Recursive = (props: Props) => {
@@ -17,16 +18,46 @@ export const Recursive = (props: Props) => {
     case editorContainerId:
       return <BodyElement currentElement={props.element} />;
     case "container":
-      return <ContainerElement element={props.element} />;
+      return (
+        <ContainerElement
+          element={props.element}
+          containerElement={props.containerElement}
+        />
+      );
     case "text":
-      return <TextElement element={props.element} />;
+      return (
+        <TextElement
+          element={props.element}
+          containerElement={props.containerElement}
+        />
+      );
     case "link":
-      return <LinkElement element={props.element} />;
+      return (
+        <LinkElement
+          element={props.element}
+          containerElement={props.containerElement}
+        />
+      );
     case "image":
-      return <ImageElement element={props.element} />;
+      return (
+        <ImageElement
+          element={props.element}
+          containerElement={props.containerElement}
+        />
+      );
     case "video":
-      return <VideoElement element={props.element} />;
+      return (
+        <VideoElement
+          element={props.element}
+          containerElement={props.containerElement}
+        />
+      );
     case "button":
-      return <ButtonElement currentElement={props.element} />;
+      return (
+        <ButtonElement
+          currentElement={props.element}
+          containerElement={props.containerElement}
+        />
+      );
   }
 };

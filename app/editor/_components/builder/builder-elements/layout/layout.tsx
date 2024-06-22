@@ -15,6 +15,7 @@ import { TrashIcon } from "lucide-react";
 import { useVariableChange } from "@/hooks/use-variable-change";
 
 type Props = {
+  containerElement: EditorElement;
   currentElement: EditorElement;
   children: ReactNode;
   className?: string;
@@ -46,14 +47,20 @@ export const Layout = (props: Props) => {
     e.stopPropagation();
     e.preventDefault();
     const elementString: string = e.dataTransfer.getData("element");
-    const hoveredElement = elementString ? JSON.parse(elementString) : null;
+    const hoveredElement: EditorElement = elementString
+      ? JSON.parse(elementString)
+      : null;
 
     if (!hoveredElement) setDragOverClassName("bg-th-btn/20");
     else if (hoveredElement.id !== currentElement.id) {
       if (hoveredElement.index > currentElement.index) {
-        setDragOverClassName("!border-t-th-accent");
+        if (props.containerElement.styles.display === "flex")
+          setDragOverClassName("!border-l-th-accent");
+        else setDragOverClassName("!border-t-th-accent");
       } else {
-        setDragOverClassName("!border-b-th-accent");
+        if (props.containerElement.styles.display === "flex")
+          setDragOverClassName("!border-r-th-accent");
+        else setDragOverClassName("!border-b-th-accent");
       }
     }
   };
