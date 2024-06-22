@@ -20,14 +20,13 @@ type Props = {};
 export const DisplayAccordion = (props: Props) => {
   const { selectedElement } = useAppSelector((state) => state.editor);
 
-  //   prettier-ignore
   return (
     <AccordionItem value="display" className="border-white/10">
       <AccordionCustomTrigger text="Display" />
       <AccordionContent className="mt-4">
         <EditorSelect
           dropdownList={displayUnits}
-          id="display"
+          cssProp="display"
           value={selectedElement!.styles.display || ""}
           placeholder="Display"
           defaultValue="block"
@@ -75,9 +74,7 @@ export const DisplayAccordion = (props: Props) => {
                 specialUnits={specialTextUnits}
                 id="rowGap"
                 placeholder="Gap row"
-                value={
-                  (selectedElement!.styles.rowGap as string) || ""
-                }
+                value={(selectedElement!.styles.rowGap as string) || ""}
               />
 
               <InputDropdown
@@ -85,9 +82,7 @@ export const DisplayAccordion = (props: Props) => {
                 specialUnits={specialTextUnits}
                 id="columnGap"
                 placeholder="Gap column"
-                value={
-                  (selectedElement!.styles.columnGap as string) || ""
-                }
+                value={(selectedElement!.styles.columnGap as string) || ""}
               />
             </div>
           </div>

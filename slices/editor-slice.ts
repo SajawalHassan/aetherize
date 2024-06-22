@@ -67,36 +67,7 @@ const initialEditor: Editor = {
       type: editorContainerId,
       containerId: "",
       index: 0,
-      content: [
-        {
-          id: "__container",
-          name: "Container",
-          styles: defaultStyles,
-          type: "container",
-          containerId: editorContainerId,
-          index: 0,
-          content: [
-            {
-              id: v4(),
-              name: "Text field",
-              containerId: "__container",
-              index: 0,
-              styles: defaultStyles,
-              type: "text",
-              content: { text: "Text field" },
-            },
-            {
-              id: v4(),
-              name: "Text field",
-              containerId: "__container",
-              index: 0,
-              styles: defaultStyles,
-              type: "text",
-              content: { text: "Text field" },
-            },
-          ],
-        },
-      ],
+      content: [],
     },
   ],
   selectedElement: null,
@@ -104,17 +75,7 @@ const initialEditor: Editor = {
   prevEditorState: null,
   device: "laptop",
   viewingMode: "development",
-  variables: [
-    {
-      cssProp: "display",
-      cssPropValue: "flex",
-      elementId: "__container",
-      id: v4(),
-      variableName: "showContainer",
-      variableTrigger: true,
-      variableValue: true,
-    },
-  ],
+  variables: [],
 };
 
 interface addElementPayload {

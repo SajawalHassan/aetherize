@@ -54,6 +54,7 @@ export const InputDropdown = (props: Props) => {
       )
         return;
     }
+    if (!value || !selectedItem) return;
 
     handleStyleChange(
       {
