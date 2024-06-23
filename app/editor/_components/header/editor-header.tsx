@@ -26,6 +26,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { editorActions } from "@/slices/editor-slice";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
+import { useHotkeys } from "react-hotkeys-hook";
 
 type Props = {};
 
@@ -43,6 +44,16 @@ export const EditorHeader = (props: Props) => {
     setCanUndo(!!editor.prevEditorState);
     setCanRedo(!!editor.nextEditorState);
   }, [editor.prevEditorState, editor.nextEditorState]);
+
+  useHotkeys("ctrl+z", () => {
+    if (!canUndo) return;
+    handleUndo();
+  });
+
+  useHotkeys(["ctrl+y", "ctrl+shift+z"], () => {
+    if (!canRedo) return;
+    handleRedo();
+  });
 
   const handleUndo = () => {
     if (!editor.prevEditorState) return;
