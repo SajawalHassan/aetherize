@@ -29,11 +29,12 @@ export const dropElement = (
   if (!componentType && !elementString)
     return console.error("No component type specified when adding element");
 
+  // If element is provided, switch places instead of addding element
   if (elementString) {
     dispatch(
       editorActions.swapElementIndex({
-        elementOne: currentElement,
-        elementTwo: JSON.parse(elementString),
+        switchWithElement: currentElement,
+        hoveredElement: JSON.parse(elementString),
       }),
     );
     return;
@@ -56,7 +57,12 @@ export const caseAddElement = (
           elementsArray: elements,
           newElement: {
             id: v4(),
-            name: "Container",
+            name:
+              "Container" +
+              " " +
+              (
+                (containerElement.content as Array<EditorElement>).length + 1
+              ).toString(),
             containerId: containerElement.id,
             index: (containerElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
@@ -73,7 +79,12 @@ export const caseAddElement = (
           elementsArray: elements,
           newElement: {
             id: v4(),
-            name: "Text field",
+            name:
+              "Text field" +
+              " " +
+              (
+                (containerElement.content as Array<EditorElement>).length + 1
+              ).toString(),
             containerId: containerElement.id,
             index: (containerElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
@@ -90,7 +101,12 @@ export const caseAddElement = (
           elementsArray: elements,
           newElement: {
             id: v4(),
-            name: "Link Field",
+            name:
+              "Link Field" +
+              " " +
+              (
+                (containerElement.content as Array<EditorElement>).length + 1
+              ).toString(),
             containerId: containerElement.id,
             index: (containerElement.content as Array<EditorElement>).length,
             styles: {
@@ -111,7 +127,12 @@ export const caseAddElement = (
           elementsArray: elements,
           newElement: {
             id: v4(),
-            name: "Image",
+            name:
+              "Image" +
+              " " +
+              (
+                (containerElement.content as Array<EditorElement>).length + 1
+              ).toString(),
             containerId: containerElement.id,
             index: (containerElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
@@ -128,7 +149,12 @@ export const caseAddElement = (
           elementsArray: elements,
           newElement: {
             id: v4(),
-            name: "Video",
+            name:
+              "Video" +
+              " " +
+              (
+                (containerElement.content as Array<EditorElement>).length + 1
+              ).toString(),
             containerId: containerElement.id,
             index: (containerElement.content as Array<EditorElement>).length,
             styles: defaultStyles,
@@ -145,7 +171,12 @@ export const caseAddElement = (
           elementsArray: elements,
           newElement: {
             id: v4(),
-            name: "Button",
+            name:
+              "Button" +
+              " " +
+              (
+                (containerElement.content as Array<EditorElement>).length + 1
+              ).toString(),
             containerId: containerElement.id,
             index: (containerElement.content as Array<EditorElement>).length,
             styles: defaultStyles,

@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { editorContainerId } from "@/lib/constants";
-import { EditorElement } from "@/slices/editor-slice";
+import { EditorElement, editorActions } from "@/slices/editor-slice";
 import clsx from "clsx";
 import { Badge } from "@/components/ui/badge";
-import { ReactNode, useEffect, useState } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 import {
   compare,
   dropElement,
@@ -12,21 +12,30 @@ import {
 } from "@/lib/helper";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { TrashIcon } from "lucide-react";
-import { Recursive } from "../recursive";
+import { ClipboardCopyIcon, ClipboardPasteIcon, TrashIcon } from "lucide-react";
+import { Recursive } from "./recursive";
 import { useVariableChange } from "@/hooks/use-variable-change";
+import { ContextMenuOption } from "./_components/context-menu-option";
+import { v4 } from "uuid";
+import { useHotkeys } from "react-hotkeys-hook";
 
 type Props = {
   currentElement: EditorElement;
 };
 
 export const BodyElement = (props: Props) => {
+  const [contextMenu, setContextMenu] = useState(false);
   const [dragOverClassName, setDragOverClassName] = useState("");
+  const [contextMenuPos, setContextMenuPos] = useState({
+    x: 0,
+    y: 0,
+  });
+
+  const elementRef = useRef<HTMLDivElement>(null);
 
   const { currentElement } = props;
-  const { selectedElement, elements, viewingMode, variables } = useAppSelector(
-    (state) => state.editor,
-  );
+  const { selectedElement, elements, viewingMode, variables, copiedElement } =
+    useAppSelector((state) => state.editor);
 
   const dispatch = useAppDispatch();
   useVariableChange(
@@ -37,6 +46,32 @@ export const BodyElement = (props: Props) => {
     selectedElement,
   );
 
+  useHotkeys("ctrl+v", (e) => {
+    if (!selectedElement) return;
+    if (selectedElement.id !== currentElement.id) return;
+    handlePaste(selectedElement.id);
+  });
+
+  const handlePaste = (containerId: string, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    e?.preventDefault();
+    if (!copiedElement) return;
+
+    dispatch(
+      editorActions.addElement({
+        containerId,
+        elementsArray: elements,
+        newElement: {
+          ...copiedElement,
+          id: v4(),
+          name: copiedElement.name + " copy",
+        },
+      }),
+    );
+
+    setContextMenu(false);
+  };
+
   const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
     dropElement(e, currentElement, elements, dispatch);
     setDragOverClassName("");
@@ -44,6 +79,7 @@ export const BodyElement = (props: Props) => {
 
   return (
     <div
+      ref={elementRef}
       onDragOver={(e) => {
         e.stopPropagation();
         e.preventDefault();
@@ -63,6 +99,15 @@ export const BodyElement = (props: Props) => {
       onClick={(e) =>
         handleSelectElement(e, selectedElement, currentElement, dispatch)
       }
+      onContextMenu={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setContextMenu(true);
+        setContextMenuPos({
+          x: e.pageX,
+          y: e.pageY,
+        });
+      }}
       style={currentElement.styles}
       className={clsx(
         "relative h-full w-full overflow-scroll p-4 transition-all duration-100",
@@ -80,6 +125,46 @@ export const BodyElement = (props: Props) => {
         dragOverClassName,
       )}
     >
+      {contextMenu && (
+        <div
+          className="fixed inset-0 z-[100]"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setContextMenu(false);
+          }}
+          onContextMenu={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setContextMenu(false);
+          }}
+        />
+      )}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{ top: contextMenuPos.y, left: contextMenuPos.x }}
+        className={clsx(
+          "fixed -z-[110] min-h-60 min-w-[14rem] rounded-sm border border-white/20 bg-th-btn py-2 opacity-0 transition-opacity duration-100",
+          {
+            "!z-[110] opacity-100": contextMenu === true,
+          },
+        )}
+      >
+        <h4 className="mb-2 ml-2.5 text-xl font-semibold">Options</h4>
+        <ContextMenuOption
+          text="Copy element"
+          Icon={ClipboardCopyIcon}
+          hotKey="Ctrl+C"
+          disabled={true}
+        />
+        <ContextMenuOption
+          text="Paste element"
+          Icon={ClipboardPasteIcon}
+          hotKey="Ctrl+V"
+          onClick={(e) => handlePaste(currentElement.id, e)}
+          disabled={!!!copiedElement}
+        />
+      </div>
       <Badge
         className={clsx(
           "absolute -left-[2.3px] -top-6 hidden rounded-none rounded-t-lg",

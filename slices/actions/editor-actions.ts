@@ -62,26 +62,3 @@ export const deleteElementAction = (
 
   return newElementsArray;
 };
-
-export const findElementAction = (
-  elementsArray: EditorElement[],
-  elementId: string,
-): EditorElement | null => {
-  let foundElement: EditorElement | null = null;
-
-  elementsArray.map((element) => {
-    if (element.id === elementId) {
-      foundElement = element;
-      return element;
-    } else if (Array.isArray(element.content)) {
-      return {
-        ...element,
-        content: findElementAction(element.content, elementId),
-      };
-    } else {
-      return element;
-    }
-  });
-
-  return foundElement;
-};

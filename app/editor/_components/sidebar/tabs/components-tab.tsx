@@ -7,6 +7,7 @@ import {
   ImageIcon,
   LinkIcon,
   MousePointerClickIcon,
+  PointerIcon,
   TypeIcon,
   YoutubeIcon,
 } from "lucide-react";
@@ -57,10 +58,7 @@ export const ComponentsTab = (props: Props) => {
     },
     {
       Component: (
-        <ElementPlaceholder
-          Icon={MousePointerClickIcon}
-          componentType={"button"}
-        />
+        <ElementPlaceholder Icon={PointerIcon} componentType={"button"} />
       ),
       group: "element",
       label: "Button",

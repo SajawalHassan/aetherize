@@ -9,7 +9,7 @@ export const Builder = (props: Props) => {
 
   return (
     <div className={clsx("flex-grow")}>
-      <div
+      <main
         className={clsx("mx-auto h-full transition-all duration-500", {
           "max-w-[412px]": device === "mobile",
           "max-w-[1024px]": device === "tablet",
@@ -23,7 +23,7 @@ export const Builder = (props: Props) => {
             key={element.id}
           />
         ))}
-      </div>
+      </main>
     </div>
   );
 };

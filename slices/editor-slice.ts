@@ -56,6 +56,7 @@ export interface Editor {
   device: deviceTypes;
   viewingMode: viewingModes;
   variables: Variable[];
+  copiedElement: EditorElement | null;
 }
 
 const initialEditor: Editor = {
@@ -76,6 +77,7 @@ const initialEditor: Editor = {
   device: "laptop",
   viewingMode: "development",
   variables: [],
+  copiedElement: null,
 };
 
 interface addElementPayload {
@@ -96,8 +98,8 @@ interface deleteElementPayload {
 }
 
 interface swapElementIndexPayload {
-  elementOne: EditorElement;
-  elementTwo: EditorElement;
+  switchWithElement: EditorElement;
+  hoveredElement: EditorElement;
 }
 
 const editorSlice = createSlice({
@@ -127,7 +129,7 @@ const editorSlice = createSlice({
     redoEditorState: (state: Editor, action: PayloadAction<Editor>) => {
       return {
         ...action.payload,
-        prevEditorState: state,
+        prevEditorState: state === state.prevEditorState ? null : state,
       };
     },
     selectElement: (
@@ -137,64 +139,111 @@ const editorSlice = createSlice({
       return {
         ...state,
         selectedElement: action.payload,
-        prevEditorState: state,
+        prevEditorState: state === state.prevEditorState ? null : state,
         nextEditorState: null,
+      };
+    },
+    copyElement: (state: Editor, action: PayloadAction<EditorElement>) => {
+      return {
+        ...state,
+        copiedElement: action.payload,
       };
     },
     swapElementIndex: (
       state: Editor,
       action: PayloadAction<swapElementIndexPayload>,
     ) => {
+      console.log(
+        action.payload.hoveredElement.containerId,
+        action.payload.switchWithElement.containerId,
+      );
+
+      // User wants to move element from one container to another
       if (
-        action.payload.elementOne.containerId !==
-        action.payload.elementTwo.containerId
-      )
-        return;
+        action.payload.switchWithElement.containerId !==
+        action.payload.hoveredElement.containerId
+        // action.payload.switchWithElement.id !== editorContainerId
+      ) {
+        let newElementsArray = deleteElementAction(
+          state.elements,
+          action.payload.hoveredElement.id,
+        );
+
+        newElementsArray = addElementAction(
+          action.payload.switchWithElement.id === editorContainerId
+            ? action.payload.switchWithElement.id
+            : action.payload.switchWithElement.containerId,
+          newElementsArray,
+          action.payload.hoveredElement,
+        );
+
+        // Update selectedElement, if needed
+        if (state.selectedElement) {
+          return {
+            ...state,
+            elements: newElementsArray,
+            selectedElement: {
+              ...state.selectedElement,
+              containerId: action.payload.switchWithElement.containerId,
+            },
+            prevEditorState: state === state.prevEditorState ? null : state,
+            nextEditorState: null,
+          };
+        }
+
+        return {
+          ...state,
+          elements: newElementsArray,
+          selectedElement: null,
+          prevEditorState: state === state.prevEditorState ? null : state,
+          nextEditorState: null,
+        };
+      }
 
       // Update element one's index with element two's index
       let newElementsArray = updateElementAction(
-        action.payload.elementOne.id,
+        action.payload.switchWithElement.id,
         state.elements,
         {
-          ...action.payload.elementOne,
-          index: action.payload.elementTwo.index,
+          ...action.payload.switchWithElement,
+          index: action.payload.hoveredElement.index,
         },
       );
 
       // Update element two's index with element one's index
       newElementsArray = updateElementAction(
-        action.payload.elementTwo.id,
+        action.payload.hoveredElement.id,
         newElementsArray,
         {
-          ...action.payload.elementTwo,
-          index: action.payload.elementOne.index,
+          ...action.payload.hoveredElement,
+          index: action.payload.switchWithElement.index,
         },
       );
 
       // Update selectedElement, if needed
       if (state.selectedElement) {
-        if (action.payload.elementOne.id === state.selectedElement.id) {
+        if (action.payload.switchWithElement.id === state.selectedElement.id) {
           return {
             ...state,
             elements: newElementsArray,
             selectedElement: {
               ...state.selectedElement,
-              index: action.payload.elementTwo.index,
+              index: action.payload.hoveredElement.index,
             },
-            prevEditorState: state,
+            prevEditorState: state === state.prevEditorState ? null : state,
             nextEditorState: null,
           };
         }
 
-        if (action.payload.elementTwo.id === state.selectedElement.id) {
+        if (action.payload.hoveredElement.id === state.selectedElement.id) {
           return {
             ...state,
             elements: newElementsArray,
             selectedElement: {
               ...state.selectedElement,
-              index: action.payload.elementOne.index,
+              index: action.payload.switchWithElement.index,
             },
-            prevEditorState: state,
+            prevEditorState: state === state.prevEditorState ? null : state,
             nextEditorState: null,
           };
         }
@@ -204,7 +253,7 @@ const editorSlice = createSlice({
         ...state,
         elements: newElementsArray,
         selectedElement: null,
-        prevEditorState: state,
+        prevEditorState: state === state.prevEditorState ? null : state,
         nextEditorState: null,
       };
     },
@@ -217,7 +266,7 @@ const editorSlice = createSlice({
       return {
         ...state,
         variables: newVariablesList,
-        prevEditorState: state,
+        prevEditorState: state === state.prevEditorState ? null : state,
         nextEditorState: null,
       };
     },
@@ -234,7 +283,7 @@ const editorSlice = createSlice({
       ) {
         return {
           ...state,
-          prevEditorState: state,
+          prevEditorState: state === state.prevEditorState ? null : state,
           nextEditorState: null,
           elements: newElementsArray,
           selectedElement: {
@@ -249,7 +298,7 @@ const editorSlice = createSlice({
 
       return {
         ...state,
-        prevEditorState: state,
+        prevEditorState: state === state.prevEditorState ? null : state,
         nextEditorState: null,
         elements: newElementsArray,
       };
@@ -267,7 +316,7 @@ const editorSlice = createSlice({
       if (action.payload.elementId === state.selectedElement?.id) {
         return {
           ...state,
-          prevEditorState: state,
+          prevEditorState: state === state.prevEditorState ? null : state,
           nextEditorState: null,
           elements: newElementsArray,
           selectedElement: action.payload.elementData,
@@ -276,7 +325,7 @@ const editorSlice = createSlice({
 
       return {
         ...state,
-        prevEditorState: state,
+        prevEditorState: state === state.prevEditorState ? null : state,
         nextEditorState: null,
         elements: newElementsArray,
       };
@@ -292,7 +341,7 @@ const editorSlice = createSlice({
 
       return {
         ...state,
-        prevEditorState: state,
+        prevEditorState: state === state.prevEditorState ? null : state,
         nextEditorState: null,
         elements: updatedElementsArray,
         selectedElement: null,

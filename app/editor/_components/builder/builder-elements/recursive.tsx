@@ -5,7 +5,7 @@ import { TextElement } from "./elements/text-element";
 import { LinkElement } from "./elements/link-element";
 import { ImageElement } from "./elements/image-element";
 import { VideoElement } from "./elements/video-element";
-import { BodyElement } from "./layout/body-element";
+import { BodyElement } from "./body-element";
 import { ButtonElement } from "./elements/button-element";
 
 type Props = {

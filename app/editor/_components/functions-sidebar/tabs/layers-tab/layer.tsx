@@ -10,6 +10,7 @@ import {
   BoxSelectIcon,
   ImageIcon,
   LinkIcon,
+  PointerIcon,
   TrashIcon,
   TypeIcon,
   YoutubeIcon,
@@ -108,12 +109,14 @@ export const Layer = (props: Props) => {
           ) : props.element.type === "video" ? (
             <YoutubeIcon size={20} />
           ) : props.element.type === "__body" ? (
-            <BoxSelectIcon />
+            <BoxSelectIcon size={20} />
+          ) : props.element.type === "link" ? (
+            <LinkIcon size={20} />
           ) : (
-            props.element.type === "link" && <LinkIcon />
+            props.element.type === "button" && <PointerIcon size={20} />
           )}
           <p
-            className="w-max font-medium"
+            className="w-max max-w-[150px] truncate font-medium"
             contentEditable
             suppressContentEditableWarning
             onBlur={handleOnBlur}

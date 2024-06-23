@@ -7,7 +7,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, PointerIcon } from "lucide-react";
 import { ComponentsList } from "../../../components-list";
 import { TabsContent } from "@/components/ui/tabs";
 import { EditorElementTypes } from "@/lib/constants";
@@ -90,7 +90,7 @@ export const LayersTab = (props: Props) => {
       Component: (
         <ElementPlaceholder
           draggable={false}
-          Icon={MousePointerClickIcon}
+          Icon={PointerIcon}
           componentType={"button"}
         />
       ),
