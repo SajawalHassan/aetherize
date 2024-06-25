@@ -51,17 +51,21 @@ export const caseAddElement = (
 ) => {
   switch (componentType) {
     case "container":
+      const id = v4();
+
       dispatch(
         editorActions.addElement({
           containerId: containerElement.id,
           elementsArray: elements,
           newElement: {
-            id: v4(),
+            id,
             name:
               "Container" +
               " " +
               (
-                (containerElement.content as Array<EditorElement>).length + 1
+                (containerElement.content as Array<EditorElement>).filter(
+                  (element) => element.type === componentType,
+                ).length + 1
               ).toString(),
             containerId: containerElement.id,
             index: (containerElement.content as Array<EditorElement>).length,
@@ -83,7 +87,9 @@ export const caseAddElement = (
               "Text field" +
               " " +
               (
-                (containerElement.content as Array<EditorElement>).length + 1
+                (containerElement.content as Array<EditorElement>).filter(
+                  (element) => element.type === componentType,
+                ).length + 1
               ).toString(),
             containerId: containerElement.id,
             index: (containerElement.content as Array<EditorElement>).length,
@@ -105,7 +111,9 @@ export const caseAddElement = (
               "Link Field" +
               " " +
               (
-                (containerElement.content as Array<EditorElement>).length + 1
+                (containerElement.content as Array<EditorElement>).filter(
+                  (element) => element.type === componentType,
+                ).length + 1
               ).toString(),
             containerId: containerElement.id,
             index: (containerElement.content as Array<EditorElement>).length,
@@ -131,7 +139,9 @@ export const caseAddElement = (
               "Image" +
               " " +
               (
-                (containerElement.content as Array<EditorElement>).length + 1
+                (containerElement.content as Array<EditorElement>).filter(
+                  (element) => element.type === componentType,
+                ).length + 1
               ).toString(),
             containerId: containerElement.id,
             index: (containerElement.content as Array<EditorElement>).length,
@@ -153,7 +163,9 @@ export const caseAddElement = (
               "Video" +
               " " +
               (
-                (containerElement.content as Array<EditorElement>).length + 1
+                (containerElement.content as Array<EditorElement>).filter(
+                  (element) => element.type === componentType,
+                ).length + 1
               ).toString(),
             containerId: containerElement.id,
             index: (containerElement.content as Array<EditorElement>).length,
@@ -175,7 +187,9 @@ export const caseAddElement = (
               "Button" +
               " " +
               (
-                (containerElement.content as Array<EditorElement>).length + 1
+                (containerElement.content as Array<EditorElement>).filter(
+                  (element) => element.type === componentType,
+                ).length + 1
               ).toString(),
             containerId: containerElement.id,
             index: (containerElement.content as Array<EditorElement>).length,
@@ -205,7 +219,7 @@ export const handleDeleteElement = (
 };
 
 export const handleSelectElement = (
-  e: React.MouseEvent<HTMLDivElement>,
+  e: React.MouseEvent,
   selectedElement: EditorElement | null,
   currentElement: EditorElement,
   dispatch: DispatchType,

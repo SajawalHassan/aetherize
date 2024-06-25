@@ -56,6 +56,17 @@ export const Layout = (props: Props) => {
     handlePaste(selectedElement.id);
   });
 
+  useHotkeys("delete", () => {
+    if (!selectedElement) return;
+    if (selectedElement.id !== currentElement.id) return;
+    dispatch(
+      editorActions.deleteElement({
+        elementId: currentElement.id,
+        elementsArray: elements,
+      }),
+    );
+  });
+
   const handleCopy = (element: EditorElement, e?: React.MouseEvent) => {
     e?.stopPropagation();
     e?.preventDefault();
@@ -100,7 +111,7 @@ export const Layout = (props: Props) => {
     // prettier-ignore
     if (!hoveredElement) setDragOverClassName("bg-th-btn/20");
     
-    else if (hoveredElement.id !== currentElement.id) { // Hovering over other element
+    else if (hoveredElement.id !== currentElement.id && hoveredElement.containerId === currentElement.containerId) {
       if (hoveredElement.index > currentElement.index) { // Element is below other element
         if (props.containerElement.styles.display === "flex") { // Container has flexbox
           setDragOverClassName("!border-l-th-accent");

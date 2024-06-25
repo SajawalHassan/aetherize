@@ -1,7 +1,7 @@
 import {
+  EditorElementContent,
   EditorElementTypes,
   defaultBodyStyles,
-  defaultStyles,
   deviceTypes,
   editorContainerId,
   viewingModes,
@@ -13,7 +13,6 @@ import {
   updateElementAction,
 } from "./actions/editor-actions";
 import React from "react";
-import { v4 } from "uuid";
 
 // Editor Element
 export interface EditorElement {
@@ -23,18 +22,7 @@ export interface EditorElement {
   name: string;
   index: number;
   containerId: string;
-  content:
-    | EditorElement[]
-    | {
-        text?: string;
-        href?: string;
-        videoSrc?: string;
-        imageSrc?: string;
-        onClick?: {
-          methodName: "changeVar";
-          methodValue: string;
-        };
-      };
+  content: EditorElement[] | EditorElementContent;
 }
 
 export type Variable = {
@@ -153,53 +141,6 @@ const editorSlice = createSlice({
       state: Editor,
       action: PayloadAction<swapElementIndexPayload>,
     ) => {
-      console.log(
-        action.payload.hoveredElement.containerId,
-        action.payload.switchWithElement.containerId,
-      );
-
-      // User wants to move element from one container to another
-      if (
-        action.payload.switchWithElement.containerId !==
-        action.payload.hoveredElement.containerId
-        // action.payload.switchWithElement.id !== editorContainerId
-      ) {
-        let newElementsArray = deleteElementAction(
-          state.elements,
-          action.payload.hoveredElement.id,
-        );
-
-        newElementsArray = addElementAction(
-          action.payload.switchWithElement.id === editorContainerId
-            ? action.payload.switchWithElement.id
-            : action.payload.switchWithElement.containerId,
-          newElementsArray,
-          action.payload.hoveredElement,
-        );
-
-        // Update selectedElement, if needed
-        if (state.selectedElement) {
-          return {
-            ...state,
-            elements: newElementsArray,
-            selectedElement: {
-              ...state.selectedElement,
-              containerId: action.payload.switchWithElement.containerId,
-            },
-            prevEditorState: state === state.prevEditorState ? null : state,
-            nextEditorState: null,
-          };
-        }
-
-        return {
-          ...state,
-          elements: newElementsArray,
-          selectedElement: null,
-          prevEditorState: state === state.prevEditorState ? null : state,
-          nextEditorState: null,
-        };
-      }
-
       // Update element one's index with element two's index
       let newElementsArray = updateElementAction(
         action.payload.switchWithElement.id,

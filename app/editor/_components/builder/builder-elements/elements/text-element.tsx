@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { EditorElement, editorActions } from "@/slices/editor-slice";
 import { ElementLayout } from "./element-layout";
+import { handleSelectElement } from "@/lib/helper";
 
 type Props = {
   element: EditorElement;
@@ -8,7 +9,9 @@ type Props = {
 };
 
 export const TextElement = (props: Props) => {
-  const { elements, viewingMode } = useAppSelector((state) => state.editor);
+  const { elements, viewingMode, selectedElement } = useAppSelector(
+    (state) => state.editor,
+  );
   const currentElement = props.element;
 
   const dispatch = useAppDispatch();
@@ -37,8 +40,16 @@ export const TextElement = (props: Props) => {
     >
       {!Array.isArray(currentElement.content) && (
         <span
-          contentEditable={viewingMode !== "preview"}
+          contentEditable={
+            viewingMode !== "preview" &&
+            selectedElement?.id === currentElement.id
+          }
           suppressContentEditableWarning
+          onClick={(e) => {
+            e.stopPropagation();
+            if (selectedElement?.id !== currentElement.id)
+              handleSelectElement(e, selectedElement, currentElement, dispatch);
+          }}
           onBlur={handleOnBlur}
           className="w-full"
         >

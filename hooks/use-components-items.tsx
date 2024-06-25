@@ -18,7 +18,7 @@ export const useComponentsItems = () => {
     id: EditorElementTypes;
   }[] = [
     {
-      Component: <ContainerPlaceholder draggable={false} />,
+      Component: <ContainerPlaceholder draggable={true} />,
       group: "layout",
       label: "Container",
       id: "container",
@@ -26,7 +26,7 @@ export const useComponentsItems = () => {
     {
       Component: (
         <ElementPlaceholder
-          draggable={false}
+          draggable={true}
           Icon={TypeIcon}
           componentType={"text"}
         />
@@ -38,7 +38,7 @@ export const useComponentsItems = () => {
     {
       Component: (
         <ElementPlaceholder
-          draggable={false}
+          draggable={true}
           Icon={LinkIcon}
           componentType={"link"}
         />
@@ -50,7 +50,7 @@ export const useComponentsItems = () => {
     {
       Component: (
         <ElementPlaceholder
-          draggable={false}
+          draggable={true}
           Icon={YoutubeIcon}
           componentType={"video"}
         />
@@ -62,7 +62,7 @@ export const useComponentsItems = () => {
     {
       Component: (
         <ElementPlaceholder
-          draggable={false}
+          draggable={true}
           Icon={ImageIcon}
           componentType={"image"}
         />
@@ -74,7 +74,7 @@ export const useComponentsItems = () => {
     {
       Component: (
         <ElementPlaceholder
-          draggable={false}
+          draggable={true}
           Icon={PointerIcon}
           componentType={"button"}
         />
@@ -86,7 +86,7 @@ export const useComponentsItems = () => {
     {
       Component: (
         <ElementPlaceholder
-          draggable={false}
+          draggable={true}
           Icon={ContactIcon}
           componentType={"contactForm"}
         />

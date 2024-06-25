@@ -284,3 +284,14 @@ export type EditorElementTypes =
   | "image"
   | "button"
   | null;
+
+export type EditorElementContent = {
+  text?: string;
+  href?: string;
+  videoSrc?: string;
+  imageSrc?: string;
+  onClick?: {
+    methodName: "changeVar";
+    methodValue: string;
+  };
+};

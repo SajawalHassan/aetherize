@@ -8,10 +8,14 @@ import {
   handleSelectElement,
 } from "@/lib/helper";
 import { Button } from "@/components/ui/button";
-import { TrashIcon } from "lucide-react";
+import { ClipboardCopyIcon, ClipboardPasteIcon, TrashIcon } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ReactNode, useState } from "react";
-import { EditorElementTypes } from "@/lib/constants";
+import { useVariableChange } from "@/hooks/use-variable-change";
+import { useHotkeys } from "react-hotkeys-hook";
+import { v4 } from "uuid";
+import { ContextMenuOption } from "../_components/context-menu-option";
+import { editorContainerId } from "@/lib/constants";
 
 type Props = {
   containerElement: EditorElement;
@@ -22,14 +26,49 @@ type Props = {
 
 export const ElementLayout = (props: Props) => {
   const [dragOverClassName, setDragOverClassName] = useState("");
+  const [contextMenu, setContextMenu] = useState(false);
+  const [contextMenuPos, setContextMenuPos] = useState({
+    x: 0,
+    y: 0,
+  });
 
-  const { elements, selectedElement, viewingMode } = useAppSelector(
-    (state) => state.editor,
-  );
+  const { elements, selectedElement, viewingMode, variables, copiedElement } =
+    useAppSelector((state) => state.editor);
 
   const { currentElement, children } = props;
 
   const dispatch = useAppDispatch();
+  useVariableChange(
+    variables,
+    currentElement,
+    elements,
+    dispatch,
+    selectedElement,
+  );
+
+  useHotkeys("ctrl+c", () => {
+    if (!selectedElement) return;
+    handleCopy(selectedElement);
+  });
+
+  useHotkeys("delete", () => {
+    if (!selectedElement) return;
+    if (selectedElement.id !== currentElement.id) return;
+    dispatch(
+      editorActions.deleteElement({
+        elementId: currentElement.id,
+        elementsArray: elements,
+      }),
+    );
+  });
+
+  const handleCopy = (element: EditorElement, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    e?.preventDefault();
+
+    dispatch(editorActions.copyElement(element));
+    setContextMenu(false);
+  };
 
   const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
     dropElement(e, currentElement, elements, dispatch);
@@ -77,6 +116,15 @@ export const ElementLayout = (props: Props) => {
       onClick={(e) =>
         handleSelectElement(e, selectedElement, currentElement, dispatch)
       }
+      onContextMenu={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setContextMenu(true);
+        setContextMenuPos({
+          x: e.pageX,
+          y: e.pageY,
+        });
+      }}
       className={clsx(
         "relative w-max",
         {
@@ -92,6 +140,48 @@ export const ElementLayout = (props: Props) => {
         dragOverClassName,
       )}
     >
+      {contextMenu && (
+        <>
+          <div
+            className="fixed inset-0 z-[100]"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setContextMenu(false);
+            }}
+            onContextMenu={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setContextMenu(false);
+            }}
+          />
+        </>
+      )}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{ top: contextMenuPos.y, left: contextMenuPos.x }}
+        className={clsx(
+          "fixed -z-[110] min-h-60 min-w-[14rem] rounded-sm border border-white/20 bg-th-btn py-2 opacity-0 transition-opacity duration-100",
+          {
+            "!z-[110] opacity-100": contextMenu === true,
+          },
+        )}
+      >
+        <h4 className="mb-2 ml-2.5 text-xl font-semibold">Options</h4>
+        <ContextMenuOption
+          text="Copy element"
+          Icon={ClipboardCopyIcon}
+          hotKey="Ctrl+C"
+          onClick={(e) => handleCopy(currentElement, e)}
+          disabled={currentElement.id === editorContainerId}
+        />
+        <ContextMenuOption
+          text="Paste element"
+          Icon={ClipboardPasteIcon}
+          hotKey="Ctrl+V"
+          disabled
+        />
+      </div>
       <Badge
         className={clsx(
           "absolute -left-[2.3px] -top-6 hidden truncate rounded-none rounded-t-lg bg-th-secondary hover:bg-th-secondary/80",
