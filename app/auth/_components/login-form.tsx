@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState, useTransition } from "react";
 import { AuthSubmit } from "./auth-submit";
+import { loginCredQuery } from "@/queries/auth/auth-queries";
 
 type Props = {};
 
@@ -26,12 +27,16 @@ export const LoginForm = (props: Props) => {
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const onSubmit = (data: z.infer<typeof loginSchema>) => {
     setTransition(async () => {
-      // const { error } = await loginUser(data);
-      // if (error) setServerError(error);
+      const { error } = await loginCredQuery(data);
+      if (error) setServerError(error);
     });
   };
 

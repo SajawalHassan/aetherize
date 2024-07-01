@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
 import { useState, useTransition } from "react";
-import { registerUser } from "@/queries/auth/auth-queries";
+import { registerUserQuery } from "@/queries/auth/auth-queries";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { FcGoogle } from "react-icons/fc";
@@ -31,11 +31,16 @@ export const RegisterForm = (props: Props) => {
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      username: "",
+    },
   });
 
   const onSubmit = (data: z.infer<typeof registerSchema>) => {
     setTransition(async () => {
-      const { error } = await registerUser(data);
+      const { error } = await registerUserQuery(data);
       if (error) setServerError(error);
     });
   };

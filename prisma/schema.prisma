@@ -7,17 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Tiers {
+enum UserTier {
   FREE
   STARTER
   PRO
 }
 
 model User {
-  id       String  @id @default(uuid())
+  id       String   @id @default(uuid())
   name     String
-  email    String  @unique
+  email    String   @unique
   imageUrl String?
   password String?
-  tier     Tiers
+  tier     UserTier
 }
