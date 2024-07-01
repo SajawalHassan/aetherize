@@ -4,7 +4,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { tabBtns } from "@/lib/constants";
+import { tabBtns } from "@/lib/types";
 import { LucideIcon } from "lucide-react";
 import clsx from "clsx";
 

@@ -1,4 +1,4 @@
-import { EditorElementTypes } from "@/lib/constants";
+import { EditorElementTypes } from "@/lib/types";
 import { ContainerPlaceholder } from "@/app/editor/_components/placeholders/container-placeholder";
 import { ElementPlaceholder } from "@/app/editor/_components/placeholders/element-placeholder";
 import {

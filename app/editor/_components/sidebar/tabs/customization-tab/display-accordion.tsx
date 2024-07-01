@@ -4,13 +4,15 @@ import { InputDropdown } from "@/app/editor/_components/sidebar/tabs/ui/input-dr
 import {
   alignContentItems,
   alignItems_Items,
-  displayUnits,
   flexDirectionItems,
   flexWrapItems,
   justifyContentItems,
+} from "@/lib/constants/cssStyle-constants";
+import {
+  displayUnits,
   specialTextUnits,
   textUnits,
-} from "@/lib/constants";
+} from "@/lib/constants/option-constants";
 import { useAppSelector } from "@/hooks/store-hook";
 import { EditorSelect } from "../ui/editor-select";
 import { ButtonsSelect } from "../ui/buttons-select";

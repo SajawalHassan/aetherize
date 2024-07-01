@@ -1,6 +1,6 @@
 import { Tabs, TabsList } from "@/components/ui/tabs";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { functionsSidebarTabBtns } from "@/lib/constants";
+import { functionsSidebarTabBtns } from "@/lib/types";
 import { FunctionsTabTrigger } from "./functions-tab-trigger";
 import { DatabaseIcon, LayersIcon } from "lucide-react";
 import { useAppSelector } from "@/hooks/store-hook";

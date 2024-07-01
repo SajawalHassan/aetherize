@@ -1,13 +1,6 @@
 import { AccordionItem, AccordionContent } from "@/components/ui/accordion";
 import { AccordionCustomTrigger } from "../../../accordion-custom-trigger";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  AlignCenterIcon,
-  AlignJustifyIcon,
-  AlignLeftIcon,
-  AlignRightIcon,
-} from "lucide-react";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -16,15 +9,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { fontWeightTypes } from "@/lib/types/font-types";
+import { alignTextItems } from "@/lib/constants/cssStyle-constants";
 import {
-  alignTextItems,
-  fontTypes,
-  fontWeightTypes,
   fontWeights,
-  fonts,
   specialTextUnits,
   textUnits,
-} from "@/lib/constants";
+} from "@/lib/constants/option-constants";
+import { fonts } from "@/lib/constants/option-constants";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { useState } from "react";
 import { handleStyleChange } from "@/lib/helper";

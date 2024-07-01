@@ -1,11 +1,10 @@
+import { defaultBodyStyles, editorContainerId } from "@/lib/constants";
 import {
   EditorElementContent,
   EditorElementTypes,
-  defaultBodyStyles,
   deviceTypes,
-  editorContainerId,
   viewingModes,
-} from "@/lib/constants";
+} from "@/lib/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
   addElementAction,
@@ -14,7 +13,6 @@ import {
 } from "./actions/editor-actions";
 import React from "react";
 
-// Editor Element
 export interface EditorElement {
   id: string;
   type: EditorElementTypes;
@@ -35,7 +33,6 @@ export type Variable = {
   variableTrigger: boolean;
 };
 
-// Editor
 export interface Editor {
   elements: EditorElement[];
   selectedElement: EditorElement | null;

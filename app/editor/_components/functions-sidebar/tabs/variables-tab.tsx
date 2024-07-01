@@ -1,6 +1,6 @@
 import { TabsContent } from "@/components/ui/tabs";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
-import { functionsSidebarTabBtns } from "@/lib/constants";
+import { functionsSidebarTabBtns } from "@/lib/types";
 import { VariableInput } from "../variable-input";
 import clsx from "clsx";
 import { Input } from "@/components/ui/input";

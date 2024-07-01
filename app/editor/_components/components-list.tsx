@@ -4,7 +4,7 @@ import {
   AccordionItem,
 } from "@/components/ui/accordion";
 import { AccordionCustomTrigger } from "./accordion-custom-trigger";
-import { EditorElementTypes } from "@/lib/constants";
+import { EditorElementTypes } from "@/lib/types";
 
 type Props = {
   items: {

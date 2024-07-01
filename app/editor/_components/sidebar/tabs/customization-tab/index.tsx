@@ -1,7 +1,7 @@
 import { Accordion } from "@/components/ui/accordion";
 import { TabsContent } from "@/components/ui/tabs";
 import { useAppSelector } from "@/hooks/store-hook";
-import { tabBtns } from "@/lib/constants";
+import { tabBtns } from "@/lib/types";
 import { CustomPropsAccordion } from "./custom-props-accordion";
 import { TypographyAccordion } from "./typography-accordion";
 import { DimensionsAccordion } from "./dimensions-accordion";

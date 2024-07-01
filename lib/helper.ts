@@ -1,4 +1,5 @@
-import { EditorElementTypes, defaultStyles } from "@/lib/constants";
+import { defaultStyles } from "@/lib/constants";
+import { EditorElementTypes } from "./types";
 import { Editor, EditorElement, editorActions } from "@/slices/editor-slice";
 import { Dispatch, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
 import { v4 } from "uuid";

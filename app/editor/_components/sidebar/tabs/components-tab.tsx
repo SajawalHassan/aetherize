@@ -1,5 +1,5 @@
 import { TabsContent } from "@/components/ui/tabs";
-import { tabBtns } from "@/lib/constants";
+import { tabBtns } from "@/lib/types";
 import { ComponentsList } from "../../components-list";
 import { useComponentsItems } from "@/hooks/use-components-items";
 

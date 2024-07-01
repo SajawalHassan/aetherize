@@ -1,4 +1,3 @@
-import { ContainerPlaceholder } from "@/app/editor/_components/placeholders/container-placeholder";
 import { ButtonsSelectItems } from "@/app/editor/_components/sidebar/tabs/ui/buttons-select";
 import {
   AlignCenterIcon,
@@ -24,70 +23,6 @@ import {
   StretchVerticalIcon,
   WrapTextIcon,
 } from "lucide-react";
-import React from "react";
-
-// constants
-export const editorContainerId = "__body";
-
-export const defaultStyles: React.CSSProperties = {
-  marginTop: "0px",
-  marginLeft: "0px",
-  marginBottom: "0px",
-  marginRight: "0px",
-  padding: "10px",
-};
-
-export const defaultBodyStyles: React.CSSProperties = {
-  ...defaultStyles,
-  padding: "10px",
-};
-
-export const fonts = [
-  "Roboto",
-  "Kanit",
-  "Oswald",
-  "Roboto Condensed",
-  "Inter",
-  "Lato",
-  "Poppins",
-  "Open Sans",
-];
-export const fontWeights = [
-  "100",
-  "200",
-  "300",
-  "400",
-  "500",
-  "600",
-  "700",
-  "800",
-  "900",
-];
-
-export const specialTextUnits = [
-  "-",
-  "auto",
-  "max-content",
-  "min-content",
-  "fit-content",
-];
-
-export const textUnits = [
-  ...specialTextUnits,
-  "px",
-  "rem",
-  "em",
-  "%",
-  "cm",
-  "mm",
-  "in",
-  "ex",
-  "ch",
-  "vw",
-  "vh",
-];
-
-export const displayUnits = ["block", "flex", "grid", "none"];
 
 export const justifyContentItems: ButtonsSelectItems = [
   {
@@ -246,52 +181,3 @@ export const alignTextItems: ButtonsSelectItems = [
     Icon: AlignJustifyIcon,
   },
 ];
-
-// types
-export type deviceTypes = "mobile" | "tablet" | "laptop";
-export type viewingModes = "development" | "preview" | "live";
-export type tabBtns = "Customization" | "Components";
-export type functionsSidebarTabBtns = "Variables" | "Layers";
-export type fontWeightTypes =
-  | "100"
-  | "200"
-  | "300"
-  | "400"
-  | "500"
-  | "600"
-  | "700"
-  | "800"
-  | "900";
-
-export type fontTypes =
-  | "Roboto"
-  | "Kanit"
-  | "sans-serif"
-  | "Oswald"
-  | "Roboto Condensed"
-  | "Inter"
-  | "Lato"
-  | "Poppins"
-  | "Open Sans";
-
-export type EditorElementTypes =
-  | "container"
-  | typeof editorContainerId
-  | "text"
-  | "link"
-  | "video"
-  | "contactForm"
-  | "image"
-  | "button"
-  | null;
-
-export type EditorElementContent = {
-  text?: string;
-  href?: string;
-  videoSrc?: string;
-  imageSrc?: string;
-  onClick?: {
-    methodName: "changeVar";
-    methodValue: string;
-  };
-};

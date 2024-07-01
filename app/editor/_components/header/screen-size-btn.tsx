@@ -1,7 +1,7 @@
 "use client";
 
 import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
-import { deviceTypes } from "@/lib/constants";
+import { deviceTypes } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { TooltipTrigger } from "@/components/ui/tooltip";
 import { LucideIcon } from "lucide-react";

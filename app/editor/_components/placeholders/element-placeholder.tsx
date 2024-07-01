@@ -1,6 +1,6 @@
 import React from "react";
 import { caseAddElement, handleDragStart } from "@/lib/helper";
-import { EditorElementTypes } from "@/lib/constants";
+import { EditorElementTypes } from "@/lib/types";
 import { LucideIcon } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAppSelector } from "@/hooks/store-hook";
-import { functionsSidebarTabBtns } from "@/lib/constants";
+import { functionsSidebarTabBtns } from "@/lib/types";
 import { LayerList } from "./layer-list";
 import {
   DropdownMenu,

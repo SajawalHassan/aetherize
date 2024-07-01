@@ -6,7 +6,7 @@ import { BrushIcon, PlusIcon } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
 import { CustomizationTab } from "./tabs/customization-tab";
-import { tabBtns } from "@/lib/constants";
+import { tabBtns } from "@/lib/types";
 import { ComponentsTab } from "./tabs/components-tab";
 import clsx from "clsx";
 import { useAppSelector } from "@/hooks/store-hook";

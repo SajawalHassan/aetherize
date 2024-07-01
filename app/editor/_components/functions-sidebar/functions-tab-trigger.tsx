@@ -4,7 +4,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { functionsSidebarTabBtns } from "@/lib/constants";
+import { functionsSidebarTabBtns } from "@/lib/types";
 import clsx from "clsx";
 import { LucideIcon } from "lucide-react";
 import React from "react";

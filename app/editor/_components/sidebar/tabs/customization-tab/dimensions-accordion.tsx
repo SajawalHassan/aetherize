@@ -1,6 +1,6 @@
 import { AccordionItem, AccordionContent } from "@/components/ui/accordion";
 import { AccordionCustomTrigger } from "../../../accordion-custom-trigger";
-import { specialTextUnits, textUnits } from "@/lib/constants";
+import { specialTextUnits, textUnits } from "@/lib/constants/option-constants";
 import { useAppSelector } from "@/hooks/store-hook";
 import { InputDropdown } from "@/app/editor/_components/sidebar/tabs/ui/input-dropdown";
 import { Button } from "@/components/ui/button";
