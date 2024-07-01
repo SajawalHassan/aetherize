@@ -1,4 +1,6 @@
 import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
+import Github from "next-auth/providers/github";
 import bcryptjs from "bcryptjs";
 import { AuthError, type NextAuthConfig } from "next-auth";
 import { User } from "@prisma/client";
@@ -10,6 +12,14 @@ export class LoginError extends AuthError {
 
 export default {
   providers: [
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
+    Github({
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+    }),
     Credentials({
       async authorize(creds): Promise<User | null> {
         const { email, password } = creds;

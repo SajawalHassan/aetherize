@@ -1,9 +1,13 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { signIn } from "next-auth/react";
 import { Loader2 } from "lucide-react";
-import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import React from "react";
+import { DEFAULT_LOGIN_REDIRECT } from "@/next-auth/auth-route-constants";
 
 type Props = {
   isPending: boolean;
@@ -11,6 +15,12 @@ type Props = {
 };
 
 export const AuthSubmit = (props: Props) => {
+  const handleOAuthLogin = (provider: "google" | "github") => {
+    signIn(provider, {
+      callbackUrl: DEFAULT_LOGIN_REDIRECT,
+    });
+  };
+
   return (
     <div className="mt-4">
       <Button
@@ -35,6 +45,7 @@ export const AuthSubmit = (props: Props) => {
       </div>
       <div className="mt-9 flex items-center gap-x-2">
         <Button
+          onClick={() => handleOAuthLogin("google")}
           className="flex-grow rounded-md border border-none bg-th-btn"
           type="button"
         >
@@ -42,6 +53,7 @@ export const AuthSubmit = (props: Props) => {
         </Button>
 
         <Button
+          onClick={() => handleOAuthLogin("github")}
           className="flex-grow rounded-md border border-none bg-th-btn"
           type="button"
         >

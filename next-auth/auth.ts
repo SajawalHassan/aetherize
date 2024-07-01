@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User, UserTier } from "@prisma/client";
 import authConfig from "./auth.config";
 import { db } from "../lib/db";
 
@@ -14,28 +14,33 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     async session({ session, token }) {
       if (!token.sub || !session.user) return session;
 
-      session.user.tier = token.tier;
+      session.user.tier = token.tier as UserTier;
 
       return session;
     },
     async jwt({ token }) {
-      if (!token.sub) return token;
+      try {
+        if (!token.sub) return token;
 
-      const existingUser = await db.user.findUnique({
-        where: {
-          id: token.sub,
-        },
-      });
+        const existingUser = await db.user.findUnique({
+          where: {
+            id: token.sub,
+          },
+        });
 
-      if (!existingUser) {
-        console.error("No user found!");
+        if (!existingUser) {
+          console.error("No user found!");
+          return token;
+        }
+
+        token.tier = existingUser.tier;
+        token.id = existingUser.id;
+
+        return token;
+      } catch (error) {
+        console.log(error);
         return token;
       }
-
-      token.tier = existingUser.tier;
-      token.id = existingUser.id;
-
-      return token;
     },
   },
 });
