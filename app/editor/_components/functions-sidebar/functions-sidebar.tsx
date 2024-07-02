@@ -21,7 +21,7 @@ export const FunctionsSidebar = (props: Props) => {
     >
       <Tabs
         className={clsx(
-          "fixed left-[16px] z-50 flex h-[calc(100%-121px)] w-full max-w-[350px] overflow-y-auto rounded-md border border-th-btn p-0 transition-all duration-500",
+          "border-th-border fixed left-[16px] z-50 flex h-[calc(100%-121px)] w-full max-w-[350px] overflow-y-auto rounded-md border p-0 px-[7px] py-[10px] transition-all duration-500",
           {
             "!-left-[200rem]": viewingMode === "preview",
           },
@@ -29,11 +29,11 @@ export const FunctionsSidebar = (props: Props) => {
         defaultValue={"Layers" as functionsSidebarTabBtns}
       >
         <TooltipProvider delayDuration={0}>
-          <TabsList className="flex h-full w-[80px] flex-col justify-start gap-y-2 overflow-hidden rounded-none bg-black/30 p-2">
+          <TabsList className="border-th-border flex h-full w-[80px] flex-col justify-start gap-y-2 overflow-hidden rounded-[2px] border bg-transparent p-2">
             <FunctionsTabTrigger value="Layers" Icon={LayersIcon} />
             <FunctionsTabTrigger value="Triggers" Icon={DatabaseIcon} />
           </TabsList>
-          <div className="w-full bg-black/10 px-2 py-[15px]">
+          <div className="w-full bg-black/10 px-2">
             <LayersTab />
             <TriggersTab />
           </div>

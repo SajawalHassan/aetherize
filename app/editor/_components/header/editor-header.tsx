@@ -108,7 +108,7 @@ export const EditorHeader = (props: Props) => {
       >
         <nav
           className={clsx(
-            "fixed left-0 top-0 z-50 flex h-[66px] w-full items-center justify-between border-b border-th-btn px-[16px] transition-all duration-300",
+            "border-th-border fixed left-0 top-0 z-50 flex h-[66px] w-full items-center justify-between border-b px-[16px] transition-all duration-300",
             {
               "!-top-[200rem]": editor.viewingMode === "preview",
             },

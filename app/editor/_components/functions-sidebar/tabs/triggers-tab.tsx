@@ -48,7 +48,7 @@ export const TriggersTab = (props: Props) => {
         <Input
           value={triggerInput}
           onChange={(e) => setTriggerInput(e.target.value)}
-          placeholder="New trgger"
+          placeholder="New trigger"
           className="rounded-none bg-background p-3 focus:border-white/10"
         />
         <Button className="rounded-none">Add</Button>

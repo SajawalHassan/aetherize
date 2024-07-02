@@ -21,7 +21,7 @@ export const FunctionsTabTrigger = (props: Props) => {
         <TabsTrigger
           value={props.value}
           className={clsx(
-            "rounded-md bg-th-btn/30 p-3 text-white hover:bg-th-btn/80",
+            "border-th-border hover:bg-th-border rounded-md border p-3 text-white",
           )}
         >
           <props.Icon size={24} />

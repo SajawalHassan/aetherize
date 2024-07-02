@@ -28,21 +28,21 @@ export const EditorSidebar = (props: Props) => {
     >
       <Tabs
         className={clsx(
-          "fixed right-[16px] z-50 h-[calc(100%-121px)] min-w-[300px] max-w-[300px] overflow-y-auto rounded-md border border-th-btn bg-th-bg transition-all duration-500",
+          "border-th-border bg-th-bg2 fixed right-[16px] z-50 h-[calc(100%-121px)] min-w-[300px] max-w-[300px] overflow-y-auto border px-[12px] pt-[15px] transition-all duration-500",
           {
             "!-right-[200rem]": editor.viewingMode === "preview",
           },
         )}
         defaultValue={"Components" as tabBtns}
       >
-        <TabsList className="flex h-[68px] items-center overflow-hidden rounded-none bg-transparent p-0">
+        <TabsList className="flex h-[68px] items-center overflow-hidden rounded-[5px] bg-transparent p-0">
           <TooltipProvider delayDuration={0}>
             <EditorSidebarTabTrigger Icon={PlusIcon} value="Components" />
             <Separator orientation="vertical" className="bg-white/20" />
             <EditorSidebarTabTrigger Icon={BrushIcon} value="Customization" />
           </TooltipProvider>
         </TabsList>
-        <div className="px-[15px]">
+        <div>
           <ComponentsTab />
           <CustomizationTab />
         </div>

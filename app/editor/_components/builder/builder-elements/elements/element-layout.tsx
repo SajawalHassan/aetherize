@@ -126,8 +126,9 @@ export const ElementLayout = (props: Props) => {
           "border border-solid":
             selectedElement?.id === currentElement.id &&
             viewingMode !== "preview",
-          "border-th-secondary": selectedElement?.id === currentElement.id,
-          "border-spacing-4 border border-th-accent/20":
+          "border-th-element-border-select":
+            selectedElement?.id === currentElement.id,
+          "border-th-element-border border-spacing-4 border":
             selectedElement?.id !== currentElement.id &&
             viewingMode !== "preview",
         },
@@ -179,7 +180,7 @@ export const ElementLayout = (props: Props) => {
       </div>
       <Badge
         className={clsx(
-          "absolute -left-[2.3px] -top-6 hidden truncate rounded-none rounded-t-lg bg-th-secondary hover:bg-th-secondary/80",
+          "bg-th-element-border-select hover:bg-th-element-border-select/80 absolute -left-[2.3px] -top-6 hidden truncate rounded-none rounded-t-lg",
           {
             block:
               selectedElement?.id === currentElement.id &&
@@ -195,7 +196,7 @@ export const ElementLayout = (props: Props) => {
       <TooltipProvider delayDuration={0}>
         <Button
           className={clsx(
-            "absolute -bottom-10 -right-0 z-50 hidden items-center justify-center rounded-[5px] bg-th-secondary p-[6px] hover:bg-th-secondary/80 active:bg-th-secondary/60",
+            "bg-th-element-border-select hover:bg-th-element-border-select/80 absolute -bottom-10 -right-0 z-50 hidden items-center justify-center rounded-[5px] p-[6px]",
             {
               flex:
                 selectedElement?.id === currentElement.id &&
@@ -206,7 +207,7 @@ export const ElementLayout = (props: Props) => {
             handleDeleteElement(e, currentElement.id, elements, dispatch)
           }
           tooltipText="Delete"
-          tooltipContentClassName="bg-th-secondary"
+          tooltipContentClassName="bg-th-element-border-select"
         >
           <TrashIcon color="white" className="h-[24px] w-[24px]" />
         </Button>

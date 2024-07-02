@@ -22,7 +22,7 @@ export const LayersTab = (props: Props) => {
   const { elements } = useAppSelector((state) => state.editor);
 
   return (
-    <TabsContent value={"Layers" as functionsSidebarTabBtns} className="p-0">
+    <TabsContent value={"Layers" as functionsSidebarTabBtns} className="m-0">
       <div className="mb-4 flex items-center justify-between pl-2">
         <h3 className="text-3xl font-semibold">Layers</h3>
 

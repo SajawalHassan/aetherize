@@ -20,7 +20,7 @@ export const EditorSidebarTabTrigger = (props: Props) => {
         <TabsTrigger
           value={props.value}
           className={clsx(
-            "h-full flex-grow rounded-none bg-th-btn/50 text-white hover:bg-th-btn/80",
+            "hover:bg-th-btn-hover h-full flex-grow rounded-none bg-th-btn text-white",
           )}
         >
           <props.Icon size={32} />
