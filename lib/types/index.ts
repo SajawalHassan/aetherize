@@ -3,7 +3,7 @@ import { editorContainerId } from "../constants";
 export type deviceTypes = "mobile" | "tablet" | "laptop";
 export type viewingModes = "development" | "preview" | "live";
 export type tabBtns = "Customization" | "Components";
-export type functionsSidebarTabBtns = "Variables" | "Layers";
+export type functionsSidebarTabBtns = "Triggers" | "Layers";
 export type EditorElementTypes =
   | "container"
   | typeof editorContainerId

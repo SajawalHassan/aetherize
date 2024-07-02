@@ -20,47 +20,45 @@ type Props = {
   cssProp: string;
 };
 
-export const VariableSelect = (props: Props) => {
-  const [selectedVar, setSelectedVar] = useState("");
-  const [selectedVarValue, setSelectedVarValue] = useState(false);
+export const TriggerSelect = (props: Props) => {
+  const [selectedTrigger, setSelectedTrigger] = useState("");
+  const [selectedTriggerValue, setSelectedTriggerValue] = useState(false);
   const [openChange, setOpenChange] = useState(false);
 
   const dispatch = useAppDispatch();
   const { stateValue, setValuePlaceholder } = props;
-  const { selectedElement, variables } = useAppSelector(
-    (state) => state.editor,
-  );
+  const { selectedElement, triggers } = useAppSelector((state) => state.editor);
 
-  const variable = variables.filter(
-    (variable) => variable.variableName === selectedVar,
+  const trigger = triggers.filter(
+    (trigger) => trigger.name === selectedTrigger,
   )[0];
 
   useEffect(() => {
-    if (stateValue && variable) {
+    if (stateValue && trigger) {
       dispatch(
-        editorActions.changeVariablesList({
-          ...variable,
+        editorActions.changeTrigger({
+          ...trigger,
           elementId: selectedElement!.id,
-          variableName: selectedVar,
-          variableTrigger: selectedVarValue,
+          name: selectedTrigger,
+          triggerValue: selectedTriggerValue,
           cssPropValue: stateValue,
           cssProp: props.cssProp,
         }),
       );
     }
-  }, [selectedVarValue, stateValue, openChange]);
+  }, [selectedTriggerValue, stateValue, openChange]);
 
   useEffect(() => {
-    const variable = variables.filter(
-      (variable) =>
-        variable.elementId === selectedElement!.id &&
-        variable.cssProp === props.cssProp,
+    const trigger = triggers.filter(
+      (trigger) =>
+        trigger.elementId === selectedElement!.id &&
+        trigger.cssProp === props.cssProp,
     )[0];
 
-    if (variable) {
-      setSelectedVar(variable.variableName);
-      setSelectedVarValue(variable.variableTrigger);
-      setValuePlaceholder(variable.cssPropValue);
+    if (trigger) {
+      setSelectedTrigger(trigger.name);
+      setSelectedTriggerValue(trigger.triggerValue);
+      setValuePlaceholder(trigger.cssPropValue);
     }
   }, []);
 
@@ -68,23 +66,25 @@ export const VariableSelect = (props: Props) => {
     <DropdownMenu open={openChange} onOpenChange={setOpenChange}>
       <DropdownMenuTrigger asChild>
         <button className="h-[40px] cursor-pointer border-l border-white/20 px-4 hover:bg-th-btn">
-          {selectedVar ? `${selectedVar}=${selectedVarValue}` : "if"}
+          {selectedTrigger
+            ? `${selectedTrigger}=${selectedTriggerValue}`
+            : "if"}
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="border-none bg-th-btn p-0 text-white">
-        {variables.length > 0 ? (
-          variables.map((variableObj) => (
-            <DropdownMenuSub key={variableObj.id}>
+        {triggers.length > 0 ? (
+          triggers.map((triggerObj) => (
+            <DropdownMenuSub key={triggerObj.id}>
               <DropdownMenuSubTrigger className="cursor-pointer py-2.5 focus:bg-black/20 data-[state=open]:bg-black/20">
-                {variableObj.variableName}
+                {triggerObj.name}
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
                 <DropdownMenuSubContent className="border-none bg-th-btn text-white">
                   <DropdownMenuItem
                     className="focus:bg-black/20 focus:text-white"
                     onClick={() => {
-                      setSelectedVar(variableObj.variableName);
-                      setSelectedVarValue(true);
+                      setSelectedTrigger(triggerObj.name);
+                      setSelectedTriggerValue(true);
                     }}
                   >
                     true
@@ -92,8 +92,8 @@ export const VariableSelect = (props: Props) => {
                   <DropdownMenuItem
                     className="focus:bg-black/20 focus:text-white"
                     onClick={() => {
-                      setSelectedVar(variableObj.variableName);
-                      setSelectedVarValue(false);
+                      setSelectedTrigger(triggerObj.name);
+                      setSelectedTriggerValue(false);
                     }}
                   >
                     false
@@ -103,7 +103,7 @@ export const VariableSelect = (props: Props) => {
             </DropdownMenuSub>
           ))
         ) : (
-          <p className="p-2 text-center font-bold">No variables</p>
+          <p className="p-2 text-center font-bold">No triggers</p>
         )}
       </DropdownMenuContent>
     </DropdownMenu>

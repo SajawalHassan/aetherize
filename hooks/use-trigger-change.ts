@@ -1,27 +1,26 @@
 import { DispatchType, handleStyleChange } from "@/lib/helper";
-import { EditorElement, Variable } from "@/slices/editor-slice";
+import { EditorElement, Trigger } from "@/slices/editor-slice";
 import { useEffect } from "react";
 
-export const useVariableChange = (
-  variables: Variable[],
+export const useTriggerChange = (
+  tiggers: Trigger[],
   currentElement: EditorElement,
   elements: EditorElement[],
   dispatch: DispatchType,
-  selectedElement: EditorElement | null,
 ) => {
   let prevCssPropValue = "";
 
   useEffect(() => {
-    variables.map((variable) => {
-      if (currentElement.id !== variable.elementId) return;
-      if (variable.variableValue === variable.variableTrigger) {
-        prevCssPropValue = variable.cssPropValue;
+    tiggers.map((trigger) => {
+      if (currentElement.id !== trigger.elementId) return;
+      if (trigger.value === trigger.triggerValue) {
+        prevCssPropValue = trigger.cssPropValue;
 
         handleStyleChange(
           {
             target: {
-              id: variable.cssProp,
-              value: variable.cssPropValue,
+              id: trigger.cssProp,
+              value: trigger.cssPropValue,
             },
           },
           currentElement!,
@@ -32,7 +31,7 @@ export const useVariableChange = (
         handleStyleChange(
           {
             target: {
-              id: variable.cssProp,
+              id: trigger.cssProp,
               value: prevCssPropValue,
             },
           },
@@ -42,5 +41,5 @@ export const useVariableChange = (
         );
       }
     });
-  }, [variables]);
+  }, [tiggers]);
 };

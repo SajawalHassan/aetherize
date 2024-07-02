@@ -6,39 +6,39 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
-import { Variable, editorActions } from "@/slices/editor-slice";
+import { Trigger, editorActions } from "@/slices/editor-slice";
 import { TrashIcon } from "lucide-react";
 
 type Props = {
-  variable: Variable;
+  trigger: Trigger;
 };
 
-export const VariableInput = (props: Props) => {
+export const TriggerInput = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { variable } = props;
+  const { trigger } = props;
   const { selectedElement } = useAppSelector((state) => state.editor);
 
-  const changeVariable = (newValue: string) => {
+  const changeTrigger = (newValue: string) => {
     dispatch(
-      editorActions.changeVariablesList({
-        ...variable,
-        variableValue: JSON.parse(newValue),
+      editorActions.changeTrigger({
+        ...trigger,
+        value: JSON.parse(newValue),
         elementId: selectedElement!.id,
       }),
     );
   };
 
+  const deleteTrigger = () => {
+    dispatch(editorActions.deleteTrigger(trigger.id));
+  };
+
   return (
     <div className="group relative flex items-center justify-between gap-x-2 bg-th-btn/20 pl-3">
-      <p title={variable.variableName} className="max-w-[150px] truncate py-1">
-        {variable.variableName}
+      <p title={trigger.name} className="max-w-[150px] truncate py-1">
+        {trigger.name}
       </p>
-      <Select
-        onValueChange={(e) => changeVariable(e)}
-        value={variable?.variableValue?.toString()}
-      >
+      <Select onValueChange={changeTrigger} value={trigger?.value?.toString()}>
         <div className="flex items-center">
           <SelectTrigger
             className="w-max rounded-none border-none bg-th-btn/40 hover:bg-th-btn/60"
@@ -46,7 +46,10 @@ export const VariableInput = (props: Props) => {
           >
             <SelectValue placeholder="-" />
           </SelectTrigger>
-          <Button className="w-max rounded-none border-l border-white/40 bg-th-btn/40 hover:bg-th-btn/60">
+          <Button
+            onClick={() => deleteTrigger()}
+            className="w-max rounded-none border-l border-white/40 bg-th-btn/40 hover:bg-th-btn/60"
+          >
             <TrashIcon size={18} />
           </Button>
         </div>

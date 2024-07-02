@@ -23,14 +23,14 @@ export interface EditorElement {
   content: EditorElement[] | EditorElementContent;
 }
 
-export type Variable = {
+export type Trigger = {
   id: string;
   elementId: string;
   cssProp: string;
   cssPropValue: string;
-  variableName: string;
-  variableValue: boolean;
-  variableTrigger: boolean;
+  name: string;
+  value: boolean;
+  triggerValue: boolean;
 };
 
 export interface Editor {
@@ -40,7 +40,7 @@ export interface Editor {
   nextEditorState: Editor | null;
   device: deviceTypes;
   viewingMode: viewingModes;
-  variables: Variable[];
+  triggers: Trigger[];
   copiedElement: EditorElement | null;
 }
 
@@ -61,7 +61,7 @@ const initialEditor: Editor = {
   prevEditorState: null,
   device: "laptop",
   viewingMode: "development",
-  variables: [],
+  triggers: [],
   copiedElement: null,
 };
 
@@ -195,15 +195,27 @@ const editorSlice = createSlice({
         nextEditorState: null,
       };
     },
-    changeVariablesList: (state: Editor, action: PayloadAction<Variable>) => {
-      let newVariablesList = state.variables.filter(
-        (variable) => variable.id !== action.payload.id,
+    changeTrigger: (state: Editor, action: PayloadAction<Trigger>) => {
+      let newTriggerList = state.triggers.filter(
+        (trigger) => trigger.id !== action.payload.id,
       );
-      newVariablesList = [...newVariablesList, { ...action.payload }];
+      newTriggerList = [...newTriggerList, { ...action.payload }];
 
       return {
         ...state,
-        variables: newVariablesList,
+        triggers: newTriggerList,
+        prevEditorState: state === state.prevEditorState ? null : state,
+        nextEditorState: null,
+      };
+    },
+    deleteTrigger: (state: Editor, action: PayloadAction<string>) => {
+      let newTriggerList = state.triggers.filter(
+        (trigger) => trigger.id !== action.payload,
+      );
+
+      return {
+        ...state,
+        triggers: newTriggerList,
         prevEditorState: state === state.prevEditorState ? null : state,
         nextEditorState: null,
       };

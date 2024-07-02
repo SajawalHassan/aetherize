@@ -8,7 +8,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { handleStyleChange } from "@/lib/helper";
 import React, { useEffect, useState } from "react";
-import { VariableSelect } from "../customization-tab/_components/variable-select";
+import { TriggerSelect } from "../customization-tab/_components/trigger-select";
 
 type Props = {
   dropdownList: string[];
@@ -68,7 +68,7 @@ export const EditorSelect = (props: Props) => {
         </SelectContent>
       </Select>
 
-      <VariableSelect
+      <TriggerSelect
         cssProp={props.cssProp}
         stateValue={selectedValue}
         setValuePlaceholder={setPlaceholder}

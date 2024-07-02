@@ -15,9 +15,9 @@ import { useEffect, useState } from "react";
 type Props = {};
 
 export const OnClickSelect = (props: Props) => {
-  const [selectedVar, setSelectedVar] = useState("");
+  const [selectedTrigger, setSelectedTrigger] = useState("");
 
-  const { elements, selectedElement, variables } = useAppSelector(
+  const { elements, selectedElement, triggers } = useAppSelector(
     (state) => state.editor,
   );
   const dispatch = useAppDispatch();
@@ -27,7 +27,7 @@ export const OnClickSelect = (props: Props) => {
       !Array.isArray(selectedElement?.content) &&
       selectedElement?.type === "button"
     ) {
-      setSelectedVar(selectedElement?.content.onClick?.methodValue || "");
+      setSelectedTrigger(selectedElement?.content.onClick?.methodValue || "");
     }
   }, []);
 
@@ -35,24 +35,24 @@ export const OnClickSelect = (props: Props) => {
     <DropdownMenu>
       <DropdownMenuTrigger className="flex h-[40px] w-full items-center justify-between bg-th-btn/30 px-3 hover:bg-th-btn/50 active:bg-th-btn/70">
         <p className="font-bold">OnClick</p>
-        <p className="">{selectedVar ? `Change variable` : "-"}</p>
+        <p className="">{selectedTrigger ? `Change trigger` : "-"}</p>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="border-none bg-th-btn p-0 text-white">
         <DropdownMenuSub>
           <DropdownMenuSubTrigger className="cursor-pointer py-2.5 focus:bg-black/20 data-[state=open]:bg-black/20">
-            Change variable
+            Change trigger
           </DropdownMenuSubTrigger>
 
           <DropdownMenuPortal>
             <DropdownMenuSubContent className="border-none bg-th-btn p-0 text-white">
-              {variables.length > 0 ? (
-                variables.map((variable) => (
+              {triggers.length > 0 ? (
+                triggers.map((trigger) => (
                   <DropdownMenuItem
-                    key={variable.id}
+                    key={trigger.id}
                     className="focus:bg-black/20 focus:text-white"
                     onClick={(e) => {
-                      setSelectedVar(variable.variableName);
+                      setSelectedTrigger(trigger.name);
                       dispatch(
                         editorActions.updateElement({
                           elementId: selectedElement!.id,
@@ -63,7 +63,7 @@ export const OnClickSelect = (props: Props) => {
                               ...selectedElement!.content,
                               onClick: {
                                 methodName: "changeVar",
-                                methodValue: variable.id,
+                                methodValue: trigger.id,
                               },
                             },
                           },
@@ -71,11 +71,11 @@ export const OnClickSelect = (props: Props) => {
                       );
                     }}
                   >
-                    {variable.variableName}
+                    {trigger.name}
                   </DropdownMenuItem>
                 ))
               ) : (
-                <p className="p-2">No variables</p>
+                <p className="p-2">No triggers</p>
               )}
             </DropdownMenuSubContent>
           </DropdownMenuPortal>

@@ -4,7 +4,7 @@ import { functionsSidebarTabBtns } from "@/lib/types";
 import { FunctionsTabTrigger } from "./functions-tab-trigger";
 import { DatabaseIcon, LayersIcon } from "lucide-react";
 import { useAppSelector } from "@/hooks/store-hook";
-import { VariablesTab } from "./tabs/variables-tab";
+import { TriggersTab } from "./tabs/triggers-tab";
 import { LayersTab } from "./tabs/layers-tab";
 import clsx from "clsx";
 
@@ -31,11 +31,11 @@ export const FunctionsSidebar = (props: Props) => {
         <TooltipProvider delayDuration={0}>
           <TabsList className="flex h-full w-[80px] flex-col justify-start gap-y-2 overflow-hidden rounded-none bg-black/30 p-2">
             <FunctionsTabTrigger value="Layers" Icon={LayersIcon} />
-            <FunctionsTabTrigger value="Variables" Icon={DatabaseIcon} />
+            <FunctionsTabTrigger value="Triggers" Icon={DatabaseIcon} />
           </TabsList>
           <div className="w-full bg-black/10 px-2 py-[15px]">
             <LayersTab />
-            <VariablesTab />
+            <TriggersTab />
           </div>
         </TooltipProvider>
       </Tabs>

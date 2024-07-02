@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { ClipboardCopyIcon, ClipboardPasteIcon, TrashIcon } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ReactNode, useState } from "react";
-import { useVariableChange } from "@/hooks/use-variable-change";
+import { useTriggerChange } from "@/hooks/use-trigger-change";
 import { useHotkeys } from "react-hotkeys-hook";
 import { v4 } from "uuid";
 import { ContextMenuOption } from "../_components/context-menu-option";
@@ -32,19 +32,14 @@ export const ElementLayout = (props: Props) => {
     y: 0,
   });
 
-  const { elements, selectedElement, viewingMode, variables, copiedElement } =
-    useAppSelector((state) => state.editor);
+  const { elements, selectedElement, viewingMode, triggers } = useAppSelector(
+    (state) => state.editor,
+  );
 
   const { currentElement, children } = props;
 
   const dispatch = useAppDispatch();
-  useVariableChange(
-    variables,
-    currentElement,
-    elements,
-    dispatch,
-    selectedElement,
-  );
+  useTriggerChange(triggers, currentElement, elements, dispatch);
 
   useHotkeys("ctrl+c", () => {
     if (!selectedElement) return;

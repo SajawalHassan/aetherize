@@ -12,7 +12,7 @@ type Props = {
 export const ButtonElement = (props: Props) => {
   const { currentElement } = props;
 
-  const { elements, viewingMode, variables } = useAppSelector(
+  const { elements, viewingMode, triggers } = useAppSelector(
     (state) => state.editor,
   );
   const dispatch = useAppDispatch();
@@ -38,17 +38,16 @@ export const ButtonElement = (props: Props) => {
     if (Array.isArray(currentElement.content)) return;
 
     if (currentElement.content.onClick?.methodName === "changeVar") {
-      console.log("changeVar");
-      const variable = variables.filter(
-        (variable) =>
-          variable.id === (currentElement.content as any).onClick.methodValue,
+      const trigger = triggers.filter(
+        (trigger) =>
+          trigger.id === (currentElement.content as any).onClick.methodValue,
       )[0];
-      if (!variable) return console.error("No variable found");
+      if (!trigger) return console.error("No trigger found");
 
       dispatch(
-        editorActions.changeVariablesList({
-          ...variable,
-          variableValue: !variable.variableValue,
+        editorActions.changeTrigger({
+          ...trigger,
+          value: !trigger.value,
         }),
       );
     }
