@@ -112,6 +112,8 @@ export const ElementLayout = (props: Props) => {
         handleSelectElement(e, selectedElement, currentElement, dispatch)
       }
       onContextMenu={(e) => {
+        if (viewingMode !== "development") return;
+
         e.preventDefault();
         e.stopPropagation();
         setContextMenu(true);
@@ -128,7 +130,7 @@ export const ElementLayout = (props: Props) => {
             viewingMode !== "preview",
           "border-th-element-border-select":
             selectedElement?.id === currentElement.id,
-          "border-th-element-border border-spacing-4 border":
+          "border-spacing-4 border border-th-element-border":
             selectedElement?.id !== currentElement.id &&
             viewingMode !== "preview",
         },
@@ -146,9 +148,9 @@ export const ElementLayout = (props: Props) => {
               setContextMenu(false);
             }}
             onContextMenu={(e) => {
+              if (viewingMode !== "development") return;
               e.preventDefault();
               e.stopPropagation();
-              setContextMenu(false);
             }}
           />
         </>
@@ -180,7 +182,7 @@ export const ElementLayout = (props: Props) => {
       </div>
       <Badge
         className={clsx(
-          "bg-th-element-border-select hover:bg-th-element-border-select/80 absolute -left-[2.3px] -top-6 hidden truncate rounded-none rounded-t-lg",
+          "absolute -left-[2.3px] -top-6 hidden truncate rounded-none rounded-t-lg bg-th-element-border-select hover:bg-th-element-border-select/80",
           {
             block:
               selectedElement?.id === currentElement.id &&
@@ -196,7 +198,7 @@ export const ElementLayout = (props: Props) => {
       <TooltipProvider delayDuration={0}>
         <Button
           className={clsx(
-            "bg-th-element-border-select hover:bg-th-element-border-select/80 absolute -bottom-10 -right-0 z-50 hidden items-center justify-center rounded-[5px] p-[6px]",
+            "absolute -bottom-10 -right-0 z-50 hidden items-center justify-center rounded-[5px] bg-th-element-border-select p-[6px] hover:bg-th-element-border-select/80",
             {
               flex:
                 selectedElement?.id === currentElement.id &&

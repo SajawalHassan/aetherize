@@ -87,7 +87,7 @@ export const Layer = (props: Props) => {
           handleSelectElement(e, selectedElement, props.element, dispatch)
         }
         className={clsx(
-          "relative flex h-[40px] items-center justify-between rounded-sm border border-[#272626] pl-2",
+          "relative flex h-[40px] items-center justify-between rounded-sm border border-th-border pl-2",
           {
             "!rounded-none !border-th-secondary":
               props.element.id === selectedElement?.id &&

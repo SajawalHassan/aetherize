@@ -40,7 +40,7 @@ export const DimensionsAccordion = (props: Props) => {
                     <div className="flex items-center gap-x-2">
                       <InputDropdown
                         specialUnits={specialTextUnits}
-                        id="minWidth"
+                        cssProp="minWidth"
                         placeholder="min width"
                         value={
                           (selectedElement!.styles.minWidth as string) || ""
@@ -50,7 +50,7 @@ export const DimensionsAccordion = (props: Props) => {
 
                       <InputDropdown
                         specialUnits={specialTextUnits}
-                        id="minHeight"
+                        cssProp="minHeight"
                         placeholder="Min height"
                         value={
                           (selectedElement!.styles.minHeight as string) || ""
@@ -65,7 +65,7 @@ export const DimensionsAccordion = (props: Props) => {
                     <div className="flex items-center gap-x-2">
                       <InputDropdown
                         specialUnits={specialTextUnits}
-                        id="maxWidth"
+                        cssProp="maxWidth"
                         placeholder="max width"
                         value={
                           (selectedElement!.styles.maxWidth as string) || ""
@@ -75,7 +75,7 @@ export const DimensionsAccordion = (props: Props) => {
 
                       <InputDropdown
                         specialUnits={specialTextUnits}
-                        id="maxHeight"
+                        cssProp="maxHeight"
                         placeholder="max height"
                         value={
                           (selectedElement!.styles.maxHeight as string) || ""
@@ -90,7 +90,7 @@ export const DimensionsAccordion = (props: Props) => {
             <div className="flex gap-x-4">
               <InputDropdown
                 specialUnits={specialTextUnits}
-                id="width"
+                cssProp="width"
                 placeholder="width"
                 value={(selectedElement!.styles.width as string) || ""}
                 dropdownList={textUnits}
@@ -98,7 +98,7 @@ export const DimensionsAccordion = (props: Props) => {
 
               <InputDropdown
                 specialUnits={specialTextUnits}
-                id="height"
+                cssProp="height"
                 placeholder="height"
                 value={(selectedElement!.styles.height as string) || ""}
                 dropdownList={textUnits}
@@ -124,7 +124,7 @@ export const DimensionsAccordion = (props: Props) => {
                     <div className="flex items-center gap-x-2">
                       <InputDropdown
                         specialUnits={specialTextUnits}
-                        id="paddingTop"
+                        cssProp="paddingTop"
                         placeholder="Top"
                         value={
                           (selectedElement!.styles.paddingTop as string) || ""
@@ -134,7 +134,7 @@ export const DimensionsAccordion = (props: Props) => {
 
                       <InputDropdown
                         specialUnits={specialTextUnits}
-                        id="paddingBottom"
+                        cssProp="paddingBottom"
                         placeholder="Bottom"
                         value={
                           (selectedElement!.styles.paddingBottom as string) ||
@@ -150,7 +150,7 @@ export const DimensionsAccordion = (props: Props) => {
                     <div className="flex items-center gap-x-2">
                       <InputDropdown
                         specialUnits={specialTextUnits}
-                        id="paddingLeft"
+                        cssProp="paddingLeft"
                         placeholder="Left"
                         value={
                           (selectedElement!.styles.paddingLeft as string) || ""
@@ -160,7 +160,7 @@ export const DimensionsAccordion = (props: Props) => {
 
                       <InputDropdown
                         specialUnits={specialTextUnits}
-                        id="paddingRight"
+                        cssProp="paddingRight"
                         placeholder="Right"
                         value={
                           (selectedElement!.styles.paddingRight as string) || ""
@@ -174,7 +174,7 @@ export const DimensionsAccordion = (props: Props) => {
             </div>
             <InputDropdown
               specialUnits={specialTextUnits}
-              id="padding"
+              cssProp="padding"
               placeholder="padding"
               value={(selectedElement!.styles.padding as string) || ""}
               dropdownList={textUnits}
@@ -199,7 +199,7 @@ export const DimensionsAccordion = (props: Props) => {
                     <div className="flex items-center gap-x-2">
                       <InputDropdown
                         specialUnits={specialTextUnits}
-                        id="marginTop"
+                        cssProp="marginTop"
                         placeholder="Top"
                         value={
                           (selectedElement!.styles.marginTop as string) || ""
@@ -209,7 +209,7 @@ export const DimensionsAccordion = (props: Props) => {
 
                       <InputDropdown
                         specialUnits={specialTextUnits}
-                        id="marginBottom"
+                        cssProp="marginBottom"
                         placeholder="Bottom"
                         value={
                           (selectedElement!.styles.marginBottom as string) || ""
@@ -224,7 +224,7 @@ export const DimensionsAccordion = (props: Props) => {
                     <div className="flex items-center gap-x-2">
                       <InputDropdown
                         specialUnits={specialTextUnits}
-                        id="marginRight"
+                        cssProp="marginRight"
                         placeholder="Right"
                         value={
                           (selectedElement!.styles.marginRight as string) || ""
@@ -234,7 +234,7 @@ export const DimensionsAccordion = (props: Props) => {
 
                       <InputDropdown
                         specialUnits={specialTextUnits}
-                        id="marginLeft"
+                        cssProp="marginLeft"
                         placeholder="Left"
                         value={
                           (selectedElement!.styles.marginLeft as string) || ""
@@ -248,7 +248,7 @@ export const DimensionsAccordion = (props: Props) => {
             </div>
             <InputDropdown
               specialUnits={specialTextUnits}
-              id="margin"
+              cssProp="margin"
               placeholder="margin"
               value={(selectedElement!.styles.margin as string) || ""}
               dropdownList={textUnits}

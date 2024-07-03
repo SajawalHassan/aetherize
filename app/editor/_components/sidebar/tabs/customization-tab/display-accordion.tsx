@@ -76,7 +76,7 @@ export const DisplayAccordion = (props: Props) => {
               <InputDropdown
                 dropdownList={textUnits}
                 specialUnits={specialTextUnits}
-                id="rowGap"
+                cssProp="rowGap"
                 placeholder="Gap row"
                 value={(selectedElement!.styles.rowGap as string) || ""}
               />
@@ -84,7 +84,7 @@ export const DisplayAccordion = (props: Props) => {
               <InputDropdown
                 dropdownList={textUnits}
                 specialUnits={specialTextUnits}
-                id="columnGap"
+                cssProp="columnGap"
                 placeholder="Gap column"
                 value={(selectedElement!.styles.columnGap as string) || ""}
               />

@@ -23,6 +23,7 @@ import { handleStyleChange } from "@/lib/helper";
 import { InputDropdown } from "@/app/editor/_components/sidebar/tabs/ui/input-dropdown";
 import { ColorPicker } from "@/components/ui/color-picker";
 import { ButtonsSelect } from "../ui/buttons-select";
+import { EditorSelect } from "../ui/editor-select";
 
 type Props = {};
 
@@ -43,87 +44,31 @@ export const TypographyAccordion = (props: Props) => {
             label="Text alignment"
             property="textAlign"
           />
-          <div className="flex flex-col">
-            <Label className="pl-2">Font</Label>
-            <Select
-              onValueChange={(e) =>
-                handleStyleChange(
-                  {
-                    target: {
-                      id: "fontFamily",
-                      value: e,
-                    },
-                  },
-                  selectedElement!,
-                  elements,
-                  dispatch,
-                )
-              }
-            >
-              <SelectTrigger className="border-b border-transparent border-b-white/10 bg-transparent text-[16px] font-medium hover:border-b-white/20">
-                <SelectValue
-                  placeholder="Select a font"
-                  className="text-[16px] font-medium"
-                />
-              </SelectTrigger>
-              <SelectContent className="max-h-[20rem] w-full overflow-y-auto border-none bg-th-btn text-white">
-                {fonts.map((font) => (
-                  <SelectItem
-                    key={font}
-                    value={font}
-                    className="focus:bg-white/10 focus:text-white"
-                  >
-                    {font}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <ColorPicker
-            showColorPicker={showColorPicker}
-            setShowColorPicker={setShowColorPicker}
-            id="color"
-            label="Text color"
+          <EditorSelect
+            cssProp="fontFamily"
+            value={selectedElement!.styles.fontFamily as string}
+            defaultValue=""
+            dropdownList={fonts}
+            placeholder="Font family"
           />
-          <div className="flex flex-col">
-            <Label className="pl-2">Font weight</Label>
-            <Select
-              value={selectedElement?.styles.fontWeight as fontWeightTypes}
-              onValueChange={(e) =>
-                handleStyleChange(
-                  {
-                    target: {
-                      id: "fontWeight",
-                      value: e,
-                    },
-                  },
-                  selectedElement!,
-                  elements,
-                  dispatch,
-                )
-              }
-            >
-              <SelectTrigger className="border-b border-transparent border-b-white/10 bg-transparent text-[16px] font-medium hover:border-b-white/20">
-                <SelectValue
-                  placeholder="Select a font weight"
-                  className="text-[16px] font-medium"
-                />
-              </SelectTrigger>
-              <SelectContent className="max-h-[20rem] w-full overflow-y-auto border-none bg-th-btn text-white">
-                {fontWeights.map((fontWeight) => (
-                  <SelectItem
-                    key={fontWeight}
-                    value={fontWeight}
-                    className="focus:bg-white/10 focus:text-white"
-                  >
-                    {fontWeight}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          <EditorSelect
+            cssProp="fontWeight"
+            value={selectedElement!.styles.fontWeight as string}
+            defaultValue=""
+            dropdownList={fontWeights}
+            placeholder="Font weight"
+          />
+
+          <div>
+            <Label className="pl-2">Text color</Label>
+            <ColorPicker
+              showColorPicker={showColorPicker}
+              setShowColorPicker={setShowColorPicker}
+              id="color"
+            />
           </div>
           <InputDropdown
-            id="fontSize"
+            cssProp="fontSize"
             placeholder="fontSize"
             value={(selectedElement?.styles.fontSize as string) || ""}
             dropdownList={textUnits}

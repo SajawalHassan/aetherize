@@ -103,12 +103,12 @@ export const EditorHeader = (props: Props) => {
       </Button>
       <header
         className={clsx("h-[66px] transition-all duration-300", {
-          "!-top-[200rem]": editor.viewingMode === "preview",
+          "!-top-[200rem] !h-0": editor.viewingMode === "preview",
         })}
       >
         <nav
           className={clsx(
-            "border-th-border fixed left-0 top-0 z-50 flex h-[66px] w-full items-center justify-between border-b px-[16px] transition-all duration-300",
+            "fixed left-0 top-0 z-50 flex h-[66px] w-full items-center justify-between border-b border-th-border px-[16px] transition-all duration-300",
             {
               "!-top-[200rem]": editor.viewingMode === "preview",
             },

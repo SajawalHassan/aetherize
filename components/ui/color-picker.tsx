@@ -4,46 +4,56 @@ import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import React from "react";
 import { handleStyleChange } from "@/lib/helper";
 import { ChromePicker } from "react-color";
+import clsx from "clsx";
 
 type Props = {
-  label: string;
-  id: string;
   showColorPicker: boolean;
   setShowColorPicker: React.Dispatch<React.SetStateAction<boolean>>;
+  id?: string;
+  value?: string | number;
+  onChange?: (e: string) => void;
+  colorPickerClassName?: string;
 };
 
 export const ColorPicker = (props: Props) => {
   const { selectedElement, elements } = useAppSelector((state) => state.editor);
   const dispatch = useAppDispatch();
 
+  const handleOnChange = (e: any) => {
+    if (props.onChange) return props.onChange(e.target.value);
+    handleStyleChange(
+      {
+        target: {
+          id: props.id,
+          value: e.target.value.includes("#")
+            ? e.target.value
+            : `#${e.target.value}`,
+        },
+      },
+      selectedElement!,
+      elements,
+      dispatch,
+    );
+  };
+
   return (
     <div className="flex flex-col">
-      <Label className="pl-2">{props.label}</Label>
       <div className="flex items-center justify-between border-b border-transparent border-b-white/10 bg-transparent pl-[10px] hover:border-b-white/20">
         <Input
           className="border-none bg-transparent p-0 text-[16px] font-medium text-white focus:border-transparent focus-visible:ring-0"
-          value={(selectedElement?.styles as any)[props.id] || "---"}
-          onChange={(e) => {
-            handleStyleChange(
-              {
-                target: {
-                  id: props.id,
-                  value: e.target.value.includes("#")
-                    ? e.target.value
-                    : `#${e.target.value}`,
-                },
-              },
-              selectedElement!,
-              elements,
-              dispatch,
-            );
-          }}
+          value={
+            props.value
+              ? props.value
+              : (selectedElement?.styles as any)[props.id!] || "---"
+          }
+          onChange={handleOnChange}
         />
         <div
           className="h-[40px] w-[50px] cursor-pointer"
           style={{
-            backgroundColor:
-              (selectedElement?.styles as any)[props.id] || "black",
+            backgroundColor: props.value
+              ? props.value
+              : (selectedElement?.styles as any)[props.id!] || "black",
           }}
           onClick={() => props.setShowColorPicker(true)}
         />
@@ -55,21 +65,25 @@ export const ColorPicker = (props: Props) => {
             className="fixed inset-0 z-0"
             onClick={() => props.setShowColorPicker(false)}
           />
-          <div className="absolute bottom-[6rem] right-10 bg-th-btn p-2">
+          <div
+            className={clsx(
+              "absolute bottom-[6rem] right-10 bg-th-btn p-2",
+              props.colorPickerClassName,
+            )}
+          >
             <ChromePicker
-              color={(selectedElement?.styles as any)[props.id]}
+              color={
+                props.value
+                  ? props.value
+                  : (selectedElement?.styles as any)[props.id!] || "red"
+              }
               onChange={(e) => {
-                handleStyleChange(
-                  {
-                    target: {
-                      id: props.id,
-                      value: e.hex,
-                    },
+                handleOnChange({
+                  target: {
+                    id: props.id,
+                    value: e.hex,
                   },
-                  selectedElement!,
-                  elements,
-                  dispatch,
-                );
+                });
               }}
               className="z-20"
             />

@@ -16,6 +16,7 @@ import { editorActions } from "@/slices/editor-slice";
 
 type Props = {
   stateValue: string;
+  defaultValue: string;
   setValuePlaceholder: React.Dispatch<React.SetStateAction<string>>;
   cssProp: string;
 };

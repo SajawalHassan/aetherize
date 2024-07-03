@@ -3,7 +3,7 @@ import { editorContainerId } from "../constants";
 export type deviceTypes = "mobile" | "tablet" | "laptop";
 export type viewingModes = "development" | "preview" | "live";
 export type tabBtns = "Customization" | "Components";
-export type functionsSidebarTabBtns = "Triggers" | "Layers";
+export type functionsSidebarTabBtns = "Triggers" | "Layers" | "Variables";
 export type EditorElementTypes =
   | "container"
   | typeof editorContainerId
@@ -25,3 +25,5 @@ export type EditorElementContent = {
     methodValue: string;
   };
 };
+
+export type VariableTypes = "color" | "string" | "number";

@@ -143,6 +143,8 @@ export const Layout = (props: Props) => {
       }
       style={currentElement.styles}
       onContextMenu={(e) => {
+        if (viewingMode !== "development") return;
+        console.log("PASSED");
         e.preventDefault();
         e.stopPropagation();
         setContextMenu(true);
@@ -160,7 +162,7 @@ export const Layout = (props: Props) => {
             viewingMode !== "preview",
           "!border-th-element-border-select":
             selectedElement?.id === currentElement.id,
-          "!border-th-element-border !border-spacing-4 !border":
+          "!border-spacing-4 !border !border-th-element-border":
             selectedElement?.id !== currentElement.id &&
             viewingMode !== "preview",
           "!h-10":
@@ -180,9 +182,9 @@ export const Layout = (props: Props) => {
               setContextMenu(false);
             }}
             onContextMenu={(e) => {
+              if (viewingMode !== "development") return;
               e.preventDefault();
               e.stopPropagation();
-              setContextMenu(false);
             }}
           />
         </>
@@ -234,7 +236,7 @@ export const Layout = (props: Props) => {
       <TooltipProvider delayDuration={0}>
         <Button
           className={clsx(
-            "bg-th-element-border-select hover:bg-th-element-border-select/80 absolute -bottom-10 -right-0 z-50 hidden items-center justify-center rounded-[5px] p-[6px] active:bg-th-secondary/60",
+            "absolute -bottom-10 -right-0 z-50 hidden items-center justify-center rounded-[5px] bg-th-element-border-select p-[6px] hover:bg-th-element-border-select/80 active:bg-th-secondary/60",
             {
               flex:
                 selectedElement?.id === currentElement.id &&

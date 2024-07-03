@@ -1,7 +1,7 @@
 import { TabsContent } from "@/components/ui/tabs";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { functionsSidebarTabBtns } from "@/lib/types";
-import { TriggerInput } from "../trigger-input";
+import { TriggerInput } from "../_components/trigger-input";
 import clsx from "clsx";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -49,7 +49,7 @@ export const TriggersTab = (props: Props) => {
           value={triggerInput}
           onChange={(e) => setTriggerInput(e.target.value)}
           placeholder="New trigger"
-          className="rounded-none bg-background p-3 focus:border-white/10"
+          className="rounded-none p-3 focus:border-white/10"
         />
         <Button className="rounded-none">Add</Button>
       </form>

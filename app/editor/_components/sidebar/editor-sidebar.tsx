@@ -18,17 +18,14 @@ export const EditorSidebar = (props: Props) => {
 
   return (
     <div
-      className={clsx(
-        "w-full min-w-[300px] max-w-[300px] transition-all duration-500",
-        {
-          "!w-0 !overflow-hidden !border-none !p-0":
-            editor.viewingMode === "preview",
-        },
-      )}
+      className={clsx("w-full max-w-[300px] transition-all duration-500", {
+        "!max-w-0 !overflow-hidden !border-none !p-0":
+          editor.viewingMode === "preview",
+      })}
     >
       <Tabs
         className={clsx(
-          "border-th-border bg-th-bg2 fixed right-[16px] z-50 h-[calc(100%-121px)] min-w-[300px] max-w-[300px] overflow-y-auto border px-[12px] pt-[15px] transition-all duration-500",
+          "fixed right-[16px] z-50 h-[calc(100%-121px)] min-w-[300px] max-w-[300px] overflow-y-auto border border-th-border bg-th-bg2 px-[12px] pt-[15px] transition-all duration-500",
           {
             "!-right-[200rem]": editor.viewingMode === "preview",
           },

@@ -56,7 +56,7 @@ export const EditorSelect = (props: Props) => {
           showTrigger={false}
           className="rounded-none border-none bg-transparent p-0 pl-3 pr-3 hover:bg-th-btn"
         >
-          <p>Display</p>
+          <p className="capitalize">{props.cssProp}</p>
           <SelectValue placeholder={placeholder} className="font-semibold" />
         </SelectTrigger>
         <SelectContent className="border-none bg-th-btn text-white">
@@ -70,6 +70,7 @@ export const EditorSelect = (props: Props) => {
 
       <TriggerSelect
         cssProp={props.cssProp}
+        defaultValue={props.defaultValue}
         stateValue={selectedValue}
         setValuePlaceholder={setPlaceholder}
       />

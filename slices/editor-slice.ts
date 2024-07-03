@@ -2,6 +2,7 @@ import { defaultBodyStyles, editorContainerId } from "@/lib/constants";
 import {
   EditorElementContent,
   EditorElementTypes,
+  VariableTypes,
   deviceTypes,
   viewingModes,
 } from "@/lib/types";
@@ -33,6 +34,15 @@ export type Trigger = {
   triggerValue: boolean;
 };
 
+export type Variable = {
+  id: string;
+  elementId: string;
+  name: string;
+  type: VariableTypes;
+  cssProp: string;
+  value: string | number;
+};
+
 export interface Editor {
   elements: EditorElement[];
   selectedElement: EditorElement | null;
@@ -41,6 +51,7 @@ export interface Editor {
   device: deviceTypes;
   viewingMode: viewingModes;
   triggers: Trigger[];
+  variables: Variable[];
   copiedElement: EditorElement | null;
 }
 
@@ -62,6 +73,16 @@ const initialEditor: Editor = {
   device: "laptop",
   viewingMode: "development",
   triggers: [],
+  variables: [
+    {
+      cssProp: "backgroundColor",
+      elementId: editorContainerId,
+      id: "asdasfasajlkjldbasljkd",
+      name: "Background color",
+      type: "color",
+      value: "#00000",
+    },
+  ],
   copiedElement: null,
 };
 
@@ -216,6 +237,19 @@ const editorSlice = createSlice({
       return {
         ...state,
         triggers: newTriggerList,
+        prevEditorState: state === state.prevEditorState ? null : state,
+        nextEditorState: null,
+      };
+    },
+    changeVariable: (state: Editor, action: PayloadAction<Variable>) => {
+      let newVariableList = state.variables.filter(
+        (variable) => variable.id !== action.payload.id,
+      );
+      newVariableList = [...newVariableList, { ...action.payload }];
+
+      return {
+        ...state,
+        variables: newVariableList,
         prevEditorState: state === state.prevEditorState ? null : state,
         nextEditorState: null,
       };

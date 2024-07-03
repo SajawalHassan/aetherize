@@ -1,11 +1,11 @@
-import { Input } from "../../../../../../components/ui/input";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../../../../components/ui/select";
+} from "@/components/ui/select";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { handleStyleChange } from "@/lib/helper";
@@ -15,9 +15,9 @@ type Props = {
   value: string;
   placeholder: string;
   dropdownList: string[];
-  className?: string;
   specialUnits: string[];
-  id: string;
+  cssProp: string;
+  className?: string;
 };
 
 export const InputDropdown = (props: Props) => {
@@ -59,7 +59,7 @@ export const InputDropdown = (props: Props) => {
     handleStyleChange(
       {
         target: {
-          id: props.id,
+          id: props.cssProp,
           value: props.specialUnits.includes(selectedItem)
             ? selectedItem
             : value + selectedItem,
@@ -89,7 +89,7 @@ export const InputDropdown = (props: Props) => {
         value={selectedItem}
       >
         <SelectTrigger
-          className="flex min-h-full w-[60px] items-center justify-center rounded-none border-none p-0 hover:bg-th-btn"
+          className="flex min-h-full w-[60px] items-center justify-center rounded-none border-none bg-transparent p-0 hover:bg-th-btn"
           showTrigger={false}
         >
           <SelectValue placeholder="-" />
