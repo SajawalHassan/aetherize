@@ -1,5 +1,5 @@
 import { DispatchType, handleStyleChange } from "@/lib/helper";
-import { EditorElement, Trigger, Variable } from "@/slices/editor-slice";
+import { EditorElement, Variable } from "@/slices/editor-slice";
 import { useEffect } from "react";
 
 export const useVariableChange = (
@@ -9,13 +9,13 @@ export const useVariableChange = (
   dispatch: DispatchType,
 ) => {
   useEffect(() => {
-    variables.map((trigger) => {
-      if (currentElement.id !== trigger.elementId) return;
+    variables.map((variable) => {
+      if (currentElement.id !== variable.elementId) return;
       handleStyleChange(
         {
           target: {
-            id: trigger.cssProp,
-            value: trigger.value,
+            id: variable.cssProp,
+            value: variable.value + "px",
           },
         },
         currentElement,

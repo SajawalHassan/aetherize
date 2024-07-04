@@ -8,11 +8,7 @@ import {
   flexWrapItems,
   justifyContentItems,
 } from "@/lib/constants/cssStyle-constants";
-import {
-  displayUnits,
-  specialTextUnits,
-  textUnits,
-} from "@/lib/constants/option-constants";
+import { displayUnits } from "@/lib/constants/option-constants";
 import { useAppSelector } from "@/hooks/store-hook";
 import { EditorSelect } from "../ui/editor-select";
 import { ButtonsSelect } from "../ui/buttons-select";
@@ -20,7 +16,9 @@ import { ButtonsSelect } from "../ui/buttons-select";
 type Props = {};
 
 export const DisplayAccordion = (props: Props) => {
-  const { selectedElement } = useAppSelector((state) => state.editor);
+  const { selectedElement, variables } = useAppSelector(
+    (state) => state.editor,
+  );
 
   if (!selectedElement) return;
 
@@ -34,6 +32,7 @@ export const DisplayAccordion = (props: Props) => {
           value={selectedElement!.styles.display || ""}
           placeholder="Display"
           defaultValue="block"
+          variables={variables.filter((variable) => variable.type === "string")}
         />
 
         {selectedElement!.styles.display === "flex" && (
@@ -74,16 +73,12 @@ export const DisplayAccordion = (props: Props) => {
             />
             <div className="flex items-center gap-x-2">
               <InputDropdown
-                dropdownList={textUnits}
-                specialUnits={specialTextUnits}
                 cssProp="rowGap"
                 placeholder="Gap row"
                 value={(selectedElement!.styles.rowGap as string) || ""}
               />
 
               <InputDropdown
-                dropdownList={textUnits}
-                specialUnits={specialTextUnits}
                 cssProp="columnGap"
                 placeholder="Gap column"
                 value={(selectedElement!.styles.columnGap as string) || ""}

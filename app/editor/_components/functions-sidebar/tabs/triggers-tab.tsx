@@ -22,7 +22,7 @@ export const TriggersTab = (props: Props) => {
       return;
 
     dispatch(
-      editorActions.changeTrigger({
+      editorActions.updateTriggers({
         id: v4(),
         elementId: "",
         cssProp: "",

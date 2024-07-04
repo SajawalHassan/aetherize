@@ -40,7 +40,7 @@ export type Variable = {
   name: string;
   type: VariableTypes;
   cssProp: string;
-  value: string | number;
+  value: string;
 };
 
 export interface Editor {
@@ -73,16 +73,7 @@ const initialEditor: Editor = {
   device: "laptop",
   viewingMode: "development",
   triggers: [],
-  variables: [
-    {
-      cssProp: "backgroundColor",
-      elementId: editorContainerId,
-      id: "asdasfasajlkjldbasljkd",
-      name: "Background color",
-      type: "color",
-      value: "#00000",
-    },
-  ],
+  variables: [],
   copiedElement: null,
 };
 
@@ -216,11 +207,20 @@ const editorSlice = createSlice({
         nextEditorState: null,
       };
     },
-    changeTrigger: (state: Editor, action: PayloadAction<Trigger>) => {
-      let newTriggerList = state.triggers.filter(
-        (trigger) => trigger.id !== action.payload.id,
-      );
-      newTriggerList = [...newTriggerList, { ...action.payload }];
+    updateTriggers: (state: Editor, action: PayloadAction<Trigger>) => {
+      let triggerFound = false;
+      let newTriggerList: Trigger[] = [];
+
+      newTriggerList = state.triggers.map((trigger) => {
+        if (trigger.id === action.payload.id) {
+          triggerFound = true;
+          return action.payload;
+        }
+        return trigger;
+      });
+      if (!triggerFound) {
+        newTriggerList = [...newTriggerList, { ...action.payload }];
+      }
 
       return {
         ...state,
@@ -241,11 +241,20 @@ const editorSlice = createSlice({
         nextEditorState: null,
       };
     },
-    changeVariable: (state: Editor, action: PayloadAction<Variable>) => {
-      let newVariableList = state.variables.filter(
-        (variable) => variable.id !== action.payload.id,
-      );
-      newVariableList = [...newVariableList, { ...action.payload }];
+    updateVariables: (state: Editor, action: PayloadAction<Variable>) => {
+      let variableFound = false;
+      let newVariableList: Variable[] = [];
+
+      newVariableList = state.variables.map((variable) => {
+        if (variable.id === action.payload.id) {
+          variableFound = true;
+          return action.payload;
+        }
+        return variable;
+      });
+      if (!variableFound) {
+        newVariableList = [...newVariableList, { ...action.payload }];
+      }
 
       return {
         ...state,

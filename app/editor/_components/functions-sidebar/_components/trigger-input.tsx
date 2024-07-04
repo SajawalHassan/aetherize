@@ -17,14 +17,12 @@ type Props = {
 export const TriggerInput = (props: Props) => {
   const dispatch = useAppDispatch();
   const { trigger } = props;
-  const { selectedElement } = useAppSelector((state) => state.editor);
 
   const changeTrigger = (newValue: string) => {
     dispatch(
-      editorActions.changeTrigger({
+      editorActions.updateTriggers({
         ...trigger,
         value: JSON.parse(newValue),
-        elementId: selectedElement!.id,
       }),
     );
   };

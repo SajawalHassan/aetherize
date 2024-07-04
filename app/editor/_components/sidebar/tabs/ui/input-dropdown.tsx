@@ -1,107 +1,80 @@
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
-import { handleStyleChange } from "@/lib/helper";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
+import { handleStyleChange } from "@/lib/helper";
+import { cn } from "@/lib/utils";
+import { useEffect, useMemo, useState, useTransition } from "react";
+import { VariableSelect } from "../customization-tab/_components/variable-select";
 
 type Props = {
   value: string;
   placeholder: string;
-  dropdownList: string[];
-  specialUnits: string[];
   cssProp: string;
   className?: string;
 };
 
 export const InputDropdown = (props: Props) => {
-  const [value, setValue] = useState(props.value.split(/(\d+)/)[1] || "");
-  const [selectedItem, setSelectedItem] = useState(
-    props.value.split(/(\d+)/)[2] || "",
+  const [_isPending, startTransition] = useTransition();
+  const [inputValue, setInputValue] = useState("");
+
+  const { selectedElement, elements, variables } = useAppSelector(
+    (state) => state.editor,
   );
 
-  const { selectedElement, elements } = useAppSelector((state) => state.editor);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (!props.specialUnits.includes(props.value)) {
-      if (
-        (props.value.split(/(\d+)/)[1] || "") === value &&
-        (props.value.split(/(\d+)/)[2] || "") === selectedItem
-      )
-        return;
-    }
+  const variable = useMemo(() => {
+    return variables.filter(
+      (variable) =>
+        variable.elementId === selectedElement!.id &&
+        variable.cssProp === props.cssProp,
+    )[0];
+  }, [variables]);
 
-    setSelectedItem(
-      props.specialUnits.includes(props.value)
-        ? props.value
-        : props.value.split(/(\d+)/)[2],
-    );
-    setValue(props.value.split(/(\d+)/)[1] || "");
+  useEffect(() => {
+    if (variable) return;
+
+    startTransition(() => {
+      const newInputValue = props.value.split(/(\d+)/)[1] || "";
+
+      setInputValue(newInputValue);
+    });
   }, [selectedElement]);
 
-  useEffect(() => {
-    if (!props.specialUnits.includes(selectedItem)) {
-      if (
-        (props.value.split(/(\d+)/)[1] || "") === value &&
-        (props.value.split(/(\d+)/)[2] || "") === selectedItem
-      )
-        return;
-    }
-    if (!value || !selectedItem) return;
+  const handleInputChange = (newInputValue: string) => {
+    if (variable) return;
+
+    startTransition(() => setInputValue(newInputValue));
 
     handleStyleChange(
       {
         target: {
           id: props.cssProp,
-          value: props.specialUnits.includes(selectedItem)
-            ? selectedItem
-            : value + selectedItem,
+          value: newInputValue + "px",
         },
       },
       selectedElement!,
       elements,
       dispatch,
     );
-  }, [selectedItem, value]);
+  };
 
   return (
     <div
       className={cn(
-        "flex items-center border border-white/10 bg-background pl-3 pt-0",
+        "flex items-center border border-white/10 bg-th-bg pl-3 pt-0",
         props.className,
       )}
     >
       <Input
-        value={value}
-        onChange={(e) => setValue(e.target.value.split(/(\d+)/)[1] || "")}
+        value={variable ? variable.value : inputValue}
+        onChange={(e) =>
+          handleInputChange(e.target.value.split(/(\d+)/)[1] || "")
+        }
         placeholder={props.placeholder}
         className="border-none bg-transparent p-0"
       />
-      <Select
-        onValueChange={(e) => setSelectedItem(e || "")}
-        value={selectedItem}
-      >
-        <SelectTrigger
-          className="flex min-h-full w-[60px] items-center justify-center rounded-none border-none bg-transparent p-0 hover:bg-th-btn"
-          showTrigger={false}
-        >
-          <SelectValue placeholder="-" />
-        </SelectTrigger>
-        <SelectContent className="border-none bg-th-btn text-white">
-          {props.dropdownList.map((item) => (
-            <SelectItem value={item} key={item}>
-              {item}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+
+      <VariableSelect cssProp={props.cssProp} variables={variables} />
     </div>
   );
 };

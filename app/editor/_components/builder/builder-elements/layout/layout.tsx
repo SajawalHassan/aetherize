@@ -16,6 +16,7 @@ import { useTriggerChange } from "@/hooks/use-trigger-change";
 import { ContextMenuOption } from "../_components/context-menu-option";
 import { v4 } from "uuid";
 import { useHotkeys } from "react-hotkeys-hook";
+import { useVariableChange } from "@/hooks/use-variable-change";
 
 type Props = {
   containerElement: EditorElement;
@@ -33,11 +34,18 @@ export const Layout = (props: Props) => {
   });
 
   const { currentElement, children, className } = props;
-  const { selectedElement, elements, viewingMode, triggers, copiedElement } =
-    useAppSelector((state) => state.editor);
+  const {
+    selectedElement,
+    elements,
+    viewingMode,
+    triggers,
+    copiedElement,
+    variables,
+  } = useAppSelector((state) => state.editor);
 
   const dispatch = useAppDispatch();
   useTriggerChange(triggers, currentElement, elements, dispatch);
+  useVariableChange(variables, currentElement, elements, dispatch);
 
   useHotkeys("ctrl+c", () => {
     if (!selectedElement) return;
@@ -144,7 +152,6 @@ export const Layout = (props: Props) => {
       style={currentElement.styles}
       onContextMenu={(e) => {
         if (viewingMode !== "development") return;
-        console.log("PASSED");
         e.preventDefault();
         e.stopPropagation();
         setContextMenu(true);

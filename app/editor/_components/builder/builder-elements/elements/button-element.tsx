@@ -45,7 +45,7 @@ export const ButtonElement = (props: Props) => {
       if (!trigger) return console.error("No trigger found");
 
       dispatch(
-        editorActions.changeTrigger({
+        editorActions.updateTriggers({
           ...trigger,
           value: !trigger.value,
         }),

@@ -35,7 +35,7 @@ export const FunctionsSidebar = (props: Props) => {
         defaultValue={"Layers" as functionsSidebarTabBtns}
       >
         <TooltipProvider delayDuration={0}>
-          <TabsList className="flex h-full w-[80px] flex-col justify-start gap-y-2 overflow-hidden rounded-[2px] border border-th-border bg-transparent p-2">
+          <TabsList className="flex h-full w-[80px] flex-col justify-start gap-y-2 overflow-hidden rounded-[2px] border-r border-th-border bg-transparent pr-2">
             <FunctionsTabTrigger value="Layers" Icon={LayersIcon} />
             <FunctionsTabTrigger value="Triggers" Icon={MouseIcon} />
             <FunctionsTabTrigger value="Variables" Icon={VariableIcon} />

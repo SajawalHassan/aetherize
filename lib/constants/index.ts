@@ -12,3 +12,5 @@ export const defaultBodyStyles: React.CSSProperties = {
   ...defaultStyles,
   padding: "10px",
 };
+
+export const variableTypesConstants = ["string", "color", "number"];

@@ -49,11 +49,11 @@ export const ColorPicker = (props: Props) => {
           onChange={handleOnChange}
         />
         <div
-          className="h-[40px] w-[50px] cursor-pointer"
+          className="h-[40px] w-[50px] cursor-pointer border"
           style={{
             backgroundColor: props.value
               ? props.value
-              : (selectedElement?.styles as any)[props.id!] || "black",
+              : (selectedElement?.styles as any)[props.id!] || "white",
           }}
           onClick={() => props.setShowColorPicker(true)}
         />
@@ -75,7 +75,7 @@ export const ColorPicker = (props: Props) => {
               color={
                 props.value
                   ? props.value
-                  : (selectedElement?.styles as any)[props.id!] || "red"
+                  : (selectedElement?.styles as any)[props.id!] || "#fffff"
               }
               onChange={(e) => {
                 handleOnChange({

@@ -2,24 +2,11 @@ import { AccordionItem, AccordionContent } from "@/components/ui/accordion";
 import { AccordionCustomTrigger } from "../../../accordion-custom-trigger";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { fontWeightTypes } from "@/lib/types/font-types";
 import { alignTextItems } from "@/lib/constants/cssStyle-constants";
-import {
-  fontWeights,
-  specialTextUnits,
-  textUnits,
-} from "@/lib/constants/option-constants";
+import { fontWeights } from "@/lib/constants/option-constants";
 import { fonts } from "@/lib/constants/option-constants";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { useState } from "react";
-import { handleStyleChange } from "@/lib/helper";
 import { InputDropdown } from "@/app/editor/_components/sidebar/tabs/ui/input-dropdown";
 import { ColorPicker } from "@/components/ui/color-picker";
 import { ButtonsSelect } from "../ui/buttons-select";
@@ -30,8 +17,9 @@ type Props = {};
 export const TypographyAccordion = (props: Props) => {
   const [showColorPicker, setShowColorPicker] = useState(false);
 
-  const { selectedElement, elements } = useAppSelector((state) => state.editor);
-  const dispatch = useAppDispatch();
+  const { selectedElement, variables } = useAppSelector(
+    (state) => state.editor,
+  );
 
   return (
     <AccordionItem value="typography" className="relative border-white/10">
@@ -71,8 +59,6 @@ export const TypographyAccordion = (props: Props) => {
             cssProp="fontSize"
             placeholder="fontSize"
             value={(selectedElement?.styles.fontSize as string) || ""}
-            dropdownList={textUnits}
-            specialUnits={specialTextUnits}
             className="border-x-0 border-b border-t-0 border-b-white/10 bg-transparent"
           />
         </AccordionContent>

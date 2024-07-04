@@ -37,7 +37,7 @@ export const TriggerSelect = (props: Props) => {
   useEffect(() => {
     if (stateValue && trigger) {
       dispatch(
-        editorActions.changeTrigger({
+        editorActions.updateTriggers({
           ...trigger,
           elementId: selectedElement!.id,
           name: selectedTrigger,
