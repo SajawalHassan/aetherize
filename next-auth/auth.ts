@@ -8,39 +8,31 @@ const prisma = new PrismaClient();
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   ...authConfig,
+  pages: {
+    signIn: "/auth/login",
+  },
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   callbacks: {
     async session({ session, token }) {
       if (!token.sub || !session.user) return session;
-
-      session.user.tier = token.tier as UserTier;
-
+      session.user.tier = "FREE";
       return session;
     },
     async jwt({ token }) {
-      try {
-        if (!token.sub) return token;
-
-        const existingUser = await db.user.findUnique({
-          where: {
-            id: token.sub,
-          },
-        });
-
-        if (!existingUser) {
-          console.error("No user found!");
-          return token;
-        }
-
-        token.tier = existingUser.tier;
-        token.id = existingUser.id;
-
-        return token;
-      } catch (error) {
-        console.log(error);
+      if (!token.sub) return token;
+      const existingUser = await db.user.findUnique({
+        where: {
+          id: token.sub,
+        },
+      });
+      if (!existingUser) {
+        console.log("No user found!");
         return token;
       }
+      token.tier = existingUser.tier;
+      token.id = existingUser.id;
+      return token;
     },
   },
 });

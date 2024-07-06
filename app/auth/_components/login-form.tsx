@@ -14,9 +14,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { AuthSubmit } from "./auth-submit";
 import { loginCredQuery } from "@/queries/auth/auth-queries";
+import { useSearchParams } from "next/navigation";
 
 type Props = {};
 
@@ -24,6 +25,13 @@ export const LoginForm = (props: Props) => {
   const [serverError, setServerError] = useState("");
   const [isPending, setTransition] = useTransition();
   const [showPassword, setShowPassword] = useState(true);
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if ((searchParams.get("error") as string) === "OAuthAccountNotLinked")
+      setServerError("Login with the same provider you used before!");
+  }, []);
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -78,7 +86,7 @@ export const LoginForm = (props: Props) => {
                     <FormLabel className="text-muted-foreground">
                       Password
                     </FormLabel>
-                    <div className="flex items-center justify-between rounded-md border border-white/10 bg-background px-3">
+                    <div className="flex items-center justify-between rounded-md border border-white/10 bg-th-bg px-3">
                       <Input
                         {...field}
                         placeholder="Password"

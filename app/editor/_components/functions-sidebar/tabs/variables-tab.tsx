@@ -32,25 +32,19 @@ export const VariablesTab = (props: Props) => {
     setTimeout(() => setError(""), 2000);
   };
 
-  // prettier-ignore
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!variableInput || !variableType)
       return setNewError("Variable name cannot be empty");
-    if (variables.filter((variable) => variable.name === variableInput).length > 0)
-      return setNewError("Variable name exists");
-
-    const variableValue =
-      variableType === "color" ? "#00000" : variableType === "string" ? "" : 0;
 
     dispatch(
       editorActions.updateVariables({
         id: v4(),
         elementId: "",
         cssProp: "",
-        name: variableInput,
+        name: "variable_" + variables.length,
         type: variableType,
-        value: variableValue,
+        value: variableInput,
       }),
     );
     setVariableInput("");
@@ -61,7 +55,7 @@ export const VariablesTab = (props: Props) => {
       <h3 className="mb-6 pl-2 text-3xl font-bold">Variables</h3>
       <div className="space-y-2">
         {variables.map((variable) => (
-          <VariableInput key={variable.name} variable={variable} />
+          <VariableInput key={variable.id} variable={variable} />
         ))}
       </div>
 
@@ -70,7 +64,7 @@ export const VariablesTab = (props: Props) => {
           <Input
             value={variableInput}
             onChange={(e) => setVariableInput(e.target.value)}
-            placeholder="New trigger"
+            placeholder="New variable"
             className="rounded-none p-3 focus:border-white/10"
           />
           <Select

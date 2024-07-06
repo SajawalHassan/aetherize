@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { useAppDispatch } from "@/hooks/store-hook";
 import { Variable, editorActions } from "@/slices/editor-slice";
 import { TrashIcon } from "lucide-react";
-import React, { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 
 type Props = {
   variable: Variable;
