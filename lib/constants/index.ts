@@ -1,4 +1,4 @@
-export const editorContainerId = "__body";
+export const editorContainerId = "body__body";
 
 export const defaultStyles: React.CSSProperties = {
   marginTop: "0px",

@@ -64,15 +64,16 @@ export const caseAddElement = (
               "Container" +
               " " +
               (
-                (containerElement.content as Array<EditorElement>).filter(
+                containerElement.children.filter(
                   (element) => element.type === componentType,
                 ).length + 1
               ).toString(),
             containerId: containerElement.id,
-            index: (containerElement.content as Array<EditorElement>).length,
+            index: containerElement.children.length,
             styles: defaultStyles,
             type: componentType,
-            content: [],
+            children: [],
+            content: {},
           },
         }),
       );
@@ -88,15 +89,16 @@ export const caseAddElement = (
               "Text field" +
               " " +
               (
-                (containerElement.content as Array<EditorElement>).filter(
+                containerElement.children.filter(
                   (element) => element.type === componentType,
                 ).length + 1
               ).toString(),
             containerId: containerElement.id,
-            index: (containerElement.content as Array<EditorElement>).length,
+            index: containerElement.children.length,
             styles: defaultStyles,
             type: componentType,
             content: { text: "Text field" },
+            children: [],
           },
         }),
       );
@@ -112,12 +114,12 @@ export const caseAddElement = (
               "Link Field" +
               " " +
               (
-                (containerElement.content as Array<EditorElement>).filter(
+                containerElement.children.filter(
                   (element) => element.type === componentType,
                 ).length + 1
               ).toString(),
             containerId: containerElement.id,
-            index: (containerElement.content as Array<EditorElement>).length,
+            index: containerElement.children.length,
             styles: {
               ...defaultStyles,
               color: "lightblue",
@@ -125,6 +127,7 @@ export const caseAddElement = (
             },
             type: componentType,
             content: { href: "https://aetherize.vercel.app", text: "Link" },
+            children: [],
           },
         }),
       );
@@ -140,15 +143,16 @@ export const caseAddElement = (
               "Image" +
               " " +
               (
-                (containerElement.content as Array<EditorElement>).filter(
+                containerElement.children.filter(
                   (element) => element.type === componentType,
                 ).length + 1
               ).toString(),
             containerId: containerElement.id,
-            index: (containerElement.content as Array<EditorElement>).length,
+            index: containerElement.children.length,
             styles: defaultStyles,
             type: componentType,
             content: { imageSrc: "" },
+            children: [],
           },
         }),
       );
@@ -164,15 +168,16 @@ export const caseAddElement = (
               "Video" +
               " " +
               (
-                (containerElement.content as Array<EditorElement>).filter(
+                containerElement.children.filter(
                   (element) => element.type === componentType,
                 ).length + 1
               ).toString(),
             containerId: containerElement.id,
-            index: (containerElement.content as Array<EditorElement>).length,
+            index: containerElement.children.length,
             styles: defaultStyles,
             type: componentType,
             content: { videoSrc: "" },
+            children: [],
           },
         }),
       );
@@ -188,15 +193,16 @@ export const caseAddElement = (
               "Button" +
               " " +
               (
-                (containerElement.content as Array<EditorElement>).filter(
+                containerElement.children.filter(
                   (element) => element.type === componentType,
                 ).length + 1
               ).toString(),
             containerId: containerElement.id,
-            index: (containerElement.content as Array<EditorElement>).length,
+            index: containerElement.children.length,
             styles: defaultStyles,
             type: "button",
             content: { text: "Button" },
+            children: [],
           },
         }),
       );

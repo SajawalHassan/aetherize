@@ -37,57 +37,49 @@ export const CustomPropsAccordion = (props: Props) => {
     <AccordionItem value="custom" className="border-white/10">
       <AccordionCustomTrigger text="Custom props" />
       <AccordionContent className="mt-4">
-        {selectedElement &&
-          !Array.isArray(selectedElement.content) &&
-          selectedElement.type === "link" && (
-            <div className="space-y-2">
-              <Input
-                id="href"
-                placeholder="https://example.com"
-                value={selectedElement.content.href}
-                onChange={handleCustomChange}
-              />
-              <Input
-                id="text"
-                placeholder="your text"
-                value={selectedElement.content.text}
-                onChange={handleCustomChange}
-              />
-            </div>
-          )}
-        {selectedElement &&
-          !Array.isArray(selectedElement.content) &&
-          selectedElement.type === "text" && (
+        {selectedElement && selectedElement.type === "link" && (
+          <div className="space-y-2">
+            <Input
+              id="href"
+              placeholder="https://example.com"
+              value={selectedElement.content.href}
+              onChange={handleCustomChange}
+            />
             <Input
               id="text"
-              placeholder="Your text..."
+              placeholder="your text"
               value={selectedElement.content.text}
               onChange={handleCustomChange}
             />
-          )}
-        {selectedElement &&
-          !Array.isArray(selectedElement.content) &&
-          selectedElement.type === "image" && (
-            <Input
-              id="imageSrc"
-              placeholder="Image url"
-              value={selectedElement.content.imageSrc}
-              onChange={handleCustomChange}
-            />
-          )}
-        {selectedElement &&
-          !Array.isArray(selectedElement.content) &&
-          selectedElement.type === "video" && (
-            <Input
-              id="videoSrc"
-              placeholder="Video url"
-              value={selectedElement.content.videoSrc}
-              onChange={handleCustomChange}
-            />
-          )}
-        {selectedElement &&
-          !Array.isArray(selectedElement.content) &&
-          selectedElement.type === "button" && <OnClickSelect />}
+          </div>
+        )}
+        {selectedElement && selectedElement.type === "text" && (
+          <Input
+            id="text"
+            placeholder="Your text..."
+            value={selectedElement.content.text}
+            onChange={handleCustomChange}
+          />
+        )}
+        {selectedElement && selectedElement.type === "image" && (
+          <Input
+            id="imageSrc"
+            placeholder="Image url"
+            value={selectedElement.content.imageSrc}
+            onChange={handleCustomChange}
+          />
+        )}
+        {selectedElement && selectedElement.type === "video" && (
+          <Input
+            id="videoSrc"
+            placeholder="Video url"
+            value={selectedElement.content.videoSrc}
+            onChange={handleCustomChange}
+          />
+        )}
+        {selectedElement && selectedElement.type === "button" && (
+          <OnClickSelect />
+        )}
       </AccordionContent>
     </AccordionItem>
   );

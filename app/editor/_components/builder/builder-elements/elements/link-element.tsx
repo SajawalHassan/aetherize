@@ -38,25 +38,22 @@ export const LinkElement = (props: Props) => {
       currentElement={currentElement}
       containerElement={props.containerElement}
     >
-      {!Array.isArray(currentElement.content) && (
-        <a
-          href={currentElement.content.href}
-          contentEditable={
-            viewingMode !== "preview" &&
-            selectedElement?.id === currentElement.id
-          }
-          suppressContentEditableWarning
-          onClick={(e) => {
-            e.stopPropagation();
-            if (selectedElement?.id !== currentElement.id)
-              handleSelectElement(e, selectedElement, currentElement, dispatch);
-          }}
-          onBlur={handleOnBlur}
-          className="w-full"
-        >
-          {currentElement.content.text}
-        </a>
-      )}
+      <a
+        href={currentElement.content.href}
+        contentEditable={
+          viewingMode !== "preview" && selectedElement?.id === currentElement.id
+        }
+        suppressContentEditableWarning
+        onClick={(e) => {
+          e.stopPropagation();
+          if (selectedElement?.id !== currentElement.id)
+            handleSelectElement(e, selectedElement, currentElement, dispatch);
+        }}
+        onBlur={handleOnBlur}
+        className="w-full"
+      >
+        {currentElement.content.text}
+      </a>
     </ElementLayout>
   );
 };

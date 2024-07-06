@@ -172,8 +172,7 @@ export const Layout = (props: Props) => {
           "!border-spacing-4 !border !border-th-element-border":
             selectedElement?.id !== currentElement.id &&
             viewingMode !== "preview",
-          "!h-10":
-            (currentElement.content as Array<EditorElement>).length === 0,
+          "!h-10": currentElement.children.length === 0,
         },
         dragOverClassName,
         className,

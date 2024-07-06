@@ -21,7 +21,8 @@ export interface EditorElement {
   name: string;
   index: number;
   containerId: string;
-  content: EditorElement[] | EditorElementContent;
+  content: EditorElementContent;
+  children: EditorElement[];
 }
 
 export type Trigger = {
@@ -64,7 +65,8 @@ const initialEditor: Editor = {
       type: editorContainerId,
       containerId: "",
       index: 0,
-      content: [],
+      content: {},
+      children: [],
     },
   ],
   selectedElement: null,
@@ -270,10 +272,7 @@ const editorSlice = createSlice({
         action.payload.newElement,
       );
 
-      if (
-        action.payload.containerId === state.selectedElement?.id &&
-        Array.isArray(state.selectedElement.content)
-      ) {
+      if (action.payload.containerId === state.selectedElement?.id) {
         return {
           ...state,
           prevEditorState: state === state.prevEditorState ? null : state,
@@ -281,8 +280,8 @@ const editorSlice = createSlice({
           elements: newElementsArray,
           selectedElement: {
             ...state.selectedElement,
-            content: [
-              ...state.selectedElement.content,
+            children: [
+              ...state.selectedElement.children,
               action.payload.newElement,
             ],
           },

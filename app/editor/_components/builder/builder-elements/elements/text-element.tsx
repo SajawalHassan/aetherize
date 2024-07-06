@@ -38,24 +38,21 @@ export const TextElement = (props: Props) => {
       currentElement={currentElement}
       containerElement={props.containerElement}
     >
-      {!Array.isArray(currentElement.content) && (
-        <span
-          contentEditable={
-            viewingMode !== "preview" &&
-            selectedElement?.id === currentElement.id
-          }
-          suppressContentEditableWarning
-          onClick={(e) => {
-            e.stopPropagation();
-            if (selectedElement?.id !== currentElement.id)
-              handleSelectElement(e, selectedElement, currentElement, dispatch);
-          }}
-          onBlur={handleOnBlur}
-          className="w-full"
-        >
-          {currentElement.content.text}
-        </span>
-      )}
+      <span
+        contentEditable={
+          viewingMode !== "preview" && selectedElement?.id === currentElement.id
+        }
+        suppressContentEditableWarning
+        onClick={(e) => {
+          e.stopPropagation();
+          if (selectedElement?.id !== currentElement.id)
+            handleSelectElement(e, selectedElement, currentElement, dispatch);
+        }}
+        onBlur={handleOnBlur}
+        className="w-full"
+      >
+        {currentElement.content.text}
+      </span>
     </ElementLayout>
   );
 };

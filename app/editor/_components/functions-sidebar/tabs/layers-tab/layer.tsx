@@ -108,7 +108,7 @@ export const Layer = (props: Props) => {
             <ImageIcon size={20} />
           ) : props.element.type === "video" ? (
             <YoutubeIcon size={20} />
-          ) : props.element.type === "__body" ? (
+          ) : props.element.type === editorContainerId ? (
             <BoxSelectIcon size={20} />
           ) : props.element.type === "link" ? (
             <LinkIcon size={20} />
@@ -141,9 +141,7 @@ export const Layer = (props: Props) => {
           <TrashIcon size={18} />
         </Button>
       </div>
-      {Array.isArray(props.element.content) && (
-        <LayerList layers={props.element.content} />
-      )}
+      <LayerList layers={props.element.children} />
     </div>
   );
 };

@@ -23,10 +23,7 @@ export const OnClickSelect = (props: Props) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (
-      !Array.isArray(selectedElement?.content) &&
-      selectedElement?.type === "button"
-    ) {
+    if (selectedElement?.type === "button") {
       setSelectedTrigger(selectedElement?.content.onClick?.methodValue || "");
     }
   }, []);

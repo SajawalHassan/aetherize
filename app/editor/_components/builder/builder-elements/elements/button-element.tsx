@@ -35,12 +35,9 @@ export const ButtonElement = (props: Props) => {
   };
 
   const handleOnClick = (e: React.MouseEvent) => {
-    if (Array.isArray(currentElement.content)) return;
-
     if (currentElement.content.onClick?.methodName === "changeVar") {
       const trigger = triggers.filter(
-        (trigger) =>
-          trigger.id === (currentElement.content as any).onClick.methodValue,
+        (trigger) => trigger.id === currentElement.content.onClick?.methodValue,
       )[0];
       if (!trigger) return console.error("No trigger found");
 
@@ -58,23 +55,21 @@ export const ButtonElement = (props: Props) => {
       currentElement={currentElement}
       containerElement={props.containerElement}
     >
-      {!Array.isArray(currentElement.content) && (
-        <button
-          onClick={handleOnClick}
-          className={clsx("cursor-pointer bg-blue-500 p-2", {
-            "!cursor-default": viewingMode === "development",
-          })}
+      <button
+        onClick={handleOnClick}
+        className={clsx("cursor-pointer bg-blue-500 p-2", {
+          "!cursor-default": viewingMode === "development",
+        })}
+      >
+        <p
+          contentEditable={viewingMode !== "preview"}
+          suppressContentEditableWarning
+          onBlur={handleOnBlur}
+          className={clsx({ "cursor-text": viewingMode === "development" })}
         >
-          <p
-            contentEditable={viewingMode !== "preview"}
-            suppressContentEditableWarning
-            onBlur={handleOnBlur}
-            className={clsx({ "cursor-text": viewingMode === "development" })}
-          >
-            {currentElement.content.text}
-          </p>
-        </button>
-      )}
+          {currentElement.content.text}
+        </p>
+      </button>
     </ElementLayout>
   );
 };

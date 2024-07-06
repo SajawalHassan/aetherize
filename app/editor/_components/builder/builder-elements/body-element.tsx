@@ -185,17 +185,16 @@ export const BodyElement = (props: Props) => {
         {currentElement.name}
       </Badge>
 
-      {Array.isArray(currentElement.content) &&
-        currentElement.content
-          .slice()
-          .sort(compare)
-          .map((childElement) => (
-            <Recursive
-              key={childElement.id}
-              element={childElement}
-              containerElement={currentElement}
-            />
-          ))}
+      {currentElement.children
+        .slice()
+        .sort(compare)
+        .map((childElement) => (
+          <Recursive
+            key={childElement.id}
+            element={childElement}
+            containerElement={currentElement}
+          />
+        ))}
 
       <TooltipProvider delayDuration={0}>
         <Button

@@ -6,18 +6,16 @@ export const addElementAction = (
   newElement: EditorElement,
 ) => {
   const newElementsArray: EditorElement[] = elementsArray.map((element) => {
-    if (element.id === containerId && Array.isArray(element.content)) {
+    if (element.id === containerId) {
       return {
         ...element,
-        content: [...element.content, newElement],
-      };
-    } else if (Array.isArray(element.content)) {
-      return {
-        ...element,
-        content: addElementAction(containerId, element.content, newElement),
+        children: [...element.children, newElement],
       };
     } else {
-      return element;
+      return {
+        ...element,
+        children: addElementAction(containerId, element.children, newElement),
+      };
     }
   });
 
@@ -32,10 +30,10 @@ export const updateElementAction = (
   const newEditorArray: any = elementsArray.map((element) => {
     if (element.id === elementId) {
       return elementData;
-    } else if (element.content && Array.isArray(element.content)) {
+    } else if (element.children) {
       return {
         ...element,
-        content: updateElementAction(elementId, element.content, elementData),
+        children: updateElementAction(elementId, element.children, elementData),
       };
     } else {
       return element;
@@ -49,16 +47,25 @@ export const deleteElementAction = (
   elementsArray: EditorElement[],
   elementId: string,
 ): EditorElement[] => {
+  let elementFound = false;
   const newElementsArray = elementsArray
     .filter((item) => {
-      return item.id !== elementId;
+      if (item.id === elementId) {
+        elementFound = true;
+        return false;
+      }
+      return true;
     })
-    .map((item) => ({
-      ...item,
-      content: Array.isArray(item.content)
-        ? deleteElementAction(item.content, elementId)
-        : item.content,
-    }));
+    .map((item) => {
+      if (!elementFound) {
+        return {
+          ...item,
+          children: deleteElementAction(item.children, elementId),
+        };
+      } else {
+        return item;
+      }
+    });
 
   return newElementsArray;
 };

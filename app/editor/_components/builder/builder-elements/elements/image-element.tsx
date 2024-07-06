@@ -14,13 +14,11 @@ export const ImageElement = (props: Props) => {
       currentElement={currentElement}
       containerElement={props.containerElement}
     >
-      {!Array.isArray(currentElement.content) && (
-        <img
-          className="h-full w-full"
-          src={currentElement.content.imageSrc}
-          alt={currentElement.name}
-        />
-      )}
+      <img
+        className="h-full w-full"
+        src={currentElement.content.imageSrc}
+        alt={currentElement.name}
+      />
     </ElementLayout>
   );
 };
