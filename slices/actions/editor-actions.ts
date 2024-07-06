@@ -1,4 +1,5 @@
 import { EditorElement } from "@/slices/editor-slice";
+import { v4 } from "uuid";
 
 export const addElementAction = (
   containerId: string,
@@ -66,6 +67,36 @@ export const deleteElementAction = (
         return item;
       }
     });
+
+  return newElementsArray;
+};
+
+let foundElement = false;
+export const pasteElementAction = (
+  elementsArray: EditorElement[],
+  copiedElement: EditorElement,
+) => {
+  const newElementsArray: EditorElement[] = elementsArray.map((child) => {
+    if (!foundElement && child.id === copiedElement.id) {
+      foundElement = true;
+      return {
+        ...child,
+        id: v4(),
+        children: pasteElementAction(child.children, copiedElement),
+      };
+    }
+    if (foundElement) {
+      return {
+        ...child,
+        id: v4(),
+        children: pasteElementAction(child.children, copiedElement),
+      };
+    }
+    return {
+      ...child,
+      children: pasteElementAction(child.children, copiedElement),
+    };
+  });
 
   return newElementsArray;
 };

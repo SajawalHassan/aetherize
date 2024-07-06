@@ -60,14 +60,10 @@ export const BodyElement = (props: Props) => {
     if (!copiedElement) return;
 
     dispatch(
-      editorActions.addElement({
+      editorActions.pasteElement({
         containerId,
         elementsArray: elements,
-        newElement: {
-          ...copiedElement,
-          id: v4(),
-          name: copiedElement.name + " copy",
-        },
+        copiedElement,
       }),
     );
 

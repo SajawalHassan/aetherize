@@ -10,6 +10,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
   addElementAction,
   deleteElementAction,
+  pasteElementAction,
   updateElementAction,
 } from "./actions/editor-actions";
 import React from "react";
@@ -101,6 +102,12 @@ interface swapElementIndexPayload {
   hoveredElement: EditorElement;
 }
 
+interface pasteElementPayload {
+  containerId: string;
+  elementsArray: EditorElement[];
+  copiedElement: EditorElement;
+}
+
 const editorSlice = createSlice({
   name: "editor",
   initialState: initialEditor,
@@ -146,6 +153,27 @@ const editorSlice = createSlice({
       return {
         ...state,
         copiedElement: action.payload,
+      };
+    },
+    pasteElement: (
+      state: Editor,
+      action: PayloadAction<pasteElementPayload>,
+    ) => {
+      let newElementsArray: EditorElement[] = addElementAction(
+        action.payload.containerId,
+        action.payload.elementsArray,
+        action.payload.copiedElement,
+      );
+      newElementsArray = pasteElementAction(
+        newElementsArray,
+        action.payload.copiedElement,
+      );
+
+      return {
+        ...state,
+        elements: newElementsArray,
+        prevEditorState: state === state.prevEditorState ? null : state,
+        nextEditorState: null,
       };
     },
     swapElementIndex: (
