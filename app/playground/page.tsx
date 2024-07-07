@@ -1,9 +1,9 @@
 import EditorStoreProvider from "@/providers/editor-store-provider";
-import { Editor } from "./_components/editor";
+import { Editor } from "@/components/editor";
 
 type Props = {};
 
-const Page = (props: Props) => {
+const Page = async (props: Props) => {
   return (
     <EditorStoreProvider>
       <Editor />

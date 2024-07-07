@@ -1,6 +1,6 @@
 import { AccordionContent, AccordionItem } from "@/components/ui/accordion";
 import { AccordionCustomTrigger } from "../../../accordion-custom-trigger";
-import { InputDropdown } from "@/app/editor/_components/sidebar/tabs/ui/input-dropdown";
+import { InputDropdown } from "@/app/playground/_components/sidebar/tabs/ui/input-dropdown";
 import {
   alignContentItems,
   alignItems_Items,

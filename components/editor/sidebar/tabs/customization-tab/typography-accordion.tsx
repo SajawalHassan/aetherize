@@ -7,7 +7,7 @@ import { fontWeights } from "@/lib/constants/option-constants";
 import { fonts } from "@/lib/constants/option-constants";
 import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
 import { useState } from "react";
-import { InputDropdown } from "@/app/editor/_components/sidebar/tabs/ui/input-dropdown";
+import { InputDropdown } from "@/app/playground/_components/sidebar/tabs/ui/input-dropdown";
 import { ColorPicker } from "@/components/ui/color-picker";
 import { ButtonsSelect } from "../ui/buttons-select";
 import { EditorSelect } from "../ui/editor-select";

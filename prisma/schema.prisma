@@ -44,3 +44,30 @@ model Account {
 
   @@unique([provider, providerAccountId])
 }
+
+model Realm {
+  id          String     @id @default(cuid())
+  subRealms   SubRealm[]
+  domain      String     @unique
+  name        String
+  visits      Int
+  isPublished Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model SubRealm {
+  id          String @id @default(cuid())
+  content     String @db.Text
+  visits      Int
+  pagePath    String
+  name        String
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  Realm   Realm  @relation(fields: [realmId], references: [id])
+  realmId String
+}

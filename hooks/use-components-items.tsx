@@ -1,6 +1,6 @@
 import { EditorElementTypes } from "@/lib/types";
-import { ContainerPlaceholder } from "@/app/editor/_components/placeholders/container-placeholder";
-import { ElementPlaceholder } from "@/app/editor/_components/placeholders/element-placeholder";
+import { ContainerPlaceholder } from "@/app/playground/_components/placeholders/container-placeholder";
+import { ElementPlaceholder } from "@/app/playground/_components/placeholders/element-placeholder";
 import {
   ContactIcon,
   ImageIcon,
