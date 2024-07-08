@@ -1,6 +1,6 @@
 import { AccordionContent, AccordionItem } from "@/components/ui/accordion";
 import { AccordionCustomTrigger } from "../../../accordion-custom-trigger";
-import { InputDropdown } from "@/app/playground/_components/sidebar/tabs/ui/input-dropdown";
+import { InputDropdown } from "@/components/editor/sidebar/tabs/_components/input-dropdown";
 import {
   alignContentItems,
   alignItems_Items,
@@ -10,8 +10,8 @@ import {
 } from "@/lib/constants/cssStyle-constants";
 import { displayUnits } from "@/lib/constants/option-constants";
 import { useAppSelector } from "@/hooks/store-hook";
-import { EditorSelect } from "../ui/editor-select";
-import { ButtonsSelect } from "../ui/buttons-select";
+import { EditorSelect } from "../_components/editor-select";
+import { ButtonsSelect } from "../_components/buttons-select";
 
 type Props = {};
 

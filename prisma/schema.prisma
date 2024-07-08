@@ -46,9 +46,9 @@ model Account {
 }
 
 model Realm {
-  id          String     @id @default(cuid())
-  subRealms   SubRealm[]
-  domain      String     @unique
+  id          String      @id @default(cuid())
+  realmPages  RealmPage[]
+  domain      String      @unique
   name        String
   visits      Int
   isPublished Boolean
@@ -57,7 +57,7 @@ model Realm {
   updatedAt DateTime @default(now()) @updatedAt
 }
 
-model SubRealm {
+model RealmPage {
   id          String @id @default(cuid())
   content     String @db.Text
   visits      Int

@@ -1,24 +1,23 @@
-import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
-import { editorContainerId } from "@/lib/constants";
-import { EditorElement, editorActions } from "@/slices/editor-slice";
-import clsx from "clsx";
 import { Badge } from "@/components/ui/badge";
-import { MutableRefObject, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
+import { useTriggerChange } from "@/hooks/use-trigger-change";
+import { useVariableChange } from "@/hooks/use-variable-change";
+import { editorContainerId } from "@/lib/constants";
 import {
   compare,
   dropElement,
   handleDeleteElement,
   handleSelectElement,
 } from "@/lib/helper";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Button } from "@/components/ui/button";
+import { EditorElement, editorActions } from "@/slices/editor-slice";
+import clsx from "clsx";
 import { ClipboardCopyIcon, ClipboardPasteIcon, TrashIcon } from "lucide-react";
-import { Recursive } from "./recursive";
-import { useTriggerChange } from "@/hooks/use-trigger-change";
-import { ContextMenuOption } from "./_components/context-menu-option";
-import { v4 } from "uuid";
+import { useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
-import { useVariableChange } from "@/hooks/use-variable-change";
+import { ContextMenuOption } from "./_components/context-menu-option";
+import { Recursive } from "./recursive";
 
 type Props = {
   currentElement: EditorElement;
@@ -110,15 +109,15 @@ export const BodyElement = (props: Props) => {
       }}
       style={currentElement.styles}
       className={clsx(
-        "relative h-full w-full overflow-scroll p-4 transition-all duration-100",
+        "relative h-full w-full overflow-scroll border p-4 transition-all duration-100",
         {
-          "border border-solid":
+          // Selected & in dev
+          "!border-solid !border-th-accent":
             selectedElement?.id === currentElement.id &&
             viewingMode !== "preview",
-          "border-th-accent":
-            selectedElement?.id === currentElement.id &&
-            selectedElement?.type === editorContainerId,
-          "border-spacing-4 border border-dashed border-th-btn":
+
+          // Not selected & in dev
+          "!border-dashed !border-th-btn":
             selectedElement?.id !== currentElement.id &&
             viewingMode !== "preview",
         },

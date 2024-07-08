@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 import { AuthSubmit } from "./auth-submit";
-import { loginCredQuery } from "@/queries/auth/auth-queries";
+import { loginCredQuery } from "@/queries/auth-queries";
 import { useSearchParams } from "next/navigation";
 
 type Props = {};

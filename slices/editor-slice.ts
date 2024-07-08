@@ -112,6 +112,9 @@ const editorSlice = createSlice({
   name: "editor",
   initialState: initialEditor,
   reducers: {
+    initializeEditor: (state: Editor, action: PayloadAction<Editor>) => {
+      return action.payload;
+    },
     changeViewingMode: (state: Editor, action: PayloadAction<viewingModes>) => {
       return {
         ...state,

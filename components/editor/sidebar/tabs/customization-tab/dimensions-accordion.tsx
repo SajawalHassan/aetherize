@@ -1,8 +1,7 @@
 import { AccordionItem, AccordionContent } from "@/components/ui/accordion";
 import { AccordionCustomTrigger } from "../../../accordion-custom-trigger";
-import {} from "@/lib/constants/option-constants";
 import { useAppSelector } from "@/hooks/store-hook";
-import { InputDropdown } from "@/app/playground/_components/sidebar/tabs/ui/input-dropdown";
+import { InputDropdown } from "@/components/editor/sidebar/tabs/_components/input-dropdown";
 import { Button } from "@/components/ui/button";
 import { ExpandIcon } from "lucide-react";
 import { TooltipProvider } from "@/components/ui/tooltip";

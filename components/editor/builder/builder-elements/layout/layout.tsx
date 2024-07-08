@@ -1,22 +1,21 @@
-import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
-import { editorContainerId } from "@/lib/constants";
-import { EditorElement, editorActions } from "@/slices/editor-slice";
-import clsx from "clsx";
 import { Badge } from "@/components/ui/badge";
-import React, { ReactNode, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
+import { useTriggerChange } from "@/hooks/use-trigger-change";
+import { useVariableChange } from "@/hooks/use-variable-change";
+import { editorContainerId } from "@/lib/constants";
 import {
   dropElement,
   handleDeleteElement,
   handleSelectElement,
 } from "@/lib/helper";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Button } from "@/components/ui/button";
+import { EditorElement, editorActions } from "@/slices/editor-slice";
+import clsx from "clsx";
 import { ClipboardCopyIcon, ClipboardPasteIcon, TrashIcon } from "lucide-react";
-import { useTriggerChange } from "@/hooks/use-trigger-change";
-import { ContextMenuOption } from "../_components/context-menu-option";
-import { v4 } from "uuid";
+import React, { ReactNode, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
-import { useVariableChange } from "@/hooks/use-variable-change";
+import { ContextMenuOption } from "../_components/context-menu-option";
 
 type Props = {
   containerElement: EditorElement;
@@ -135,9 +134,9 @@ export const Layout = (props: Props) => {
   return (
     <div
       draggable={viewingMode !== "preview" && !contextMenu}
-      onDragStart={(e) => {
-        e.dataTransfer.setData("element", JSON.stringify(currentElement));
-      }}
+      onDragStart={(e) =>
+        e.dataTransfer.setData("element", JSON.stringify(currentElement))
+      }
       onDragOver={handleDragHover}
       onDragEnter={handleDragHover}
       onDragLeave={handleDragLeave}
@@ -157,17 +156,23 @@ export const Layout = (props: Props) => {
         });
       }}
       className={clsx(
-        "relative w-full p-4 transition-all duration-100",
+        "relative w-full border p-4 transition-all duration-100",
         {
-          "h-full overflow-scroll": currentElement.type === editorContainerId,
-          "!border !border-solid":
+          // selected & not in dev
+          "!border-solid":
             selectedElement?.id === currentElement.id &&
             viewingMode !== "preview",
+
+          // is selected
           "!border-th-element-border-select":
             selectedElement?.id === currentElement.id,
-          "!border-spacing-4 !border !border-th-element-border":
+
+          // not selected & in dev
+          "!border-th-element-border":
             selectedElement?.id !== currentElement.id &&
             viewingMode !== "preview",
+
+          // No children
           "!h-10": currentElement.children.length === 0,
         },
         dragOverClassName,

@@ -1,9 +1,5 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { registerSchema } from "@/schemas/auth-schema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -13,13 +9,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
+import { registerUserQuery } from "@/queries/auth-queries";
+import { registerSchema } from "@/schemas/auth-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState, useTransition } from "react";
-import { registerUserQuery } from "@/queries/auth/auth-queries";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 import { AuthSubmit } from "./auth-submit";
 
 type Props = {};

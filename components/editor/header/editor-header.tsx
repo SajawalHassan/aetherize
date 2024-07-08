@@ -1,12 +1,17 @@
 "use client";
 
+import { Loader } from "@/components/loader";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
+import { editorActions } from "@/slices/editor-slice";
+import clsx from "clsx";
 import {
   ChevronDown,
   ChevronLeft,
@@ -17,18 +22,16 @@ import {
   TabletIcon,
   Undo2Icon,
 } from "lucide-react";
-import React, { useEffect, useMemo, useState } from "react";
-import { ScreenSizeBtn } from "./screen-size-btn";
-import { Switch } from "@/components/ui/switch";
-import { Loader } from "@/components/loader";
-import { MobileEditorHeaderMenu } from "./mobile-editor-header-menu";
-import { useAppDispatch, useAppSelector } from "@/hooks/store-hook";
-import { editorActions } from "@/slices/editor-slice";
 import { useRouter } from "next/navigation";
-import clsx from "clsx";
+import { useEffect, useMemo, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
+import { MobileEditorHeaderMenu } from "./mobile-editor-header-menu";
+import { ScreenSizeBtn } from "./screen-size-btn";
+import { RealmPage } from "@prisma/client";
 
-type Props = {};
+type Props = {
+  realmPage?: RealmPage;
+};
 
 export const EditorHeader = (props: Props) => {
   const [isMounted, setIsMounted] = useState(false);
@@ -127,9 +130,14 @@ export const EditorHeader = (props: Props) => {
                 <p className="text-[15px]">Path: /</p>
                 <ChevronDown size={20} />
               </div>
-              <p className="text-[14px] font-light text-[#d4d4d4]">
-                Last updated: 9/6/24
-              </p>
+              {props.realmPage && (
+                <p className="text-[14px] font-light text-[#d4d4d4]">
+                  Last updated:{" "}
+                  {new Date(props.realmPage.updatedAt).toLocaleDateString(
+                    "en-gb",
+                  )}
+                </p>
+              )}
             </div>
           </aside>
 
