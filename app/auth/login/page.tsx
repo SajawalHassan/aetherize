@@ -9,7 +9,7 @@ export default async function Page(props: Props) {
     <AuthCardWrapper heading="Login">
       <LoginForm />
       <p className="mt-3 text-center">
-        Don't have an account?{" "}
+        Don&apos;t have an account?{" "}
         <Link className="text-blue-500 hover:underline" href={"/auth/register"}>
           Register here
         </Link>
