@@ -1,5 +1,3 @@
-"use server";
-
 import { Editor } from "@/components/editor";
 import { db } from "@/lib/db";
 import EditorStoreProvider from "@/providers/editor-store-provider";
