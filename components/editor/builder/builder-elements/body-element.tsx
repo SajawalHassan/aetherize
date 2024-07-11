@@ -109,7 +109,7 @@ export const BodyElement = (props: Props) => {
       }}
       style={currentElement.styles}
       className={clsx(
-        "relative h-full w-full overflow-scroll border p-4 transition-all duration-100",
+        "relative h-full w-full overflow-auto border border-transparent p-4 transition-all duration-100",
         {
           // Selected & in dev
           "!border-solid !border-th-accent":

@@ -13,17 +13,38 @@ enum UserTier {
   PRO
 }
 
+enum AetherRole {
+  OWNER
+  ADMIN
+  CONTRIBUTER
+}
+
+enum AethenRole {
+  OWNER
+  ADMIN
+  DEV
+  TESTER
+}
+
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
   password      String?
-  tier          UserTier  @default(FREE)
+  tier          UserTier   @default(FREE)
+  aetherRole    AetherRole @default(OWNER)
+  aethenRole    AethenRole @default(OWNER)
   accounts      Account[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+
+  workspace   Workspace? @relation(fields: [workspaceId], references: [id])
+  workspaceId String?
+  Realm       Realm?     @relation(fields: [realmId], references: [id])
+  realmId     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Account {
@@ -45,6 +66,19 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+model Workspace {
+  id      String   @id @default(cuid())
+  realms  Realm[]
+  aethers User[]
+  images  String[]
+  videos  String[]
+  texts   String[]
+
+  workspace   Workspace?  @relation("versionControl", fields: [workspaceId], references: [id])
+  workspaceId String?
+  prevStates  Workspace[] @relation("versionControl")
+}
+
 model Realm {
   id          String      @id @default(cuid())
   realmPages  RealmPage[]
@@ -52,6 +86,9 @@ model Realm {
   name        String
   visits      Int
   isPublished Boolean
+  workspaceId String
+  workspace   Workspace   @relation(fields: [workspaceId], references: [id])
+  aethens     User[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt

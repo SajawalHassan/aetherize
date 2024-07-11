@@ -128,8 +128,7 @@ export const ElementLayout = (props: Props) => {
           "border border-solid":
             selectedElement?.id === currentElement.id &&
             viewingMode !== "preview",
-          "border-th-element-border-select":
-            selectedElement?.id === currentElement.id,
+          "border-th-accent": selectedElement?.id === currentElement.id,
           "border-spacing-4 border border-th-element-border":
             selectedElement?.id !== currentElement.id &&
             viewingMode !== "preview",
@@ -182,7 +181,7 @@ export const ElementLayout = (props: Props) => {
       </div>
       <Badge
         className={clsx(
-          "absolute -left-[2.3px] -top-6 hidden truncate rounded-none rounded-t-lg bg-th-element-border-select hover:bg-th-element-border-select/80",
+          "absolute -left-[2.3px] -top-6 hidden truncate rounded-none rounded-t-lg bg-th-accent hover:bg-th-accent/80",
           {
             block:
               selectedElement?.id === currentElement.id &&
@@ -198,7 +197,7 @@ export const ElementLayout = (props: Props) => {
       <TooltipProvider delayDuration={0}>
         <Button
           className={clsx(
-            "absolute -bottom-10 -right-0 z-50 hidden items-center justify-center rounded-[5px] bg-th-element-border-select p-[6px] hover:bg-th-element-border-select/80",
+            "absolute -bottom-10 -right-0 z-50 hidden items-center justify-center rounded-[5px] bg-th-accent p-[6px] hover:bg-th-accent/80",
             {
               flex:
                 selectedElement?.id === currentElement.id &&
@@ -209,7 +208,7 @@ export const ElementLayout = (props: Props) => {
             handleDeleteElement(e, currentElement.id, elements, dispatch)
           }
           tooltipText="Delete"
-          tooltipContentClassName="bg-th-element-border-select"
+          tooltipContentClassName="bg-th-accent"
         >
           <TrashIcon color="white" className="h-[24px] w-[24px]" />
         </Button>

@@ -82,3 +82,17 @@
 body {
   font-family: "Kanit" "Roboto" sans-serif;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #43417a;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: linear #315878 #214124;
+  border-radius: 999px;
+}

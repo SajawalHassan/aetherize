@@ -29,7 +29,6 @@ const config = {
         "th-btn-hover": "#1E343E",
         "th-border": "#232C43",
         "th-element-border": "#25224F",
-        "th-element-border-select": "#43417A",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

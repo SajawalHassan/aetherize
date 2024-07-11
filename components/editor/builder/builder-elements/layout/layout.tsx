@@ -156,7 +156,7 @@ export const Layout = (props: Props) => {
         });
       }}
       className={clsx(
-        "relative w-full border p-4 transition-all duration-100",
+        "relative w-full border border-transparent p-4 transition-all duration-100",
         {
           // selected & not in dev
           "!border-solid":
@@ -164,8 +164,7 @@ export const Layout = (props: Props) => {
             viewingMode !== "preview",
 
           // is selected
-          "!border-th-element-border-select":
-            selectedElement?.id === currentElement.id,
+          "!border-th-accent": selectedElement?.id === currentElement.id,
 
           // not selected & in dev
           "!border-th-element-border":
@@ -173,7 +172,7 @@ export const Layout = (props: Props) => {
             viewingMode !== "preview",
 
           // No children
-          "!h-10": currentElement.children.length === 0,
+          "!min-h-10": currentElement.children.length === 0,
         },
         dragOverClassName,
         className,
@@ -230,8 +229,7 @@ export const Layout = (props: Props) => {
             block:
               selectedElement?.id === currentElement.id &&
               viewingMode !== "preview",
-            "bg-th-element-border-select":
-              selectedElement?.type !== editorContainerId,
+            "bg-th-accent": selectedElement?.type !== editorContainerId,
           },
         )}
       >
@@ -243,7 +241,7 @@ export const Layout = (props: Props) => {
       <TooltipProvider delayDuration={0}>
         <Button
           className={clsx(
-            "absolute -bottom-10 -right-0 z-50 hidden items-center justify-center rounded-[5px] bg-th-element-border-select p-[6px] hover:bg-th-element-border-select/80 active:bg-th-secondary/60",
+            "absolute -bottom-10 -right-0 z-50 hidden items-center justify-center rounded-[5px] bg-th-accent p-[6px] hover:bg-th-accent/80 active:bg-th-secondary/60",
             {
               flex:
                 selectedElement?.id === currentElement.id &&
@@ -255,7 +253,7 @@ export const Layout = (props: Props) => {
             handleDeleteElement(e, currentElement.id, elements, dispatch)
           }
           tooltipText="Delete"
-          tooltipContentClassName="bg-th-element-border-select"
+          tooltipContentClassName="bg-th-accent"
         >
           <TrashIcon color="white" className="h-[24px] w-[24px]" />
         </Button>

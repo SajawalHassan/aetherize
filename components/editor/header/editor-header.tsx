@@ -34,7 +34,6 @@ type Props = {
 };
 
 export const EditorHeader = (props: Props) => {
-  const [isMounted, setIsMounted] = useState(false);
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -77,15 +76,6 @@ export const EditorHeader = (props: Props) => {
       }),
     );
   };
-
-  useEffect(() => {
-    setIsMounted(true);
-
-    return () => setIsMounted(false);
-  }, []);
-
-  if (!isMounted)
-    return <Loader className="h-screen w-screen overflow-y-hidden" />;
 
   return (
     <TooltipProvider delayDuration={200}>
@@ -130,12 +120,16 @@ export const EditorHeader = (props: Props) => {
                 <p className="text-[15px]">Path: /</p>
                 <ChevronDown size={20} />
               </div>
-              {props.realmPage && (
+              {props.realmPage ? (
                 <p className="text-[14px] font-light text-[#d4d4d4]">
                   Last updated:{" "}
                   {new Date(props.realmPage.updatedAt).toLocaleDateString(
                     "en-gb",
                   )}
+                </p>
+              ) : (
+                <p className="text-[14px] font-light text-[#d4d4d4]">
+                  Last updated: now
                 </p>
               )}
             </div>
