@@ -1,4 +1,4 @@
-import { ButtonsSelectItems } from "@/app/playground/_components/sidebar/tabs/ui/buttons-select";
+import { ButtonsSelectItems } from "@/components/editor/sidebar/tabs/_components/buttons-select";
 import {
   AlignCenterIcon,
   AlignEndHorizontalIcon,
