@@ -92,37 +92,15 @@ export const Layout = (props: Props) => {
     setContextMenu(false);
   };
 
-  const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDropElement = (e: React.DragEvent<HTMLDivElement>) => {
     dropElement(e, currentElement, elements, dispatch);
     setDragOverClassName("");
   };
 
-  const handleDragHover = (e: React.DragEvent) => {
+  const handleDragEnter = (e: React.DragEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    const elementString: string = e.dataTransfer.getData("element");
-    const hoveredElement: EditorElement = elementString
-      ? JSON.parse(elementString)
-      : null;
-
-    // prettier-ignore
-    if (!hoveredElement) setDragOverClassName("bg-th-btn/20");
-    
-    else if (hoveredElement.id !== currentElement.id && hoveredElement.containerId === currentElement.containerId) {
-      if (hoveredElement.index > currentElement.index) { // Element is below other element
-        if (props.containerElement.styles.display === "flex") { // Container has flexbox
-          setDragOverClassName("!border-l-th-accent");
-        } else {
-          setDragOverClassName("!border-t-th-accent");
-        }
-      } else { // Element is above other element
-        if (props.containerElement.styles.display === "flex") { // Container has flexbox
-          setDragOverClassName("!border-r-th-accent");
-        } else {
-          setDragOverClassName("!border-b-th-accent");
-        }
-      }
-    }
+    if (viewingMode !== "preview") setDragOverClassName("bg-th-btn/20");
   };
 
   const handleDragLeave = (e: React.DragEvent) => {
@@ -133,14 +111,10 @@ export const Layout = (props: Props) => {
 
   return (
     <div
-      draggable={viewingMode !== "preview" && !contextMenu}
-      onDragStart={(e) =>
-        e.dataTransfer.setData("element", JSON.stringify(currentElement))
-      }
-      onDragOver={handleDragHover}
-      onDragEnter={handleDragHover}
+      onDragOver={handleDragEnter}
+      onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
-      onDrop={handleOnDrop}
+      onDrop={handleDropElement}
       onClick={(e) =>
         handleSelectElement(e, selectedElement, currentElement, dispatch)
       }
@@ -174,8 +148,8 @@ export const Layout = (props: Props) => {
           // No children
           "!min-h-10": currentElement.children.length === 0,
         },
-        dragOverClassName,
         className,
+        dragOverClassName,
       )}
     >
       {contextMenu && (

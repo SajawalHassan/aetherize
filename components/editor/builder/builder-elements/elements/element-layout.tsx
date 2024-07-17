@@ -25,7 +25,6 @@ type Props = {
 };
 
 export const ElementLayout = (props: Props) => {
-  const [dragOverClassName, setDragOverClassName] = useState("");
   const [contextMenu, setContextMenu] = useState(false);
   const [contextMenuPos, setContextMenuPos] = useState({
     x: 0,
@@ -65,48 +64,9 @@ export const ElementLayout = (props: Props) => {
     setContextMenu(false);
   };
 
-  const handleOnDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    dropElement(e, currentElement, elements, dispatch);
-    setDragOverClassName("");
-  };
-
-  const handleDragHover = (e: React.DragEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    const elementString: string = e.dataTransfer.getData("element");
-    const hoveredElement = elementString ? JSON.parse(elementString) : null;
-
-    if (!hoveredElement) setDragOverClassName("bg-th-btn/20");
-    else if (hoveredElement.id !== currentElement.id) {
-      if (hoveredElement.index > currentElement.index) {
-        if (props.containerElement.styles.display === "flex")
-          setDragOverClassName("!border-l-th-accent");
-        else setDragOverClassName("!border-t-th-accent");
-      } else {
-        if (props.containerElement.styles.display === "flex")
-          setDragOverClassName("!border-r-th-accent");
-        else setDragOverClassName("!border-b-th-accent");
-      }
-    }
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    setDragOverClassName("");
-  };
-
   return (
     <div
-      draggable={viewingMode !== "preview"}
-      onDragStart={(e) => {
-        e.stopPropagation();
-        e.dataTransfer.setData("element", JSON.stringify(currentElement));
-      }}
-      onDragOver={handleDragHover}
-      onDragEnter={handleDragHover}
-      onDragLeave={handleDragLeave}
-      onDrop={handleOnDrop}
+      onDrop={(e) => dropElement(e, currentElement, elements, dispatch)}
       style={currentElement.styles}
       onClick={(e) =>
         handleSelectElement(e, selectedElement, currentElement, dispatch)
@@ -134,7 +94,6 @@ export const ElementLayout = (props: Props) => {
             viewingMode !== "preview",
         },
         props.className,
-        dragOverClassName,
       )}
     >
       {contextMenu && (

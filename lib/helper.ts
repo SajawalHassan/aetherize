@@ -26,21 +26,6 @@ export const dropElement = (
     "componentType",
   ) as EditorElementTypes;
 
-  const elementString = e.dataTransfer.getData("element");
-  if (!componentType && !elementString)
-    return console.error("No component type specified when adding element");
-
-  // If element is provided, switch places instead of addding element
-  if (elementString) {
-    dispatch(
-      editorActions.swapElementIndex({
-        switchWithElement: currentElement,
-        hoveredElement: JSON.parse(elementString),
-      }),
-    );
-    return;
-  }
-
   caseAddElement(componentType, currentElement, elements, dispatch);
 };
 
@@ -60,14 +45,7 @@ export const caseAddElement = (
           elementsArray: elements,
           newElement: {
             id,
-            name:
-              "Container" +
-              " " +
-              (
-                containerElement.children.filter(
-                  (element) => element.type === componentType,
-                ).length + 1
-              ).toString(),
+            name: "Container",
             containerId: containerElement.id,
             index: containerElement.children.length,
             styles: defaultStyles,
@@ -85,14 +63,7 @@ export const caseAddElement = (
           elementsArray: elements,
           newElement: {
             id: v4(),
-            name:
-              "Text field" +
-              " " +
-              (
-                containerElement.children.filter(
-                  (element) => element.type === componentType,
-                ).length + 1
-              ).toString(),
+            name: "Text field",
             containerId: containerElement.id,
             index: containerElement.children.length,
             styles: defaultStyles,
@@ -110,14 +81,7 @@ export const caseAddElement = (
           elementsArray: elements,
           newElement: {
             id: v4(),
-            name:
-              "Link Field" +
-              " " +
-              (
-                containerElement.children.filter(
-                  (element) => element.type === componentType,
-                ).length + 1
-              ).toString(),
+            name: "Link Field",
             containerId: containerElement.id,
             index: containerElement.children.length,
             styles: {
@@ -139,14 +103,7 @@ export const caseAddElement = (
           elementsArray: elements,
           newElement: {
             id: v4(),
-            name:
-              "Image" +
-              " " +
-              (
-                containerElement.children.filter(
-                  (element) => element.type === componentType,
-                ).length + 1
-              ).toString(),
+            name: "Image",
             containerId: containerElement.id,
             index: containerElement.children.length,
             styles: defaultStyles,
@@ -164,14 +121,7 @@ export const caseAddElement = (
           elementsArray: elements,
           newElement: {
             id: v4(),
-            name:
-              "Video" +
-              " " +
-              (
-                containerElement.children.filter(
-                  (element) => element.type === componentType,
-                ).length + 1
-              ).toString(),
+            name: "Video",
             containerId: containerElement.id,
             index: containerElement.children.length,
             styles: defaultStyles,
@@ -189,14 +139,7 @@ export const caseAddElement = (
           elementsArray: elements,
           newElement: {
             id: v4(),
-            name:
-              "Button" +
-              " " +
-              (
-                containerElement.children.filter(
-                  (element) => element.type === componentType,
-                ).length + 1
-              ).toString(),
+            name: "Button",
             containerId: containerElement.id,
             index: containerElement.children.length,
             styles: defaultStyles,
