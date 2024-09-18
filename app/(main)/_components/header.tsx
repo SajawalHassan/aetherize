@@ -6,9 +6,11 @@ type Props = {};
 
 export const Header = (props: Props) => {
   return (
-    <div className="px-[16px] py-[18px] flex items-center justify-between">
-      <h1 className="font-bold text-[35px]">Aetherize</h1>
-      <IconButton Icon={MenuIcon} />
-    </div>
+    <header>
+      <nav className="px-[16px] py-[18px] flex items-center justify-between">
+        <h1 className="font-bold text-[35px]">Aetherize</h1>
+        <IconButton Icon={MenuIcon} />
+      </nav>
+    </header>
   );
 };

@@ -20,6 +20,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: "Finlandica";
+  overflow-x: hidden;
 }
 
 @layer utilities {
@@ -91,4 +92,8 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.radial-gradient {
+  background: radial-gradient(50% 50% at 50% 50%, rgba(70, 249, 184.56, 0.25) 0%, black 100%);
 }
