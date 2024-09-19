@@ -9,7 +9,7 @@ type Props = {
 export const CTAButtons = (props: Props) => {
   return (
     <div
-      className={cn("flex items-center justify-between gap-x-[16px] mt-[14px]", props.className)}
+      className={cn("flex items-center justify-center gap-x-[16px] mt-[14px]", props.className)}
       aria-label="Two call-to-action buttons"
       aria-description="Two CTA buttons, one to go to playground, other to create and account">
       <Button text="Go to Playground" variant="special" />

@@ -10,7 +10,7 @@ import clsx from "clsx";
 export const PricingCard = (props: PriceTier) => {
   return (
     <GlassBackground
-      className="max-w-[429px]"
+      className="max-w-[400px]"
       containerClassName={clsx(
         "pt-[33px] pb-[48px] pl-[27px] pr-[18px] rounded-[20px]",
         props.type === "normal" && "bg-gradient-to-b from-black to-[#1e1e1e]",

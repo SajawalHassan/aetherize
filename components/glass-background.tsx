@@ -13,23 +13,17 @@ type Props = {
 export const GlassBackground = (props: Props) => {
   return (
     <div
-      className={cn("relative h-full w-full -z-10", props.className)}
+      className={cn("relative h-full w-full", props.className)}
       aria-label={props.ariaLabel}
       aria-description={props.ariaDescription}>
       <div
         className={cn(
-          "h-full w-full rounded-none blur-[300px] -z-10 text-white bg-th-primary absolute inset-0 m-auto",
+          "h-full w-full rounded-none blur-[300px] -z-10 text-white bg-th-primary absolute left-0",
           props.backgroundClassName
         )}
         aria-hidden
       />
-      <div
-        className={cn(
-          "h-full w-full rounded-[20px] bg-th-prot z-10",
-          props.containerClassName
-        )}>
-        {props.children}
-      </div>
+      <div className={cn("rounded-[20px] bg-th-prot z-10", props.containerClassName)}>{props.children}</div>
     </div>
   );
 };
