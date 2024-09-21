@@ -1,7 +1,7 @@
 import { SubText } from "@/components/sub-text";
 import React from "react";
 
-type Props = {};
+interface Props {}
 
 export const HeroHeadings = (props: Props) => {
   return (

@@ -5,7 +5,7 @@ import { HeroHeadings } from "./hero-headings";
 import { CTAButtons } from "../cta-buttons";
 import { Separator } from "@/components/separator";
 
-type Props = {};
+interface Props {}
 
 export const Hero = (props: Props) => {
   return (

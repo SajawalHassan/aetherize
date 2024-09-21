@@ -2,7 +2,7 @@ import { SubText } from "@/components/sub-text";
 import React from "react";
 import { CTAButtons } from "./cta-buttons";
 
-type Props = {};
+interface Props {}
 
 export const CTASection = (props: Props) => {
   return (

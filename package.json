@@ -35,5 +35,10 @@
     "prisma": "^5.19.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "eslintConfig": {
+    "rules": {
+      "@typescript-eslint/no-unused-vars": "off"
+    }
   }
 }

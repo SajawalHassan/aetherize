@@ -1,6 +1,6 @@
 import React from "react";
 
-type Props = {};
+interface Props {}
 
 const Page = (props: Props) => {
   return <div>Protected Page!</div>;

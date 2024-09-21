@@ -2,7 +2,7 @@ import React from "react";
 import { PricingCard } from "./pricing-card";
 import { priceTiers } from "@/static-data/pricing-data";
 
-type Props = {};
+interface Props {}
 
 export const Pricing = (props: Props) => {
   return (

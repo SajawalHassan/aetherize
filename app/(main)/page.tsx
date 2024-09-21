@@ -4,7 +4,7 @@ import { Hero } from "./_components/hero/hero";
 import { Pricing } from "@/components/pricing/pricing";
 import { CTASection } from "./_components/cta-section";
 
-type Props = {};
+interface Props {}
 
 const Page = (props: Props) => {
   return (
