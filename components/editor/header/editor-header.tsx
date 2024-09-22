@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-type Props = {};
+interface Props {}
 
 export const EditorHeader = (props: Props) => {
   return (
