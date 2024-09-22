@@ -14,11 +14,10 @@ export const metadata: Metadata = {
   keywords: ["Sajawal Hassan", "Aetherize", "Website Builder", "ReactJS", "NextJS"],
   openGraph: {
     type: "website",
-    siteName: "Aetherize",
-    description:
-      "This is Aetherize, a website made by Sajawal Hassan. It is a website builder built using NextJS, TailwindCSS, React Framer Motion. It includes many features",
-    url: "https://aetherize.vercel.app/",
     title: "Aetherize",
+    siteName: "Aetherize",
+    description: "Aetherize, your Intuitive Drag & Drop Website Builder by Sajawal Hassan.",
+    url: "https://aetherize.vercel.app/",
   },
   authors: [
     {
