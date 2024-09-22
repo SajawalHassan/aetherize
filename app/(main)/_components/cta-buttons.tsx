@@ -2,9 +2,9 @@ import { Button } from "@/components/button";
 import { cn } from "@/lib/utils";
 import React from "react";
 
-type Props = {
+interface Props {
   className?: string;
-};
+}
 
 export const CTAButtons = (props: Props) => {
   return (

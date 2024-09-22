@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-type Props = {
+interface Props {
   text: string;
   className?: string;
-};
+}
 
 export const SubText = (props: Props) => {
   return (

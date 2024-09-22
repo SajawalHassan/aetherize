@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-type Props = {
+interface Props {
   text: string;
   href: string;
   className?: string;
-};
+}
 
 export const LinkComp = (props: Props) => {
   return (

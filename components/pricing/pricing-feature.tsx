@@ -4,10 +4,10 @@ import { Separator } from "../separator";
 import { pricingType } from "@/static-data/pricing-data";
 import clsx from "clsx";
 
-type Props = {
+interface Props {
   featureText: string;
   type: pricingType;
-};
+}
 
 export const PricingFeature = (props: Props) => {
   return (

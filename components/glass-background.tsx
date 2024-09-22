@@ -1,14 +1,14 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-type Props = {
+interface Props {
   className?: string;
   containerClassName?: string;
   backgroundClassName?: string;
   children?: React.ReactNode;
   ariaLabel?: string;
   ariaDescription?: string;
-};
+}
 
 export const GlassBackground = (props: Props) => {
   return (

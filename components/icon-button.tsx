@@ -2,10 +2,10 @@ import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 import React from "react";
 
-type Props = {
+interface Props {
   Icon: LucideIcon;
   className?: string;
-};
+}
 
 export const IconButton = (props: Props) => {
   return (

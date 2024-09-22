@@ -13,11 +13,11 @@ const variants = {
     "rounded-full py-[9px] px-[13.5px] md:px-[20px] text-[16px] md:text-[18px] font-bold button-special-gradient border border-transparent hover:border-th-primary hover:border-white",
 };
 
-type Props = {
+interface Props {
   text: string;
   className?: string;
   variant: variantNames;
-};
+}
 
 export const Button = (props: Props) => {
   return (

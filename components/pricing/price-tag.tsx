@@ -2,10 +2,10 @@ import { pricingType } from "@/static-data/pricing-data";
 import clsx from "clsx";
 import React from "react";
 
-type Props = {
+interface Props {
   priceNum: number;
   type: pricingType;
-};
+}
 
 export const PriceTag = (props: Props) => {
   return (
@@ -22,9 +22,7 @@ export const PriceTag = (props: Props) => {
         $
       </p>
       <p className="text-[128px] font-bold max-h-[145px]">{props.priceNum}</p>
-      <p className="absolute top-[22px] -right-6 text-[20px] font-bold text-white/75">
-        /MO
-      </p>
+      <p className="absolute top-[22px] -right-6 text-[20px] font-bold text-white/75">/MO</p>
     </div>
   );
 };
