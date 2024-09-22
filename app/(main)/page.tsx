@@ -10,9 +10,11 @@ const Page = (props: Props) => {
   return (
     <div>
       <Header />
-      <Hero />
-      <Pricing />
-      <CTASection />
+      <div>
+        <Hero />
+        <Pricing />
+        <CTASection />
+      </div>
     </div>
   );
 };

@@ -10,7 +10,7 @@ interface Props {}
 export const Header = (props: Props) => {
   return (
     <header>
-      <nav className="px-[16px] py-[18px] md:px-[32px] flex items-center justify-between md:max-w-[900px] lg:max-w-[1100px] xl:max-w-[1348px] mx-auto">
+      <nav className="px-[16px] py-[18px] md:px-[32px] z-50 flex items-center justify-between md:max-w-[900px] lg:max-w-[1100px] xl:max-w-[1348px] mx-auto absolute top-0 inset-x-0 w-full">
         <h1 className="font-bold text-[35px]">Aetherize</h1>
         <div className="lg:flex items-center gap-x-[30px] hidden">
           <LinkComp href="#" text="Templates" />
