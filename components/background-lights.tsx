@@ -48,7 +48,10 @@ export const AuroraBackground = ({
         )}
         {children}
       </div>
-      <Button variant="primary" className="fixed top-[18px] right-[18px] p-2" onClick={() => setShow(!show)}>
+      <Button
+        variant="primary"
+        className="fixed top-[18px] inset-x-0 mx-auto w-max lg:top-[80px] p-2 hidden md:block"
+        onClick={() => setShow(!show)}>
         <LightbulbIcon />
       </Button>
     </main>
