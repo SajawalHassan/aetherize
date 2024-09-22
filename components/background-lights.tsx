@@ -1,6 +1,8 @@
 "use client";
 import { cn } from "@/lib/utils";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
+import { Button } from "./button";
+import { LightbulbIcon } from "lucide-react";
 
 interface AuroraBackgroundProps extends React.HTMLProps<HTMLDivElement> {
   children: ReactNode;
@@ -13,15 +15,18 @@ export const AuroraBackground = ({
   showRadialGradient = true,
   ...props
 }: AuroraBackgroundProps) => {
+  const [show, setShow] = useState(true);
+
   return (
     <main>
       <div
         className={cn("relative flex flex-col  h-[100vh] items-center justify-center transition-bg", className)}
         {...props}>
-        <div className="absolute inset-0 overflow-hidden">
-          <div
-            className={cn(
-              `
+        {show && (
+          <div className="absolute inset-0 overflow-hidden">
+            <div
+              className={cn(
+                `
               hidden md:block
             [--white-gradient:repeating-linear-gradient(100deg,#46F9B9_0%,#46F9B9_7%,var(--transparent)_10%,var(--transparent)_12%,#46F9B9_16%)]
             [--aurora:repeating-linear-gradient(100deg,#00E0FF_20%,#00E0FF_15%,#00E0FF_40%,#00E0FF_25%,#00E0FF_30%)]
@@ -36,11 +41,16 @@ export const AuroraBackground = ({
             pointer-events-none
             absolute -z-20 -inset-[10px]  will-change-transform`,
 
-              showRadialGradient && `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
-            )}></div>
-        </div>
+                showRadialGradient &&
+                  `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
+              )}></div>
+          </div>
+        )}
         {children}
       </div>
+      <Button variant="primary" className="fixed top-[18px] right-[18px] p-2" onClick={() => setShow(!show)}>
+        <LightbulbIcon />
+      </Button>
     </main>
   );
 };

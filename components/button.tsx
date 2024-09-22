@@ -14,17 +14,21 @@ const variants = {
 };
 
 interface Props {
-  text: string;
+  text?: string;
   className?: string;
   variant: variantNames;
+  children?: React.ReactNode;
+  onClick?: () => void;
 }
 
 export const Button = (props: Props) => {
   return (
     <button
       className={cn("transition-all duration-300", variants[props.variant], props.className)}
-      aria-description={props.text}>
+      aria-description={props.text}
+      onClick={props.onClick}>
       {props.text}
+      {props.children}
     </button>
   );
 };
