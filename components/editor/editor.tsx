@@ -1,3 +1,5 @@
+"use client";
+
 interface Props {}
 
 export const Editor = (props: Props) => {

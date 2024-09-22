@@ -50,7 +50,7 @@ export const AuroraBackground = ({
       </div>
       <Button
         variant="primary"
-        className="fixed top-[18px] inset-x-0 mx-auto w-max lg:top-[80px] p-2 hidden md:block z-50"
+        className="absolute top-[18px] inset-x-0 mx-auto w-max lg:top-[80px] p-2 hidden md:block z-50"
         onClick={() => setShow(!show)}>
         <LightbulbIcon />
       </Button>
