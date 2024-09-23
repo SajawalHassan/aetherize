@@ -42,9 +42,7 @@ export const PricingCard = (props: PriceTier) => {
         backgroundClassName={clsx(
           props.type === "popular" && "bg-th-primary/50",
           props.type === "normal" && "bg-th-primary/25"
-        )}
-        ariaLabel={`${props.name} plan`}
-        ariaDescription={`This is the ${props.name} plan costing $${props.price} per month.`}>
+        )}>
         <div>
           <h2
             className={clsx(

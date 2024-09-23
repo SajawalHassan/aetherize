@@ -4,6 +4,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 export type ElementTypes = "__body" | "container" | "text";
 export type DeviceTypes = "laptop" | "tablet" | "mobile";
 export type ViewingModesTypes = "production" | "preview" | "development";
+export type DevModesTypes = "normal" | "playground";
 
 export interface ElementContent {
   text?: string;
@@ -24,6 +25,7 @@ export interface EditorState {
   nextEditorState: EditorState | null;
   device: DeviceTypes;
   viewingMode: ViewingModesTypes;
+  devMode: DevModesTypes;
 }
 
 const initialState: EditorState = {
@@ -41,6 +43,7 @@ const initialState: EditorState = {
   nextEditorState: null,
   device: "laptop",
   viewingMode: "development",
+  devMode: "playground",
 };
 
 export const editorSlice = createSlice({

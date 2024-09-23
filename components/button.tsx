@@ -10,7 +10,7 @@ const variants = {
   outline:
     "rounded-full py-[9px] px-[13.5px] md:px-[20px] bg-transparent border border-white/75 text-[16px] md:text-[18px] font-bold hover:bg-white hover:text-black",
   special:
-    "rounded-full py-[9px] px-[13.5px] md:px-[20px] text-[16px] md:text-[18px] font-bold button-special-gradient border border-transparent hover:border-th-primary hover:border-white",
+    "rounded-full py-[9px] px-[13.5px] md:px-[20px] text-[16px] md:text-[18px] font-bold button-special-gradient  hover:border-white",
 };
 
 interface Props {
@@ -19,13 +19,15 @@ interface Props {
   variant: variantNames;
   children?: React.ReactNode;
   onClick?: () => void;
+  ariaHidden?: boolean;
 }
 
 export const Button = (props: Props) => {
   return (
     <button
       className={cn("transition-all duration-300", variants[props.variant], props.className)}
-      onClick={props.onClick}>
+      onClick={props.onClick}
+      aria-hidden={props.ariaHidden}>
       {props.text}
       {props.children}
     </button>

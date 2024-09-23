@@ -6,8 +6,6 @@ interface Props {
   containerClassName?: string;
   backgroundClassName?: string;
   children?: React.ReactNode;
-  ariaLabel?: string;
-  ariaDescription?: string;
 }
 
 export const GlassBackground = (props: Props) => {

@@ -52,7 +52,8 @@ export const AuroraBackground = ({
       <Button
         variant="primary"
         className="absolute top-[18px] inset-x-0 mx-auto w-max lg:top-[80px] p-2 hidden md:block z-50"
-        onClick={() => setShow(!show)}>
+        onClick={() => setShow(!show)}
+        aria-hidden={true}>
         <LightbulbIcon />
       </Button>
     </main>
