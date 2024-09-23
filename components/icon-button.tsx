@@ -23,7 +23,7 @@ interface Props {
 export const IconButton = (props: Props) => {
   return (
     <Tooltip>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <button
           className={cn("transition-all duration-100", variants[props.variant], props.className)}
           onClick={props.onClick}
