@@ -11,6 +11,7 @@ export interface ElementContent {
 }
 
 export interface Element {
+  id: string;
   name: string;
   type: ElementTypes;
   styles: React.CSSProperties;
@@ -31,6 +32,7 @@ export interface EditorState {
 const initialState: EditorState = {
   elements: [
     {
+      id: "__body",
       name: "__body",
       type: "__body",
       path: "/",
@@ -49,7 +51,14 @@ const initialState: EditorState = {
 export const editorSlice = createSlice({
   name: "editor",
   initialState,
-  reducers: {},
+  reducers: {
+    addElement: (state: EditorState, action: PayloadAction<Element>) => {
+      return {
+        ...state,
+        elements: [...state.elements, action.payload],
+      };
+    },
+  },
 });
 
 export const editorActions = editorSlice.actions;
