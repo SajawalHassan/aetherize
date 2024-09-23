@@ -6,10 +6,5 @@ interface Props {
 }
 
 export const Separator = (props: Props) => {
-  return (
-    <div
-      className={cn("border-th-secondary border-[3px] rounded-full w-full", props.className)}
-      aria-label="Separator"
-    />
-  );
+  return <div className={cn("border-th-secondary border-[3px] rounded-full w-full", props.className)} />;
 };

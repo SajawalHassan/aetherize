@@ -6,10 +6,7 @@ interface Props {}
 
 export const Pricing = (props: Props) => {
   return (
-    <section
-      aria-label="Pricing Section"
-      aria-description="The pricing section"
-      className="2xl:px-[17px] flex flex-col justify-center mt-[600px] ">
+    <section className="2xl:px-[17px] flex flex-col justify-center mt-[600px] ">
       <h2 className="text-[45px] font-bold text-center sm:text-[50px]">
         <span className="text-th-accent">Affordable</span> Prices Tailored To You
       </h2>

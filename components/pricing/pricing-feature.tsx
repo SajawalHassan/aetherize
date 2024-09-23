@@ -11,10 +11,9 @@ interface Props {
 
 export const PricingFeature = (props: Props) => {
   return (
-    <div aria-label="A feature for this tier" aria-description={props.featureText}>
+    <div>
       <div className="h-[60px] gap-x-[10px] flex items-center">
         <div
-          aria-label="Check icon"
           className={clsx(
             "h-[28px] w-[28px] rounded-full flex items-center justify-center",
             props.type === "normal" && "bg-th-primary",

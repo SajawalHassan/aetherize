@@ -12,10 +12,7 @@ interface Props {
 
 export const GlassBackground = (props: Props) => {
   return (
-    <div
-      className={cn("relative h-full w-full", props.className)}
-      aria-label={props.ariaLabel}
-      aria-description={props.ariaDescription}>
+    <div className={cn("relative h-full w-full", props.className)}>
       <div
         className={cn(
           "h-full w-full rounded-none blur-[300px] -z-10 text-white bg-th-primary absolute left-0",

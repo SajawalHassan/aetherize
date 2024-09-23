@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "Aetherize",
     siteName: "Aetherize",
     description: "Aetherize, your Intuitive Drag & Drop Website Builder by Sajawal Hassan.",
-    url: "https://aetherize.vercel.app/",
+    url: "https://aetherize.vercel.app",
   },
   authors: [
     {

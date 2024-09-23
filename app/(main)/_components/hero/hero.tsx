@@ -19,9 +19,7 @@ export const Hero = (props: Props) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.25 }}
-        className="px-[16px] text-center mt-[250px] lg:mt-[150px] z-50 md:max-w-[900px] lg:max-w-[1100px] xl:max-w-[1348px] 2xl:mx-auto flex flex-col items-center justify-center"
-        aria-label="Main Section"
-        aria-description="The hero section of the landing page for Aetherize">
+        className="px-[16px] text-center mt-[250px] lg:mt-[150px] z-50 md:max-w-[900px] lg:max-w-[1100px] xl:max-w-[1348px] 2xl:mx-auto flex flex-col items-center justify-center">
         <ContainerScroll
           titleComponent={
             <div className="mx-auto">

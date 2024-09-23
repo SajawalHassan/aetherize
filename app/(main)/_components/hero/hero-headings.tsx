@@ -5,7 +5,7 @@ interface Props {}
 
 export const HeroHeadings = (props: Props) => {
   return (
-    <div aria-details="Hero headings for Aetherize by Sajawal Hassan">
+    <div>
       <h2 className="text-[48px] md:text-[69px] xl:text-[86px] 2xl:text-[96px] font-bold leading-[100%] mb-[8px] [text-shadow:0px_4px_4px_#000000]">
         <span className="text-th-primary">Drag</span> &amp; <span className="text-th-primary">Drop</span> a website into
         the internet

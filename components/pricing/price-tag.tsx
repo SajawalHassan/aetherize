@@ -9,10 +9,7 @@ interface Props {
 
 export const PriceTag = (props: Props) => {
   return (
-    <div
-      className="relative w-max ml-6"
-      aria-label="Price for plan"
-      aria-description="Used in the pricing card to show the price of this tier">
+    <div className="relative w-max ml-6">
       <p
         className={clsx(
           "absolute top-[21px] -left-6 bg-gradient-to-b bg-clip-text font-bold text-transparent text-[40px]",

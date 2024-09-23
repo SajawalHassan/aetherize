@@ -8,9 +8,7 @@ interface Props {
 
 export const SubText = (props: Props) => {
   return (
-    <p
-      className={cn("text-[15px] sm:text-[18px] lg:text-[20px] text-white/75 w-full", props.className)}
-      aria-label={"A sub-text saying" + " " + props.text}>
+    <p className={cn("text-[15px] sm:text-[18px] lg:text-[20px] text-white/75 w-full", props.className)}>
       {props.text}
     </p>
   );

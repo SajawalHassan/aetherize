@@ -25,6 +25,7 @@ export const AuroraBackground = ({
         {show && (
           <div className="absolute inset-0 overflow-hidden">
             <div
+              aria-hidden
               className={cn(
                 `
               hidden md:block

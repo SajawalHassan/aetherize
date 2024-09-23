@@ -45,7 +45,7 @@ export const PricingCard = (props: PriceTier) => {
         )}
         ariaLabel={`${props.name} plan`}
         ariaDescription={`This is the ${props.name} plan costing $${props.price} per month.`}>
-        <div aria-label="Price card's heading and sub-text">
+        <div>
           <h2
             className={clsx(
               "text-[48px] xl:text-[64px] font-bold",
@@ -62,9 +62,7 @@ export const PricingCard = (props: PriceTier) => {
           />
         </div>
 
-        <div
-          aria-label="Price tag and CTA button"
-          aria-description={`Price for ${props.name} and a call-to-action (CTA) button`}>
+        <div>
           <PriceTag priceNum={props.price} type={props.type} />
           <Button
             text="Get Started"
