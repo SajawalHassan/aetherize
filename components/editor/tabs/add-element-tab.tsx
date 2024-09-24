@@ -1,23 +1,40 @@
 import { Button } from "@/components/button";
 import { TabsContent } from "@/components/ui/tabs";
 import { editorActions, ElementTypes } from "@/store/slices/editor-slice";
-import { useAppDispatch } from "@/store/store-hooks";
+import { useAppDispatch, useAppSelector } from "@/store/store-hooks";
 import { v4 } from "uuid";
 
 interface Props {}
 
 export const AddElementTab = (props: Props) => {
+  const editor = useAppSelector((state) => state.editorStore);
   const dispatch = useAppDispatch();
 
   const addElement = (type: ElementTypes) => {
     switch (type) {
       case "container":
         dispatch(
-          editorActions.addElement({ name: "Container", content: {}, path: `__body/`, id: v4(), styles: {}, type })
+          editorActions.addElement({
+            name: "Container",
+            content: {},
+            containerId: editor.selectedElements.length > 0 ? editor.selectedElements[0] : "__body",
+            id: v4(),
+            styles: {},
+            type,
+          })
         );
         break;
       case "text":
-        dispatch(editorActions.addElement({ name: "Text", content: {}, path: `__body/`, id: v4(), styles: {}, type }));
+        dispatch(
+          editorActions.addElement({
+            name: "Text",
+            content: {},
+            containerId: editor.selectedElements.length > 0 ? editor.selectedElements[0] : "__body",
+            id: v4(),
+            styles: {},
+            type,
+          })
+        );
         break;
     }
   };

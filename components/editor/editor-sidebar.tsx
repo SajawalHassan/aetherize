@@ -3,7 +3,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { DatabaseIcon, LayersIcon, PencilIcon, PlusIcon, WorkflowIcon } from "lucide-react";
 import { IconButton } from "../icon-button";
 import { TooltipProvider } from "../ui/tooltip";
-import { motion } from "framer-motion";
 import React from "react";
 import { AddElementTab } from "./tabs/add-element-tab";
 
@@ -22,10 +21,10 @@ export const EditorSidebar = (props: Props) => {
 
   return (
     <TooltipProvider delayDuration={0}>
-      <motion.div
-        initial={{ opacity: 0, translateX: 300 }}
-        animate={{ opacity: 1, translateX: 0 }}
-        transition={{ duration: 0.25, delay: 0.25 }}
+      <div
+        // initial={{ opacity: 0, translateX: 300 }}
+        // animate={{ opacity: 1, translateX: 0 }}
+        // transition={{ duration: 0.25, delay: 0.25 }}
         className="h-full">
         <Tabs
           value={activeTab}
@@ -48,7 +47,7 @@ export const EditorSidebar = (props: Props) => {
           </TabsList>
           <AddElementTab />
         </Tabs>
-      </motion.div>
+      </div>
     </TooltipProvider>
   );
 };

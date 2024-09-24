@@ -4,7 +4,6 @@ import { IconButton } from "@/components/icon-button";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useAppSelector } from "@/store/store-hooks";
 import clsx from "clsx";
-import { motion } from "framer-motion";
 import { ChevronDownIcon, EyeIcon, RedoIcon, SparklesIcon, UndoIcon } from "lucide-react";
 import { useMemo } from "react";
 
@@ -17,10 +16,10 @@ export const EditorHeader = (props: Props) => {
   return (
     <TooltipProvider delayDuration={0}>
       <header>
-        <motion.nav
-          initial={{ opacity: 0, translateY: -100 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ duration: 0.25, delay: 0.25 }}
+        <nav
+          // initial={{ opacity: 0, translateY: -100 }}
+          // animate={{ opacity: 1, translateY: 0 }}
+          // transition={{ duration: 0.25, delay: 0.25 }}
           className={clsx("flex items-center gap-x-[28px] flex-row-reverse")}>
           <GlassBackground
             className="w-[400px] h-[64px]"
@@ -53,7 +52,7 @@ export const EditorHeader = (props: Props) => {
 
             <IconButton variant="outline" Icon={ChevronDownIcon} />
           </GlassBackground>
-        </motion.nav>
+        </nav>
       </header>
     </TooltipProvider>
   );
