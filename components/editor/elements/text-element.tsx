@@ -1,6 +1,6 @@
 import React from "react";
 
-type Props = {};
+interface Props {}
 
 export const TextElement = (props: Props) => {
   return <div>TextElement</div>;

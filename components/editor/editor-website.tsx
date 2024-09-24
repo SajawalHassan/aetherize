@@ -3,7 +3,7 @@ import { RecursiveElement } from "./elements/recursive-element";
 import { useAppSelector } from "@/store/store-hooks";
 import { BodyElement } from "./elements/body-element";
 
-type Props = {};
+interface Props {}
 
 export const EditorWebsite = (props: Props) => {
   const editor = useAppSelector((state) => state.editorStore);

@@ -2,7 +2,7 @@ import { useAppSelector } from "@/store/store-hooks";
 import React, { useMemo } from "react";
 import { RecursiveElement } from "./recursive-element";
 
-type Props = {};
+interface Props {}
 
 export const BodyElement = (props: Props) => {
   const editor = useAppSelector((state) => state.editorStore);
