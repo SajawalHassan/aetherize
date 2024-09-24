@@ -28,7 +28,11 @@ export const IconButton = (props: Props) => {
     <Tooltip>
       <TooltipTrigger asChild>
         <button
-          className={cn("transition-all duration-100", variants[props.variant], props.className)}
+          className={cn(
+            "transition-all duration-100 flex items-center justify-center",
+            variants[props.variant],
+            props.className
+          )}
           onClick={props.onClick}
           aria-hidden={props.ariaHidden}>
           <props.Icon size={props.size ? props.size : 22} />
