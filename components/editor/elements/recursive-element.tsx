@@ -15,6 +15,6 @@ export const RecursiveElement = (props: Props) => {
     case "container":
       return <ContainerElement element={props.element} />;
     case "text":
-      return <TextElement />;
+      return <TextElement element={props.element} />;
   }
 };

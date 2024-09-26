@@ -41,7 +41,7 @@ const initialState: EditorState = {
       styles: {},
     },
   ],
-  selectedElements: [],
+  selectedElements: ["__body"],
   prevEditorState: null,
   nextEditorState: null,
   device: "laptop",
