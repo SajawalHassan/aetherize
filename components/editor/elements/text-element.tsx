@@ -21,7 +21,7 @@ export const TextElement = (props: Props) => {
     <div
       className={clsx(
         "border border-transparent hover:border-white/25 w-full transition-all duration-100",
-        isSelected && "border-th-accent2 hover:!border-th-accent2"
+        isSelected && "!border-th-accent2 hover:!border-th-accent2"
       )}
       onClick={handleSelect}>
       <p contentEditable={true} suppressContentEditableWarning className="w-max" onClick={(e) => e.stopPropagation()}>
