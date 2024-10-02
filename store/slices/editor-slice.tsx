@@ -28,6 +28,7 @@ export interface EditorState {
   device: DeviceTypes;
   viewingMode: ViewingModesTypes;
   devMode: DevModesTypes;
+  isDraggingElement: boolean;
 }
 
 const initialState: EditorState = {
@@ -47,6 +48,7 @@ const initialState: EditorState = {
   device: "laptop",
   viewingMode: "development",
   devMode: "playground",
+  isDraggingElement: false,
 };
 
 export const editorSlice = createSlice({
@@ -70,6 +72,12 @@ export const editorSlice = createSlice({
       return {
         ...state,
         selectedElements: [action.payload],
+      };
+    },
+    setIsDragging: (state: EditorState, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        isDraggingElement: action.payload,
       };
     },
   },
