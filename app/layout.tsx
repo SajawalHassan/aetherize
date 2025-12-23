@@ -19,7 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased ${font.variable}`}>{children}</body>
+      <body className={`antialiased overflow-x-hidden ${font.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }
