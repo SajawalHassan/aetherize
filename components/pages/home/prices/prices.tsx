@@ -5,14 +5,16 @@ type Props = {};
 
 export const Prices = (props: Props) => {
   return (
-    <div className="mt-60 pb-20">
+    <div className="mt-50 pb-20">
       <h1 className="text-[45px] font-bold leading-none">
-        <span className="text-accent">Affordable</span> Priced Tailored to You.
+        <span className="text-accent">Affordable</span> Prices Tailored to You.
       </h1>
 
-      {priceCardsData.map((priceCard) => (
-        <PriceCard priceCardData={priceCard} key={priceCard.name} />
-      ))}
+      <div className="flex flex-col gap-y-10 mt-15">
+        {priceCardsData.map((priceCard) => (
+          <PriceCard priceCardData={priceCard} key={priceCard.name} />
+        ))}
+      </div>
     </div>
   );
 };

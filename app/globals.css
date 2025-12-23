@@ -38,6 +38,7 @@
   --color-card: var(--card);
   --color-primary: #468ff9;
   --color-accent: #46f9b9;
+  --color-black2: #1e1e1e;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

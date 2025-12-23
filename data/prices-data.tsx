@@ -27,7 +27,7 @@ export const priceCardsData: PriceCardType[] = [
     name: "Enterprise",
     description:
       "For businesses ready to scale, the Enterprise plan offers premium features—tailored to you.",
-    price: 29,
+    price: 39,
     features: ["Lorem Ipsum", "Lorem Ipsum", "Lorem Ipsum"],
     priorityLvl: 2,
   },
