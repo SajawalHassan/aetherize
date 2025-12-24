@@ -4,7 +4,7 @@ type Props = {};
 
 export const CTA = (props: Props) => {
   return (
-    <div className="w-full relative h-full mt-50">
+    <div className="w-full relative h-full mt-50 lg:mt-120">
       {/* Background blur color */}
       <div className="relative w-500 -ml-250 rounded-full min-h-180 h-full">
         <div className="absolute inset-0 bg-primary rounded-full filter blur-[300px] opacity-40"></div>

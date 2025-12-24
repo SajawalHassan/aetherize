@@ -20,7 +20,7 @@ export const priceCardsData: PriceCardType[] = [
     description:
       "For ambitious creators, unlock advanced tools and customization with the Creator plan.",
     price: 29,
-    features: ["Lorem Ipsum", "Lorem Ipsum", "Lorem Ipsum"],
+    features: ["Lorem Ipsum", "Lorem Ipsum", "Lorem Ipsum", "Lorem Ipsum"],
     priorityLvl: 1,
   },
   {

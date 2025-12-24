@@ -5,7 +5,7 @@ import { Prices } from "@/components/pages/home/prices/prices";
 
 export default function Home() {
   return (
-    <div className="bg-black min-h-screen w-full text-white font-finlandica! px-6 pb-20">
+    <div className="bg-black min-h-screen w-full text-white font-finlandica! px-6 pb-20 overflow-x-hidden">
       <Header />
       <div className="max-w-338 2xl:max-w-400 mx-auto lg:px-6">
         <Hero />

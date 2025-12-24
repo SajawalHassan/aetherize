@@ -11,11 +11,16 @@ export const PriceCard = ({ priceCardData: data }: Props) => {
   return (
     <div
       className={clsx(
-        "min-h-60 bg-linear-to-br from-black/25 to-black2 px-6 rounded-4xl py-5 relative",
-        data.priorityLvl === 1 && "from-[#284F86]! to-[#124768]!"
+        "bg-linear-to-br from-black/25 to-black2 px-6 rounded-4xl py-5 relative max-w-107.5 min-h-175.75",
+        data.priorityLvl === 1 && "from-[#284F86]! to-[#124768]! min-h-187.5"
       )}
     >
-      <h1 className="font-bold text-[48px] bg-linear-to-r from-accent to-primary w-max bg-clip-text text-transparent">
+      <h1
+        className={clsx(
+          "font-bold text-[48px] bg-linear-to-r from-accent to-primary w-max bg-clip-text text-transparent",
+          data.priorityLvl === 0 && "text-white!"
+        )}
+      >
         {data.name}
       </h1>
       <p className="text-[16px] opacity-75">{data.description}</p>
@@ -33,7 +38,12 @@ export const PriceCard = ({ priceCardData: data }: Props) => {
         Get Started
       </Button>
 
-      <div className="flex flex-col gap-y-8 mt-8 mb-4">
+      <div
+        className={clsx(
+          "flex flex-col gap-y-8 mt-8 mb-4",
+          data.priorityLvl === 1 && "mt-15 gap-y-8"
+        )}
+      >
         {data.features.map((feature, i) => (
           <PriceFeature feature={feature} key={i} />
         ))}
