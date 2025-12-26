@@ -11,7 +11,7 @@ export const Prices = (props: Props) => {
       </div>
 
       <div className="z-10 relative">
-        <h1 className="text-[45px] font-bold leading-none lg:text-center md:text-[65px]">
+        <h1 className="text-[45px] font-bold leading-none md:text-center md:text-[65px]">
           <span className="text-accent">Affordable</span> Prices Tailored to
           You.
         </h1>

@@ -39,7 +39,7 @@ const linksData: LinkData[] = [
 
 export const Header = (props: Props) => {
   return (
-    <div className="pt-2 flex items-center justify-between md:pt-4 lg:max-w-280 2xl:max-w-320 mx-auto">
+    <nav className="pt-2 flex items-center justify-between md:pt-4 lg:max-w-280 2xl:max-w-320 mx-auto">
       <div className="flex items-center gap-x-4">
         <Image
           src={Logo}
@@ -72,6 +72,6 @@ export const Header = (props: Props) => {
       <button className="md:hidden">
         <Image src={MenuIcon} alt="Menu Icon" width={38} height={38} />
       </button>
-    </div>
+    </nav>
   );
 };

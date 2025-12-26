@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { HeroSeparator } from "./hero-separator";
 import { Glow } from "@/components/ui/glow";
+import Link from "next/link";
 
 type Props = {};
 
@@ -17,7 +18,9 @@ export const Hero = (props: Props) => {
           drag-and-drop builder. No coding skills required.{" "}
         </p>
         <div className="flex items-center gap-x-4 mt-6 mb-12.5 lg:mb-20 lg:mt-10">
-          <Button variant={"special"}>Go to Playground</Button>
+          <Link href={"/playground"}>
+            <Button variant={"special"}>Go to Playground</Button>
+          </Link>
           <Button variant={"secondary"}>Create an Account</Button>
         </div>
         <HeroSeparator />
