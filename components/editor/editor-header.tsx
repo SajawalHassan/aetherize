@@ -11,25 +11,22 @@ import {
   UndoIcon,
 } from "lucide-react";
 import { Separator } from "../ui/separator";
+import Link from "next/link";
 
 type Props = {};
 
 export const EditorHeader = (props: Props) => {
-  const newLocal = "p-4 flex items-center justify-between bg-section-bg";
   return (
-    <nav className={newLocal}>
+    <nav className="p-4 flex items-center justify-between bg-section-bg">
       <div className="flex items-center gap-x-2">
-        <Image
-          src={Logo}
-          alt="Logo, Aetherize"
-          width={62}
-          height={62}
-          className="border-r border-border pr-4"
-        />
+        <Image src={Logo} alt="Logo, Aetherize" width={42} height={42} />
+        <Separator className="ml-2.5" />
         <div className="flex items-center gap-x-2">
-          <Button variant={"icon"}>
-            <ArrowLeft className="icon" />
-          </Button>
+          <Link href={"/"}>
+            <Button variant={"icon"}>
+              <ArrowLeft className="icon" />
+            </Button>
+          </Link>
           <div className="">
             <h1 className="font-bold text-[24px]">Page Name</h1>
             <p className="italic text-[12px] opacity-75">
