@@ -1,5 +1,10 @@
+"use client";
+
 import { EditorHeader } from "./editor-header";
+import { Renderer } from "./renderer/renderer";
 import { Sidebar } from "./sidebar/sidebar";
+
+import EditorStoreProvider from "./editor-store-provider";
 
 type Props = {
   playgroundMode: boolean;
@@ -7,9 +12,14 @@ type Props = {
 
 export const Editor = (props: Props) => {
   return (
-    <div className="min-h-screen bg-black text-white font-finlandica">
-      <EditorHeader />
-      <Sidebar />
-    </div>
+    <EditorStoreProvider>
+      <div className="min-h-screen bg-black text-white font-finlandica">
+        <EditorHeader />
+        <div className="flex items-start justify-between">
+          <Sidebar />
+          <Renderer />
+        </div>
+      </div>
+    </EditorStoreProvider>
   );
 };

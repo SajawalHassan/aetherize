@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 type Props = {};
 
@@ -20,7 +21,9 @@ export const CTA = (props: Props) => {
         </p>
 
         <div className="flex items-center gap-x-4 w-max mx-auto mt-5">
-          <Button variant={"special"}>Go to Playground</Button>
+          <Link href={"/playground"}>
+            <Button variant={"special"}>Go to Playground</Button>
+          </Link>
           <Button variant={"secondary"}>Create an Account</Button>
         </div>
       </div>

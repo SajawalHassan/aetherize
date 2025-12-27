@@ -16,7 +16,7 @@ export const Sidebar = (props: Props) => {
       defaultValue={"Add" as SidebarTypes}
       className="bg-section-bg min-h-[calc(100vh-86px)] flex w-max border-t border-border relative"
     >
-      <div className="px-4 absolute -top-1.5 bg-section-bg left-[53px]">
+      <div className="px-4 absolute -top-1.5 bg-section-bg left-13.25">
         <Image src={LogoCircle} alt="Logo circle" width={14} height={14} />
       </div>
       <div className="flex grow mt-4">
