@@ -5,6 +5,7 @@ import { Renderer } from "./renderer/renderer";
 import { Sidebar } from "./sidebar/sidebar";
 
 import EditorStoreProvider from "./editor-store-provider";
+import { TooltipProvider } from "../ui/tooltip";
 
 type Props = {
   playgroundMode: boolean;
@@ -13,13 +14,16 @@ type Props = {
 export const Editor = (props: Props) => {
   return (
     <EditorStoreProvider>
-      <div className="min-h-screen bg-black text-white font-finlandica">
-        <EditorHeader />
-        <div className="flex items-start justify-between">
-          <Sidebar />
-          <Renderer />
+      {/* Providing just one whole provider for convienience. Subject to change. */}
+      <TooltipProvider delayDuration={100}>
+        <div className="min-h-screen bg-black text-white font-finlandica">
+          <EditorHeader />
+          <div className="flex items-start justify-between">
+            <Sidebar />
+            <Renderer />
+          </div>
         </div>
-      </div>
+      </TooltipProvider>
     </EditorStoreProvider>
   );
 };

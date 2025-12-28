@@ -10,11 +10,12 @@ export interface ElementData {
   styles: any;
   type: ElementType;
   parentId: string;
+  canContain: boolean;
 }
 
 export interface CounterState {
   elements: ElementData[];
-  selectedElement?: ElementData;
+  selectedElementId: string;
 }
 
 const initialState: CounterState = {
@@ -25,8 +26,10 @@ const initialState: CounterState = {
       styles: {},
       type: "body",
       parentId: "",
+      canContain: true,
     },
   ],
+  selectedElementId: "",
 };
 
 export const editorSlice = createSlice({
@@ -36,11 +39,11 @@ export const editorSlice = createSlice({
     addElement: (state, action: PayloadAction<ElementData>) => {
       state.elements = [...state.elements, action.payload];
     },
-    changeSelectedElement: (state, action: PayloadAction<ElementData>) => {
-      state.selectedElement = action.payload;
+    changeSelectedElementId: (state, action: PayloadAction<string>) => {
+      state.selectedElementId = action.payload;
     },
   },
 });
 
-export const { addElement, changeSelectedElement } = editorSlice.actions;
+export const { addElement, changeSelectedElementId } = editorSlice.actions;
 export default editorSlice.reducer;

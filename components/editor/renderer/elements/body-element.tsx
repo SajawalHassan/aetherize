@@ -1,51 +1,45 @@
 import { useAppDispatch, useAppSelector } from "@/editor-store/hooks";
 import { Elementmanager } from "../element-manager";
 import { BODY_TAG_ID } from "@/lib/constants";
-import { useEffect, useState } from "react";
-import {
-  changeSelectedElement,
-  ElementData,
-} from "@/editor-store/editor-slice";
+import { changeSelectedElementId } from "@/editor-store/editor-slice";
 import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 type Props = {};
 
-export const BodyElement = (props: Props) => {
-  const [element, setElement] = useState<ElementData | null>();
-
+export const BodyElement = () => {
   const elements = useAppSelector((state) => state.editorReducer.elements);
-  const selectedElement = useAppSelector(
-    (state) => state.editorReducer.selectedElement
+
+  const selectedElementId = useAppSelector(
+    (state) => state.editorReducer.selectedElementId
   );
 
   const dispatch = useAppDispatch();
 
+  const element = elements.find((e) => e.id === BODY_TAG_ID);
+  if (!element) return null;
+
+  const isSelected = selectedElementId === element.id;
+
   const handleOnClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!element) return;
-
     e.stopPropagation();
-    dispatch(changeSelectedElement(element));
+    dispatch(changeSelectedElementId(element.id));
   };
-
-  useEffect(() => {
-    if (element) return;
-    setElement(elements.filter((e) => e.id === BODY_TAG_ID)[0]);
-  }, [elements]);
-
-  if (!element) return;
 
   return (
     <div
       onClick={handleOnClick}
       className={cn(
-        "border-4 border-transparent min-h-[calc(100vh-88px)]",
-        selectedElement?.id === element.id && "border-green-500"
+        "border-4 border-transparent min-h-[calc(100vh-88px)] relative",
+        isSelected && "border-green-500"
       )}
     >
+      {isSelected && <Badge text={element.name} className="bg-green-500" />}
+
       {elements
         .filter((e) => e.parentId === BODY_TAG_ID)
-        .map((element) => (
-          <Elementmanager element={element} key={element.id} />
+        .map((e) => (
+          <Elementmanager element={e} key={e.id} />
         ))}
     </div>
   );
