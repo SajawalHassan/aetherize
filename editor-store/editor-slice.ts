@@ -16,6 +16,7 @@ export interface ElementData {
 export interface CounterState {
   elements: ElementData[];
   selectedElementId: string;
+  draggedElement?: ElementData;
 }
 
 const initialState: CounterState = {
@@ -29,7 +30,7 @@ const initialState: CounterState = {
       canContain: true,
     },
   ],
-  selectedElementId: "",
+  selectedElementId: BODY_TAG_ID,
 };
 
 export const editorSlice = createSlice({
@@ -42,8 +43,12 @@ export const editorSlice = createSlice({
     changeSelectedElementId: (state, action: PayloadAction<string>) => {
       state.selectedElementId = action.payload;
     },
+    changeDraggedElement: (state, action: PayloadAction<ElementData>) => {
+      state.draggedElement = action.payload;
+    },
   },
 });
 
-export const { addElement, changeSelectedElementId } = editorSlice.actions;
+export const { addElement, changeSelectedElementId, changeDraggedElement } =
+  editorSlice.actions;
 export default editorSlice.reducer;
