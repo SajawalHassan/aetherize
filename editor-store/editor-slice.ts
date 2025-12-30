@@ -17,6 +17,7 @@ export interface CounterState {
   elements: ElementData[];
   selectedElementId: string;
   draggedElement?: ElementData;
+  prevDraggedElement?: ElementData;
 }
 
 const initialState: CounterState = {
@@ -46,9 +47,24 @@ export const editorSlice = createSlice({
     changeDraggedElement: (state, action: PayloadAction<ElementData>) => {
       state.draggedElement = action.payload;
     },
+    changePrevDraggedElement: (state, action: PayloadAction<ElementData>) => {
+      state.prevDraggedElement = action.payload;
+    },
+    editElementData: (state, action: PayloadAction<ElementData>) => {
+      console.log("editing element data...");
+      state.elements = state.elements.map((e) => {
+        if (e.id === action.payload.id) return action.payload;
+        return e;
+      });
+    },
   },
 });
 
-export const { addElement, changeSelectedElementId, changeDraggedElement } =
-  editorSlice.actions;
+export const {
+  addElement,
+  changeSelectedElementId,
+  changeDraggedElement,
+  editElementData,
+  changePrevDraggedElement,
+} = editorSlice.actions;
 export default editorSlice.reducer;
