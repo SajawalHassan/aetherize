@@ -66,13 +66,27 @@ export const ElementLayout = (props: Props) => {
     setIsDraggingOver(false);
   };
 
+  const handleDragEnter = (e: DragEvent) => {
+    e.stopPropagation();
+
+    setIsDraggingOver(true);
+  };
+
+  const handleDragLeave = (e: DragEvent) => {
+    e.stopPropagation();
+
+    setIsDraggingOver(false);
+  };
+
   return (
     <div
       onDragOver={(e) => e.preventDefault()}
+      onDragEnter={(e) => handleDragEnter(e)}
+      onDragLeave={(e) => handleDragLeave(e)}
       onDrop={handleDrop}
       onClick={handleOnClick}
       className={cn(
-        "border-2 border-transparent relative pl-2 p-10",
+        "border-2 border-black/5 relative pl-2 p-10",
         selectedElementId === props.element.id && "border-blue-500",
         isDraggingOver && "bg-zinc-100!",
         props.className

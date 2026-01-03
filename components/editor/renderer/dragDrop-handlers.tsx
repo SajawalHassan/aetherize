@@ -48,15 +48,18 @@ export const DragDropHandlers = (props: Props) => {
         },
       })
     );
+
+    setShow1(false);
+    setShow2(false);
   };
 
   return (
-    <div className="relative z-50">
+    <div className="relative z-50 transition-all">
       {props.relativeIdx === 0 ? (
         <div
           className={cn(
-            "h-3 w-full absolute top-0 left-0 bg-red-500 z-50 font-bold text-xl text-center",
-            show1 && "bg-green-500"
+            "h-5 w-full absolute top-0 left-0 bg-red-500 z-50 font-bold text-xl text-center",
+            show1 && "bg-green-500 static h-6"
           )}
           onDragOver={(e) => {
             e.stopPropagation();
@@ -75,8 +78,8 @@ export const DragDropHandlers = (props: Props) => {
       ) : (
         <div
           className={cn(
-            "h-3 w-full absolute top-0 left-0 bg-red-500 z-50 font-bold text-xl text-center",
-            show2 && "bg-green-500"
+            "h-5 w-full absolute top-0 left-0 z-50 font-bold text-xl text-center",
+            show2 && "bg-black/10 static h-6"
           )}
           onDragOver={(e) => {
             e.stopPropagation();

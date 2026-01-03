@@ -8,6 +8,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { DragEvent } from "react";
+import { DragDropHandlers } from "./dragDrop-handlers";
 
 type Props = {};
 
@@ -27,6 +28,9 @@ export const BodyElement = () => {
   if (!element) return null;
 
   const isSelected = selectedElementId === element.id;
+  const childElements = [...elements]
+    .filter((e) => e.parentId === BODY_TAG_ID)
+    .sort((a, b) => a.relativeIdx - b.relativeIdx);
 
   const handleOnClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -70,12 +74,20 @@ export const BodyElement = () => {
     >
       {isSelected && <Badge text={element.name} className="bg-green-500" />}
 
-      {[...elements]
-        .filter((e) => e.parentId === BODY_TAG_ID)
-        .sort((a, b) => a.relativeIdx - b.relativeIdx)
-        .map((e) => (
-          <Elementmanager element={e} key={e.id} />
-        ))}
+      {childElements.map((e, idx) => (
+        <DragDropHandlers
+          relativeIdx={e.relativeIdx}
+          idx={idx}
+          key={e.id}
+          parentId={element.id}
+          childElements={childElements}
+        >
+          <p className="absolute text-center text-xl inset-0 m-auto mt-10">
+            {e.relativeIdx}
+          </p>
+          <Elementmanager element={e} />
+        </DragDropHandlers>
+      ))}
     </div>
   );
 };
