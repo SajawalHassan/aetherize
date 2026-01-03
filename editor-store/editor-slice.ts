@@ -68,7 +68,9 @@ export const editorSlice = createSlice({
       const parentLength = parentElements.length * ELEMENT_IDX_MULTIPLIER;
 
       const idx =
-        action.payload.element.relativeIdx === -1 ? parentLength : idxInBetween;
+        action.payload.element.relativeIdx === -1
+          ? parentLength + ELEMENT_IDX_MULTIPLIER // Add element idx multiplier to start from 1000 instead of 0
+          : idxInBetween;
 
       state.elements = [
         ...state.elements,
