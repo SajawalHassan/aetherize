@@ -55,6 +55,7 @@ export const editorSlice = createSlice({
       const eleBefore = action.payload.eleBefore;
       const eleAfter = action.payload.eleAfter;
 
+      // Get element index in between the other elements
       const idxInBetween =
         action.payload.place === "top"
           ? ((eleBefore ? eleBefore.relativeIdx : 0) +
@@ -84,7 +85,6 @@ export const editorSlice = createSlice({
       state.draggedElement = action.payload;
     },
     editElementData: (state, action: PayloadAction<ElementData>) => {
-      console.log("editing element data...");
       state.elements = state.elements.map((e) => {
         if (e.id === action.payload.id) return action.payload;
         return e;

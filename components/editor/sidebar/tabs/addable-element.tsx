@@ -52,7 +52,7 @@ export const AddableElement = (props: Props) => {
   const selectedElementId = useAppSelector(
     (state) => state.editorReducer?.selectedElementId
   );
-  const elements = useAppSelector((state) => state.editorReducer?.elements);
+  const elements = useAppSelector((state) => state.editorReducer.elements);
 
   const handleOnClick = () => {
     const newElement = getNewElement(
@@ -65,7 +65,7 @@ export const AddableElement = (props: Props) => {
   };
 
   const handleDragStart = (e: DragEvent) => {
-    e.dataTransfer.setData("text/plain", "addable-element");
+    e.dataTransfer.setData("text/plain", "addable-element"); // Dummy data to avoid native api backlash. Actual element is stored in redux
     e.dataTransfer.effectAllowed = "copy";
 
     const newElement = getNewElement(
