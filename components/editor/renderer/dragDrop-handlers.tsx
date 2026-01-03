@@ -53,27 +53,25 @@ export const DragDropHandlers = (props: Props) => {
   return (
     <div className="relative z-50">
       {props.relativeIdx === 0 ? (
-        <div className="">
-          <div
-            className={cn(
-              "h-3 w-full absolute top-0 left-0 bg-red-500 z-50 font-bold text-xl text-center",
-              show1 && "bg-green-500"
-            )}
-            onDragOver={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-            }}
-            onDragEnter={(e) => {
-              e.stopPropagation();
-              setShow1(true);
-            }}
-            onDragLeave={(e) => {
-              e.stopPropagation();
-              setShow1(false);
-            }}
-            onDrop={(e) => handleDragDrop(e, props.relativeIdx, "top")}
-          ></div>
-        </div>
+        <div
+          className={cn(
+            "h-3 w-full absolute top-0 left-0 bg-red-500 z-50 font-bold text-xl text-center",
+            show1 && "bg-green-500"
+          )}
+          onDragOver={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+          onDragEnter={(e) => {
+            e.stopPropagation();
+            setShow1(true);
+          }}
+          onDragLeave={(e) => {
+            e.stopPropagation();
+            setShow1(false);
+          }}
+          onDrop={(e) => handleDragDrop(e, props.relativeIdx, "top")}
+        ></div>
       ) : (
         <div
           className={cn(

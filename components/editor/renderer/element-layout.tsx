@@ -1,15 +1,13 @@
 import {
   addElement,
-  changePrevDraggedElement,
   changeSelectedElementId,
-  editElementData,
   ElementData,
 } from "@/editor-store/editor-slice";
 import { useAppDispatch, useAppSelector } from "@/editor-store/hooks";
 import { cn } from "@/lib/utils";
 import { Elementmanager } from "./element-manager";
 import { Badge } from "@/components/ui/badge";
-import { DragEvent, useRef, useState } from "react";
+import { DragEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { DragDropHandlers } from "./dragDrop-handlers";
 
@@ -28,9 +26,6 @@ export const ElementLayout = (props: Props) => {
   );
   const draggedElement = useAppSelector(
     (state) => state.editorReducer.draggedElement
-  );
-  const prevDraggedElement = useAppSelector(
-    (state) => state.editorReducer.prevDraggedElement
   );
   const elements = useAppSelector((state) => state.editorReducer.elements);
   const isSelected = props.element.id === selectedElementId;
@@ -71,64 +66,9 @@ export const ElementLayout = (props: Props) => {
     setIsDraggingOver(false);
   };
 
-  const handleDragEnter = (e: DragEvent) => {
-    e.stopPropagation();
-
-    if (prevDraggedElement && prevDraggedElement.canContain) {
-      dispatch(
-        changePrevDraggedElement({
-          ...prevDraggedElement,
-          styles: {
-            ...prevDraggedElement.styles,
-            backgroundColor: "transparent",
-          },
-        })
-      );
-    }
-
-    dispatch(changePrevDraggedElement(props.element));
-
-    if (props.element.canContain) setIsDraggingOver(true);
-    else {
-      const parentElement = elements.find(
-        (e) => e.id === props.element.parentId
-      );
-      if (!parentElement) return;
-
-      dispatch(
-        editElementData({
-          ...parentElement,
-          styles: { ...parentElement.styles, backgroundColor: "#f4f4f5" },
-        })
-      );
-    }
-  };
-
-  const handleDragLeave = (e: DragEvent) => {
-    e.stopPropagation();
-
-    if (props.element.canContain) setIsDraggingOver(false);
-    else {
-      const parentElement = elements.find(
-        (e) => e.id === props.element.parentId
-      );
-      if (!parentElement) return;
-      if (prevDraggedElement && prevDraggedElement.canContain) {
-        dispatch(
-          editElementData({
-            ...parentElement,
-            styles: { ...parentElement.styles, backgroundColor: "transparent" },
-          })
-        );
-      }
-    }
-  };
-
   return (
     <div
       onDragOver={(e) => e.preventDefault()}
-      onDragEnter={handleDragEnter}
-      onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       onClick={handleOnClick}
       className={cn(
