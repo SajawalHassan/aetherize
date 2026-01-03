@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/editor-store/hooks";
-import { Elementmanager } from "../element-manager";
+import { Elementmanager } from "./element-manager";
 import { BODY_TAG_ID } from "@/lib/constants";
 import {
   addElement,
@@ -7,7 +7,6 @@ import {
 } from "@/editor-store/editor-slice";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { v4 } from "uuid";
 import { DragEvent } from "react";
 
 type Props = {};
@@ -45,14 +44,18 @@ export const BodyElement = () => {
 
     dispatch(
       addElement({
-        id: v4(),
-        name: draggedElement.name,
-        canContain: draggedElement.canContain,
-        parentId,
-        styles: {},
-        type: draggedElement.type,
+        element: {
+          id: draggedElement.id,
+          name: draggedElement.name,
+          canContain: draggedElement.canContain,
+          parentId,
+          styles: {},
+          type: draggedElement.type,
+          relativeIdx: draggedElement.relativeIdx,
+        },
       })
     );
+    dispatch(changeSelectedElementId(draggedElement.id));
   };
 
   return (
@@ -67,8 +70,9 @@ export const BodyElement = () => {
     >
       {isSelected && <Badge text={element.name} className="bg-green-500" />}
 
-      {elements
+      {[...elements]
         .filter((e) => e.parentId === BODY_TAG_ID)
+        .sort((a, b) => a.relativeIdx - b.relativeIdx)
         .map((e) => (
           <Elementmanager element={e} key={e.id} />
         ))}

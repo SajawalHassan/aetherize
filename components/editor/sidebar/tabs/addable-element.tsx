@@ -8,6 +8,7 @@ import { AddableElementType } from "@/data/editor-data";
 import {
   addElement,
   changeDraggedElement,
+  changeSelectedElementId,
   ElementData,
 } from "@/editor-store/editor-slice";
 import { useAppDispatch, useAppSelector } from "@/editor-store/hooks";
@@ -33,13 +34,14 @@ const getNewElement = (
     parentId = selectedElement.parentId;
   else if (!selectedElement) parentId = BODY_TAG_ID;
 
-  const newElement = {
+  const newElement: ElementData = {
     name: element.name,
     styles: {},
     type: element.type,
     id: uuidv4(),
     parentId,
     canContain: element.canContain,
+    relativeIdx: -1,
   };
 
   return newElement;
@@ -58,7 +60,8 @@ export const AddableElement = (props: Props) => {
       selectedElementId,
       props.addableElement
     );
-    dispatch(addElement(newElement));
+    dispatch(addElement({ element: newElement }));
+    dispatch(changeSelectedElementId(newElement.id));
   };
 
   const handleDragStart = (e: DragEvent) => {

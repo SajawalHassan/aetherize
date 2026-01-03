@@ -5,10 +5,11 @@ import {
 } from "@/editor-store/editor-slice";
 import { useAppDispatch, useAppSelector } from "@/editor-store/hooks";
 import { cn } from "@/lib/utils";
-import { Elementmanager } from "../element-manager";
+import { Elementmanager } from "./element-manager";
 import { Badge } from "@/components/ui/badge";
 import { DragEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { DragDropHandlers } from "./dragDrop-handlers";
 
 type Props = {
   children: React.ReactNode;
@@ -27,6 +28,10 @@ export const ElementLayout = (props: Props) => {
   const elements = useAppSelector((state) => state.editorReducer.elements);
   const isSelected = props.element.id === selectedElementId;
 
+  const childElements = [...elements]
+    .filter((e) => e.parentId === props.element.id)
+    .sort((a, b) => a.relativeIdx - b.relativeIdx);
+
   const handleOnClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     dispatch(changeSelectedElementId(props.element.id));
@@ -34,6 +39,7 @@ export const ElementLayout = (props: Props) => {
 
   const handleDrop = (e: DragEvent) => {
     e.stopPropagation();
+    if (e.defaultPrevented) return;
 
     if (!draggedElement) return;
 
@@ -43,12 +49,15 @@ export const ElementLayout = (props: Props) => {
 
     dispatch(
       addElement({
-        id: uuidv4(),
-        name: draggedElement.name,
-        canContain: draggedElement.canContain,
-        parentId,
-        styles: {},
-        type: draggedElement.type,
+        element: {
+          id: uuidv4(),
+          name: draggedElement.name,
+          canContain: draggedElement.canContain,
+          parentId,
+          styles: {},
+          type: draggedElement.type,
+          relativeIdx: -1,
+        },
       })
     );
   };
@@ -59,7 +68,7 @@ export const ElementLayout = (props: Props) => {
       onDrop={handleDrop}
       onClick={handleOnClick}
       className={cn(
-        "border-2 border-transparent relative pl-2",
+        "border-2 border-transparent relative pl-2 p-10",
         selectedElementId === props.element.id && "border-blue-500",
         props.className
       )}
@@ -68,9 +77,20 @@ export const ElementLayout = (props: Props) => {
 
       {props.children}
       {props.element.canContain &&
-        elements
-          .filter((e) => e.parentId === props.element.id)
-          .map((e) => <Elementmanager element={e} key={e.id} />)}
+        childElements.map((e, idx) => (
+          <DragDropHandlers
+            relativeIdx={e.relativeIdx}
+            idx={idx}
+            key={e.id}
+            parentId={props.element.id}
+            childElements={childElements}
+          >
+            <p className="absolute text-center text-xl inset-0 m-auto mt-10">
+              {e.relativeIdx}
+            </p>
+            <Elementmanager element={e} />
+          </DragDropHandlers>
+        ))}
     </div>
   );
 };

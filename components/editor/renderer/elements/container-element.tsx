@@ -1,5 +1,5 @@
 import { ElementData } from "@/editor-store/editor-slice";
-import { ElementLayout } from "./element-layout";
+import { ElementLayout } from "../element-layout";
 
 type Props = {
   element: ElementData;

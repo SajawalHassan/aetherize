@@ -1,4 +1,4 @@
-import { BodyElement } from "./elements/body-element";
+import { BodyElement } from "./body-element";
 
 type Props = {};
 
