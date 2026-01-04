@@ -12,10 +12,15 @@ import {
 } from "lucide-react";
 import { Separator } from "../ui/separator";
 import Link from "next/link";
+import { useAppDispatch } from "@/editor-store/hooks";
+import { redoState, undoState } from "@/editor-store/editor-slice";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 type Props = {};
 
 export const EditorHeader = (props: Props) => {
+  const dispatch = useAppDispatch();
+
   return (
     <nav className="p-4 flex items-center justify-between bg-section-bg">
       <div className="flex items-center gap-x-2">
@@ -53,12 +58,22 @@ export const EditorHeader = (props: Props) => {
       </div>
 
       <div className="flex items-center gap-x-2">
-        <Button variant={"icon"}>
-          <UndoIcon className="icon" />
-        </Button>
-        <Button variant={"icon"}>
-          <RedoIcon className="icon" />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant={"icon"} onClick={(_) => dispatch(undoState())}>
+              <UndoIcon className="icon" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Undo</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant={"icon"} onClick={(_) => dispatch(redoState())}>
+              <RedoIcon className="icon" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Redo</TooltipContent>
+        </Tooltip>
 
         <Separator />
         <Button variant={"icon"}>

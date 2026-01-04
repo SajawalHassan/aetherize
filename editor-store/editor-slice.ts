@@ -14,13 +14,15 @@ export interface ElementData {
   relativeIdx: number; // Index inside parent
 }
 
-export interface CounterState {
+export interface EditorState {
   elements: ElementData[];
   selectedElementId: string;
   draggedElement?: ElementData;
+  prevState?: EditorState;
+  nextState?: EditorState;
 }
 
-const initialState: CounterState = {
+const initialState: EditorState = {
   elements: [
     {
       id: BODY_TAG_ID,
@@ -69,28 +71,55 @@ export const editorSlice = createSlice({
 
       const idx =
         action.payload.element.relativeIdx === -1
-          ? parentLength + ELEMENT_IDX_MULTIPLIER // Add element idx multiplier to start from 1000 instead of 0
+          ? parentLength + ELEMENT_IDX_MULTIPLIER // Add ELEMENT_IDX_MULTIPLIER to start index from element index multiplier no. instead of 0
           : idxInBetween;
 
-      state.elements = [
-        ...state.elements,
-        {
-          ...action.payload.element,
-          relativeIdx: idx,
-        },
-      ];
+      return {
+        ...state,
+        elements: [
+          ...state.elements,
+          {
+            ...action.payload.element,
+            relativeIdx: idx,
+          },
+        ],
+        prevState: state,
+      };
     },
     changeSelectedElementId: (state, action: PayloadAction<string>) => {
-      state.selectedElementId = action.payload;
+      return {
+        ...state,
+        selectedElementId: action.payload,
+        prevState: state,
+      };
     },
     changeDraggedElement: (state, action: PayloadAction<ElementData>) => {
-      state.draggedElement = action.payload;
+      return {
+        ...state,
+        draggedElement: action.payload,
+      };
     },
     editElementData: (state, action: PayloadAction<ElementData>) => {
       state.elements = state.elements.map((e) => {
         if (e.id === action.payload.id) return action.payload;
         return e;
       });
+    },
+    undoState: (state) => {
+      if (!state.prevState) return state;
+
+      return {
+        ...state.prevState,
+        nextState: state,
+      };
+    },
+    redoState: (state) => {
+      if (!state.nextState) return state;
+
+      return {
+        ...state.nextState,
+        prevState: state,
+      };
     },
   },
 });
@@ -100,5 +129,7 @@ export const {
   changeSelectedElementId,
   changeDraggedElement,
   editElementData,
+  redoState,
+  undoState,
 } = editorSlice.actions;
 export default editorSlice.reducer;
