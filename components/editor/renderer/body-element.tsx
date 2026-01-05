@@ -59,11 +59,11 @@ export const BodyElement = () => {
         },
       })
     );
-    dispatch(changeSelectedElementId(draggedElement.id));
   };
 
   return (
     <div
+      style={element.styles}
       onDragOver={(e) => e.preventDefault()}
       onDrop={handleDrop}
       onClick={handleOnClick}
@@ -82,9 +82,6 @@ export const BodyElement = () => {
           parentId={element.id}
           childElements={childElements}
         >
-          <p className="absolute text-center text-xl inset-0 m-auto mt-10">
-            {e.relativeIdx}
-          </p>
           <Elementmanager element={e} />
         </DragDropHandlers>
       ))}

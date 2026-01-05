@@ -1,13 +1,14 @@
 import { BODY_TAG_ID, ELEMENT_IDX_MULTIPLIER } from "@/lib/constants";
 import { createSlice, current } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import React from "react";
 
 export type ElementType = "text" | "image" | "container" | "link" | "body";
 
 export interface ElementData {
   id: string;
   name: string;
-  styles: any;
+  styles: React.CSSProperties;
   type: ElementType;
   parentId: string;
   canContain: boolean;

@@ -39,6 +39,7 @@
   --color-primary: #468ff9;
   --color-accent: #46f9b9;
   --color-black2: #1e1e1e;
+  --color-black3: #242424;
   --color-border: #313133;
   --color-section-bg: #0f0f0f;
   --radius-sm: calc(var(--radius) - 4px);

@@ -6,6 +6,7 @@ import { Sidebar } from "./sidebar/sidebar";
 
 import EditorStoreProvider from "./editor-store-provider";
 import { TooltipProvider } from "../ui/tooltip";
+import { PropertiesPanel } from "./properties-panel/properties-panel";
 
 type Props = {
   playgroundMode: boolean;
@@ -21,6 +22,7 @@ export const Editor = (props: Props) => {
           <div className="flex items-start justify-between">
             <Sidebar />
             <Renderer />
+            <PropertiesPanel />
           </div>
         </div>
       </TooltipProvider>
