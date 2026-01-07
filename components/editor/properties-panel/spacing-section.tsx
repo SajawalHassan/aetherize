@@ -5,7 +5,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { DropdownInput } from "@/components/ui/dropdown-input";
 import { Label } from "@/components/ui/label";
+import { LabelCheckbox } from "@/components/ui/label-checkbox";
 import { NumberInput } from "@/components/ui/number-input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -118,8 +121,8 @@ export const SpacingSection = (props: Props) => {
       </AccordionTrigger>
       <AccordionContent className="mt-4 px-6">
         <Tabs value={display}>
-          <TabsList className="bg-transparent text-white! gap-x-2 w-full justify-start! items-start! flex-col h-full rounded-none pl-4 pr-[13.5px] gap-y-4 pb-4">
-            <div className="flex items-center gap-x-2 w-full">
+          <TabsList className="bg-transparent text-white! gap-x-2 w-full justify-start! items-end p-0! flex-col h-full rounded-none pl-4 pr-[13.5px] gap-y-4 pb-4">
+            <div className="flex items-center  gap-x-2 w-full">
               <TabsTrigger value="flex" asChild>
                 <Button
                   className="bg-transparent border border-border p-2! grow text-white! data-[state=active]:bg-black3! hover:bg-black2"
@@ -151,8 +154,59 @@ export const SpacingSection = (props: Props) => {
           </TabsList>
           <TabsContent value="flex" className="mt-4 space-y-6">
             <div>
+              <Label>Flexbox</Label>
+              <div className="space-y-2.5 mt-4">
+                <DropdownInput
+                  label="Direction"
+                  placeholder="Direction"
+                  values={["column", "column-reverse", "row", "row-reverse"]}
+                  func={(s) => handleStyleChange({ flexDirection: s as any })}
+                />
+
+                <DropdownInput
+                  label="Wrap"
+                  placeholder="Wrap"
+                  values={["wrap", "nowrap", "wrap-reverse"]}
+                  func={(s) => handleStyleChange({ flexWrap: s as any })}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label>Gaps</Label>
+              <div className="flex gap-x-4 mt-4">
+                <NumberInput
+                  label="Gap X"
+                  key={selectedElementId + 1}
+                  placeholder="Gap X"
+                  value={
+                    selectedElement?.styles.columnGap
+                      ? (selectedElement?.styles.columnGap as number)
+                      : 0
+                  }
+                  changeValue={(newVal) =>
+                    handleStyleChange({ columnGap: newVal })
+                  }
+                />
+                <NumberInput
+                  label="Gap Y"
+                  key={selectedElementId + 2}
+                  placeholder="Gap Y"
+                  value={
+                    selectedElement?.styles.rowGap
+                      ? (selectedElement?.styles.rowGap as number)
+                      : 0
+                  }
+                  changeValue={(newVal) =>
+                    handleStyleChange({ rowGap: newVal })
+                  }
+                />
+              </div>
+            </div>
+
+            <div>
               <Label>Horizontal Spacing</Label>
-              <div className="flex items-center ml-2 gap-x-4 mt-4">
+              <div className="flex items-center gap-x-4 mt-4">
                 {spacingBtnsX.map((btn, idx) => (
                   <Button
                     key={idx}
@@ -175,7 +229,7 @@ export const SpacingSection = (props: Props) => {
 
             <div>
               <Label>Vertical Spacing</Label>
-              <div className="flex items-center ml-2 gap-x-4 mt-4">
+              <div className="flex items-center gap-x-4 mt-4">
                 {spacingBtnsY.map((btn, idx) => (
                   <Button
                     key={idx}
@@ -193,36 +247,6 @@ export const SpacingSection = (props: Props) => {
                     <btn.Icon className="icon text-white" strokeWidth={1.5} />
                   </Button>
                 ))}
-              </div>
-            </div>
-
-            <div>
-              <Label>Gaps</Label>
-              <div className="flex ml-2 gap-x-4 mt-4">
-                <NumberInput
-                  key={selectedElementId + 1}
-                  placeholder="Gap X"
-                  value={
-                    selectedElement?.styles.columnGap
-                      ? (selectedElement?.styles.columnGap as number)
-                      : 0
-                  }
-                  changeValue={(newVal) =>
-                    handleStyleChange({ columnGap: newVal })
-                  }
-                />
-                <NumberInput
-                  key={selectedElementId + 2}
-                  placeholder="Gap Y"
-                  value={
-                    selectedElement?.styles.rowGap
-                      ? (selectedElement?.styles.rowGap as number)
-                      : 0
-                  }
-                  changeValue={(newVal) =>
-                    handleStyleChange({ rowGap: newVal })
-                  }
-                />
               </div>
             </div>
           </TabsContent>

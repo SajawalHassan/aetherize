@@ -48,7 +48,6 @@ export const editorSlice = createSlice({
         element: ElementData;
         place?: "top" | "bottom";
         eleBefore?: ElementData;
-        eleAfter?: ElementData;
       }>
     ) => {
       const parentElements = current(state.elements).filter(
@@ -56,17 +55,12 @@ export const editorSlice = createSlice({
       );
 
       const eleBefore = action.payload.eleBefore;
-      const eleAfter = action.payload.eleAfter;
 
       // Get element index in between the other elements
       const idxInBetween =
-        action.payload.place === "top"
-          ? ((eleBefore ? eleBefore.relativeIdx : 0) +
-              action.payload.element.relativeIdx) /
-            2
-          : ((eleAfter ? eleAfter.relativeIdx : 0) +
-              action.payload.element.relativeIdx) /
-            2;
+        ((eleBefore ? eleBefore.relativeIdx : 0) +
+          action.payload.element.relativeIdx) /
+        2;
 
       const parentLength = parentElements.length * ELEMENT_IDX_MULTIPLIER;
 
