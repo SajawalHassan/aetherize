@@ -47,7 +47,7 @@ export const DragDropHandlers = (props: Props) => {
   };
 
   return (
-    <div className="relative z-50 transition-all">
+    <div className="relative z-50 transition-all h-max border">
       <div
         className={cn(
           "h-5 w-full absolute top-0 left-0 z-50 font-bold text-xl text-center",

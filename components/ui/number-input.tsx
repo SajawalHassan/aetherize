@@ -13,10 +13,6 @@ type Props = {
 export const NumberInput = (props: Props) => {
   const [localValue, setLocalValue] = useState(props.value);
 
-  useEffect(() => {
-    console.log("asddsa");
-  }, []);
-
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLocalValue(e.target.valueAsNumber);
   };

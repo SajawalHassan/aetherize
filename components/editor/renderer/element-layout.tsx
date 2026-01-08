@@ -86,7 +86,7 @@ export const ElementLayout = (props: Props) => {
       onDrop={handleDrop}
       onClick={handleOnClick}
       className={cn(
-        "border-2 border-black/5 relative pl-2 p-10",
+        "border-2 border-black/5 relative pl-2 p-10 h-max",
         selectedElementId === props.element.id && "border-blue-500",
         isDraggingOver && "bg-zinc-100!",
         props.className

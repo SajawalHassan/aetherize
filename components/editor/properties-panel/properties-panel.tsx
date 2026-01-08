@@ -1,6 +1,6 @@
 import { Accordion } from "@/components/ui/accordion";
 import { useAppSelector } from "@/editor-store/hooks";
-import { SpacingSection } from "./spacing-section";
+import { SpacingSection } from "./layout-section";
 
 type Props = {};
 

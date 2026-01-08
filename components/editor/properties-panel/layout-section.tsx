@@ -1,18 +1,13 @@
 import {
-  Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { DropdownInput } from "@/components/ui/dropdown-input";
 import { Label } from "@/components/ui/label";
-import { LabelCheckbox } from "@/components/ui/label-checkbox";
 import { NumberInput } from "@/components/ui/number-input";
-import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { editElementData } from "@/editor-store/editor-slice";
 import { useAppDispatch, useAppSelector } from "@/editor-store/hooks";
 import {
@@ -122,7 +117,7 @@ export const SpacingSection = (props: Props) => {
       <AccordionContent className="mt-4 px-6">
         <Tabs value={display}>
           <TabsList className="bg-transparent text-white! gap-x-2 w-full justify-start! items-end p-0! flex-col h-full rounded-none pl-4 pr-[13.5px] gap-y-4 pb-4">
-            <div className="flex items-center  gap-x-2 w-full">
+            <div className="flex items-center  gap-x-2 w-full mb-4">
               <TabsTrigger value="flex" asChild>
                 <Button
                   className="bg-transparent border border-border p-2! grow text-white! data-[state=active]:bg-black3! hover:bg-black2"
@@ -152,26 +147,8 @@ export const SpacingSection = (props: Props) => {
               </TabsTrigger>
             </div>
           </TabsList>
-          <TabsContent value="flex" className="mt-4 space-y-6">
-            <div>
-              <Label>Flexbox</Label>
-              <div className="space-y-2.5 mt-4">
-                <DropdownInput
-                  label="Direction"
-                  placeholder="Direction"
-                  values={["column", "column-reverse", "row", "row-reverse"]}
-                  func={(s) => handleStyleChange({ flexDirection: s as any })}
-                />
 
-                <DropdownInput
-                  label="Wrap"
-                  placeholder="Wrap"
-                  values={["wrap", "nowrap", "wrap-reverse"]}
-                  func={(s) => handleStyleChange({ flexWrap: s as any })}
-                />
-              </div>
-            </div>
-
+          <div className="space-y-6 mb-4">
             <div>
               <Label>Gaps</Label>
               <div className="flex gap-x-4 mt-4">
@@ -200,6 +177,59 @@ export const SpacingSection = (props: Props) => {
                   changeValue={(newVal) =>
                     handleStyleChange({ rowGap: newVal })
                   }
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label>Height & Width</Label>
+              <div className="flex items-center gap-x-4 mt-4">
+                <NumberInput
+                  label="Width"
+                  key={selectedElementId + 3}
+                  placeholder="Width"
+                  value={
+                    selectedElement?.styles.width
+                      ? (selectedElement?.styles.width as number)
+                      : 0
+                  }
+                  changeValue={(newVal) =>
+                    handleStyleChange({ width: `${newVal}px` })
+                  }
+                />
+                <NumberInput
+                  label="Height"
+                  key={selectedElementId + 4}
+                  placeholder="Height"
+                  value={
+                    selectedElement?.styles.height
+                      ? (selectedElement?.styles.height as number)
+                      : 0
+                  }
+                  changeValue={(newVal) =>
+                    handleStyleChange({ height: `${newVal}px` })
+                  }
+                />
+              </div>
+            </div>
+          </div>
+
+          <TabsContent value="flex" className="space-y-6 mb-4">
+            <div>
+              <Label>Flexbox</Label>
+              <div className="space-y-2.5 mt-4">
+                <DropdownInput
+                  label="Direction"
+                  placeholder="Direction"
+                  values={["column", "column-reverse", "row", "row-reverse"]}
+                  func={(s) => handleStyleChange({ flexDirection: s as any })}
+                />
+
+                <DropdownInput
+                  label="Wrap"
+                  placeholder="Wrap"
+                  values={["wrap", "nowrap", "wrap-reverse"]}
+                  func={(s) => handleStyleChange({ flexWrap: s as any })}
                 />
               </div>
             </div>
