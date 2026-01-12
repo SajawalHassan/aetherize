@@ -8,7 +8,7 @@ type Props = {};
 
 const Signup = (props: Props) => {
   return (
-    <div className="bg-black min-h-screen xl:max-h-screen overflow-y-hidden overflow-x-hidden flex text-white font-finlandica!">
+    <div className="bg-black min-h-screen xl:max-h-screen md:overflow-y-hidden md:overflow-x-hidden flex text-white font-finlandica!">
       <AuthGraphics mode="register" />
       <div className="flex-60 relative">
         <Image
@@ -20,12 +20,14 @@ const Signup = (props: Props) => {
           draggable={false}
         />
 
-        <div className="px-20 space-y-3">
+        <div className="md:px-20 space-y-3">
           <AuthForm mode="register" />
-          Already have an account?{" "}
-          <Link href={"/signin"} className="text-blue-500 font-medium">
-            Log in!
-          </Link>
+          <p className="pl-4 md:pl-0">
+            Already have an account?{" "}
+            <Link href={"/signin"} className="text-blue-500 font-medium ">
+              Log in!
+            </Link>
+          </p>
         </div>
       </div>
     </div>
