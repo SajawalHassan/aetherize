@@ -8,7 +8,10 @@ import { authSchema } from "@/lib/schemas";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import GoogleIcon from "@/assets/google.svg";
-import { logInWithGoogle } from "@/lib/auth/actions";
+import { createUser, logInWithGoogle } from "@/server-actions/auth-actions";
+import { UserRegisterResponse } from "@/lib/constants";
+import { useState } from "react";
+import { Loader2Icon } from "lucide-react";
 
 type Props = {
   mode: "login" | "register";
@@ -17,21 +20,50 @@ type Props = {
 type AuthFormValues = z.infer<typeof authSchema>;
 
 export const AuthForm = ({ mode }: Props) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const isLogin = mode === "login";
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<AuthFormValues>({
     resolver: zodResolver(authSchema),
   });
+
+  const handleRegister = async (data: AuthFormValues) => {
+    setIsSubmitting(true);
+    try {
+      await createUser(data);
+    } catch (error: any) {
+      switch (error.message) {
+        case UserRegisterResponse.ERR_EMAIL:
+          return setError("root", {
+            message: "User with that E-mail already exists.",
+          });
+
+        case UserRegisterResponse.ERR_MISSINGFIELD:
+          return setError("root", {
+            message: "Some field was not properly filled out.",
+          });
+
+        case UserRegisterResponse.ERROR:
+          return setError("root", {
+            message: "An unexpected error occured, please try again later.",
+          });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const onSubmit = async (data: AuthFormValues) => {
     if (isLogin) {
       // logIn();
     } else {
-      console.log("REGISTER", data);
+      await handleRegister(data);
     }
   };
 
@@ -104,28 +136,41 @@ export const AuthForm = ({ mode }: Props) => {
         )}
       </div>
 
-      <div className="flex items-center gap-x-8 px-4 md:px-0">
-        <Button
-          type="submit"
-          variant={"default"}
-          className="w-max md:w-63.75 text-[22px] h-14 font-bold"
-        >
-          {isLogin ? "Sign in" : "Create your account"}
-        </Button>
-        <p className="text-[18px] font-bold text-center">OR</p>
-        <Button
-          className="hover:bg-black2 bg-[#171717] border border-[#262626] h-11.5 w-11.5 max-w-11.5"
-          type="button"
-          onClick={(_) => logInWithGoogle()}
-        >
-          <Image
-            src={GoogleIcon}
-            alt="google"
-            width={26}
-            height={26}
-            className="min-w-6.5 h-6.5"
-          />
-        </Button>
+      <div className="space-y-3.5">
+        {errors.root && (
+          <p className="px-4 py-2 rounded-sm w-max bg-red-400/20 font-medium border border-red-400 text-center">
+            {errors.root.message}
+          </p>
+        )}
+        <div className="flex items-center gap-x-8 px-4 md:px-0">
+          <Button
+            type="submit"
+            variant={"default"}
+            className="w-max md:w-63.75 text-[22px] h-14 font-bold"
+          >
+            {isSubmitting ? (
+              <Loader2Icon className="w-7! h-7! animate-spin" />
+            ) : isLogin ? (
+              "Sign in"
+            ) : (
+              "Create your account"
+            )}
+          </Button>
+          <p className="text-[18px] font-bold text-center">OR</p>
+          <Button
+            className="hover:bg-black2 bg-[#171717] border border-[#262626] h-11.5 w-11.5 max-w-11.5"
+            type="button"
+            onClick={(_) => logInWithGoogle()}
+          >
+            <Image
+              src={GoogleIcon}
+              alt="google"
+              width={26}
+              height={26}
+              className="min-w-6.5 h-6.5"
+            />
+          </Button>
+        </div>
       </div>
     </form>
   );

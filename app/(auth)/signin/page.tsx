@@ -12,6 +12,7 @@ const Signin = (props: Props) => {
       <AuthGraphics mode="login" />
       <div className="flex-60 relative">
         <Image
+          loading="eager"
           src={Graphic}
           alt="graphic"
           width={1061}

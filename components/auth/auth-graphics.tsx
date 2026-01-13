@@ -11,6 +11,7 @@ export const AuthGraphics = (props: Props) => {
   return (
     <div className="flex-40 min-h-screen bg-linear-to-b from-[#0F0F0F] via-[#0f0F0F] to-black relative  items-center justify-center hidden xl:flex">
       <Image
+        loading="eager"
         src={Atom1}
         alt="Atom"
         width={316}
@@ -18,6 +19,7 @@ export const AuthGraphics = (props: Props) => {
         className="absolute -right-3.25 -top-10"
       />
       <Image
+        loading="eager"
         src={Atom2}
         alt="Atom2"
         width={192}
@@ -25,6 +27,7 @@ export const AuthGraphics = (props: Props) => {
         className="absolute -bottom-17.5 right-2.75"
       />
       <Image
+        loading="eager"
         src={Telescope}
         alt="Telescope"
         width={280}
