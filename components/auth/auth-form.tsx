@@ -33,12 +33,12 @@ export const AuthForm = ({ mode }: Props) => {
     handleSubmit,
     formState: { errors },
     setError,
+    reset: resetForm,
   } = useForm<AuthFormValues>({
     resolver: zodResolver(authSchema),
   });
 
   const handleRegister = async (data: AuthFormValues) => {
-    setIsSubmitting(true);
     try {
       await createUser(data);
     } catch (error: any) {
@@ -58,17 +58,21 @@ export const AuthForm = ({ mode }: Props) => {
             message: "An unexpected error occured, please try again later.",
           });
       }
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
   const onSubmit = async (data: AuthFormValues) => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
     if (isLogin) {
       await loginWithCreds(data.email, data.password);
     } else {
       await handleRegister(data);
     }
+
+    resetForm();
+    setIsSubmitting(false);
   };
 
   return (
