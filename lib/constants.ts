@@ -1,5 +1,6 @@
 export const BODY_TAG_ID = "body";
 export const ELEMENT_IDX_MULTIPLIER = 10000;
+export const AUTH_REDIRECT_URL = "/playground";
 
 // ENUMS
 export enum UserRegisterResponse {

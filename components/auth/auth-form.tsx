@@ -8,7 +8,11 @@ import { authSchema } from "@/lib/schemas";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import GoogleIcon from "@/assets/google.svg";
-import { createUser, logInWithGoogle } from "@/server-actions/auth-actions";
+import {
+  createUser,
+  loginWithCreds,
+  logInWithGoogle,
+} from "@/server-actions/auth-actions";
 import { UserRegisterResponse } from "@/lib/constants";
 import { useState } from "react";
 import { Loader2Icon } from "lucide-react";
@@ -61,7 +65,7 @@ export const AuthForm = ({ mode }: Props) => {
 
   const onSubmit = async (data: AuthFormValues) => {
     if (isLogin) {
-      // logIn();
+      await loginWithCreds(data.email, data.password);
     } else {
       await handleRegister(data);
     }

@@ -2,13 +2,21 @@
 
 import { signIn } from "@/lib/auth/auth";
 import { hashPassword } from "@/lib/auth/password-funcs";
-import { UserRegisterResponse } from "@/lib/constants";
+import { AUTH_REDIRECT_URL, UserRegisterResponse } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 import { authSchema } from "@/lib/schemas";
 import z from "zod";
 
 export const logInWithGoogle = async () => {
   await signIn("google");
+};
+
+export const loginWithCreds = async (email: string, password: string) => {
+  await signIn("credentials", {
+    email,
+    password,
+    redirectTo: AUTH_REDIRECT_URL,
+  });
 };
 
 export const createUser = async (data: z.infer<typeof authSchema>) => {

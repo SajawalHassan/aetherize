@@ -3,10 +3,16 @@ import Image from "next/image";
 import Graphic from "@/assets/smthmanidk.svg";
 import { AuthForm } from "@/components/auth/auth-form";
 import Link from "next/link";
+import { auth } from "@/lib/auth/auth";
+import { redirect } from "next/navigation";
 
 type Props = {};
 
-const Signin = (props: Props) => {
+const Signin = async (props: Props) => {
+  const session = await auth();
+
+  if (session) return redirect("/playground");
+
   return (
     <div className="bg-black min-h-screen xl:max-h-screen md:overflow-y-hidden md:overflow-x-hidden flex text-white font-finlandica!">
       <AuthGraphics mode="login" />
