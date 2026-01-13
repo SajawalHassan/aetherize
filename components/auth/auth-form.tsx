@@ -8,6 +8,7 @@ import { authSchema } from "@/lib/schemas";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import GoogleIcon from "@/assets/google.svg";
+import { logInWithGoogle } from "@/lib/auth/actions";
 
 type Props = {
   mode: "login" | "register";
@@ -26,10 +27,9 @@ export const AuthForm = ({ mode }: Props) => {
     resolver: zodResolver(authSchema),
   });
 
-  const onSubmit = (data: AuthFormValues) => {
+  const onSubmit = async (data: AuthFormValues) => {
     if (isLogin) {
-      const { email, password } = data;
-      console.log("LOGIN", { email, password });
+      // logIn();
     } else {
       console.log("REGISTER", data);
     }
@@ -38,7 +38,7 @@ export const AuthForm = ({ mode }: Props) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mt-[130px] space-y-6 max-w-[800px] relative z-50"
+      className="mt-32.5 space-y-6 max-w-200 relative z-50"
     >
       <h1 className="text-[64px] font-bold pl-4 md:pl-0">
         {isLogin ? "Sign in" : "Sign up"}
@@ -108,7 +108,7 @@ export const AuthForm = ({ mode }: Props) => {
         <Button
           type="submit"
           variant={"default"}
-          className="w-max md:w-63.75 text-[22px] h-[56px] font-bold"
+          className="w-max md:w-63.75 text-[22px] h-14 font-bold"
         >
           {isLogin ? "Sign in" : "Create your account"}
         </Button>
@@ -116,6 +116,7 @@ export const AuthForm = ({ mode }: Props) => {
         <Button
           className="hover:bg-black2 bg-[#171717] border border-[#262626] h-11.5 w-11.5 max-w-11.5"
           type="button"
+          onClick={(_) => logInWithGoogle()}
         >
           <Image
             src={GoogleIcon}
